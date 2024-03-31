@@ -1,39 +1,64 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    <title>Deluxe - Free Bootstrap 4 Template by Colorlib</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700,700i" rel="stylesheet">
+
+    <link rel="stylesheet" href="~/Assets/css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="~/Assets/css/animate.css">
+
+    <link rel="stylesheet" href="~/Assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/Assets/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="~/Assets/css/magnific-popup.css">
+    <link href="~/Assets/css/open-iconic-bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Assets/css/aos.css">
+
+    <link rel="stylesheet" href="~/Assets/css/ionicons.min.css">
+
+    <link rel="stylesheet" href="~/Assets/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="~/Assets/css/jquery.timepicker.css">
+
+
+    <link rel="stylesheet" href="~/Assets/css/flaticon.css">
+    <link rel="stylesheet" href="~/Assets/css/icomoon.css">
+    <link rel="stylesheet" href="~/Assets/css/style.css">
+    
+
 </head>
 <body>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
-        <div class="container">
-            @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
-                <ul class="navbar-nav flex-grow-1">
-                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
+    @*Header*@
+    @Html.Partial("_Header")
+    @*Body*@
+    @RenderBody()
+    @*Footer*@
+    @Html.Partial("_Footer")
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+
+    <!-- loader -->
+    <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" /><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
+
+    <script src="~/Assets/js/jquery.min.js"></script>
+    <script src="~/Assets/js/jquery-migrate-3.0.1.min.js"></script>
+    <script src="~/Assets/js/popper.min.js"></script>
+    <script src="~/Assets/js/bootstrap.min.js"></script>
+    <script src="~/Assets/js/jquery.easing.1.3.js"></script>
+    <script src="~/Assets/js/jquery.waypoints.min.js"></script>
+    <script src="~/Assets/js/jquery.animateNumber.min.js"></script>
+    <script src="~/Assets/js/jquery.stellar.min.js"></script>
+    <script src="~/Assets/js/owl.carousel.min.js"></script>
+    <script src="~/Assets/js/jquery.magnific-popup.min.js"></script>
+    <script src="~/Assets/js/aos.js"></script>
+    <script src="~/Assets/js/jquery.animateNumber.min.js"></script>
+    <script src="~/Assets/js/bootstrap-datepicker.js"></script>
+    <script src="~/Assets/js/jquery.timepicker.min.js"></script>
+    <script src="~/Assets/js/scrollax.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+    <script src="~/Assets/js/google-map.js"></script>
+    <script src="~/Assets/js/main.js"></script>
+
 </body>
 </html>
