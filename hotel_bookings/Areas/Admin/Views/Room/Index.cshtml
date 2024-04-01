@@ -4,74 +4,15 @@
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-
-@*<div class="container">
-        <div class="card">
-            <div class="card-header">
-                <div class="row">
-                    <div class="col-md-6">
-                        <h3>Quản lý phòng</h3>
-                    </div>
-                    <div class="col-md-6">
-                        <a href="@Url.Action("CreateRoom", "Room")" class="btn btn-primary float-right">Thêm Mới</a>
-                    </div>
-
-                </div>
-            </div>
-            <div class="card-body">
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Ảnh phòng</th>
-                            <th>Mã phòng</th>
-                            <th>Tên phòng</th>
-                            <th>Số người</th>
-                            <th>Giá phòng</th>
-                            <th>Số lượng</th>
-                            <th>Trạng thái</th>
-                            <th>Chức năng</th>
-
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
-                            <tr>
-                                <td><img src="~/Assets/images/@item.avatar" alt="" height="100" width="100"></td>
-                                <td>@item.id</td>
-                                <td>@item.name</td>
-                                <td>
-                                    <div>Người lớn: @item.adult</div>
-                                    <div>Trẻ em: @item.children</div>
-                                </td>
-                                <td>@item.price</td>
-                                <td>@item.quantity</td>
-                                <td><a href="#" class="btn btn-rounded btn-success">Busy</a></td>
-                                <td>
-                                    <a href=""><i class="fa-regular fa-trash-can"></i></a>
-                                    <a href=""><i class="fa-regular fa-pen-to-square"></i></a>
-                                </td>
-
-                            </tr>
-                        }
-
-
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>*@
-
 <div class="container">
     <div class="card">
-        <div class="#"  style="display: inline-flex;justify-content: flex-end;">
-            <div id="custom-search" class="top-search-bar" >
+        <div class="#" style="display: inline-flex;justify-content: flex-end;">
+            <div id="custom-search" class="top-search-bar">
                 <input class="form-control" type="text" placeholder="Search..">
             </div>
             <div>
                 <a href="@Url.Action("AddRoom", "Room")" class="badge badge-info" style="margin-top: 16px; margin-right: 22px; font-size: 18px;">Thêm <i class="fa-solid fa-plus"></i></a>
             </div>
-
         </div>
             <div class="card-body">
                 <table class="table">
@@ -102,11 +43,6 @@
                                 <td>@item.quantity</td>
                                 <td><a href="#" class="btn btn-rounded btn-success" style=" font-size: 8px;">Busy</a></td>
                                 <td>
-                                    @*<form id="deleteRoomForm" action="@Url.Action("DeleteRoom", "Room")" method="post">
-                                        <input type="hidden" name="id" value="@item.id" />
-                                        <button type="submit"><i class="fa-regular fa-trash-can"></i> </button>
-                                        <button type="submit"><i class="fa-regular fa-pen-to-square"></i> </button>
-                                    </form>*@
                                     <a href="@Url.Action("DeleteRoom", "Room",new { id = item.id })"><i class="fa-regular fa-trash-can"></i></a>
                                     <a href="@Url.Action("UpdateRoom", "Room",new { id = item.id })"><i class="fa-regular fa-pen-to-square"></i></a>
                                 </td>

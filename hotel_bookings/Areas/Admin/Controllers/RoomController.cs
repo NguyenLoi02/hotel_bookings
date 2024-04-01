@@ -1,6 +1,8 @@
 ﻿using hotel_bookings.Areas.Admin.Service;
 using hotel_bookings.Models;
 using System.Data;
+using System.IO;
+using System.Web;
 using System.Web.Mvc;
 
 namespace hotel_bookings.Areas.Admin.Controllers
@@ -30,6 +32,7 @@ namespace hotel_bookings.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult AddRoom(room room)  
         {
+            
             _roomService.AddRoom(room);
             return RedirectToAction("Index");
         }

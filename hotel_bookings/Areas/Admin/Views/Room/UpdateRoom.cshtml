@@ -6,16 +6,14 @@
 
 <div class="container">
     <div class="card">
-        <div class="card-header">
+        @*<div class="card-header">
             <div class="row">
                 <div class="col-md-6">
                     <h3>Thêm Sản Phẩm</h3>
                 </div>
-                <div class="col-md-6">
-                    <a href="" class="btn btn-primary float-right">Danh Sách Sản Phẩm</a>
-                </div>
+               
             </div>
-        </div>
+        </div>*@
         <div class="card-body">
             <form action="" method="post" enctype="multipart/form-data">
                 <div class="row">
@@ -27,10 +25,6 @@
                         <div class="form-group">
                             <strong>Tên phòng</strong>
                             <input type="text" name="name" class="form-control" placeholder="Nhập tên phòng" value="@Model.name">
-                        </div>
-                        <div class="form-group">
-                            <strong>Ảnh phòng</strong>
-                            <input type="file" name="avatar" class="form-control">
                         </div>
                         <div class="form-group">
                             <strong>Số người lớn</strong>
@@ -56,9 +50,15 @@
                             <strong>Mô tả phòng</strong>
                             <input type="text" name="description" class="form-control" placeholder="Nhập số lượng" value="@Model.description">
                         </div>
+                        <div class="form-group">
+                            <strong>Ảnh phòng</strong>
+                            <input type="file" name="ImageUpload" class="form-control" value="@Model.avatar">
+                        </div>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-success mt-2 float-right">Lưu</button>
+
+                <a href="@Url.Action("Index", "Room")" class="btn btn-light float-right" style="margin: 8px 0px;">Hủy</a>
+                <button type="submit" class="btn btn-success mt-2 float-right" style=" margin: 2px 10px; ">Lưu</button>
             </form>
         </div>
     </div>

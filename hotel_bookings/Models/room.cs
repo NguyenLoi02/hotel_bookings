@@ -11,7 +11,8 @@ namespace hotel_bookings.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Web;
     public partial class room
     {
         public room()
@@ -39,5 +40,7 @@ namespace hotel_bookings.Models
         public virtual ICollection<room_feature> room_feature { get; set; }
         public virtual ICollection<room_images> room_images { get; set; }
         public virtual room_style room_style { get; set; }
+        [NotMapped]
+        public HttpPostedFileBase ImageUpload { get; set; }
     }
 }

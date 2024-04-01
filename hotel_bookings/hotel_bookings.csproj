@@ -141,6 +141,7 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AccessController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\OrderRoomController.cs" />
     <Compile Include="Areas\Admin\Controllers\RoomController.cs" />
     <Compile Include="Areas\Admin\Data\RoomService.cs" />
     <Compile Include="Areas\Admin\Service\IRoomService.cs" />
@@ -3136,6 +3137,7 @@
     <Content Include="Assets\fonts\fontawesome-free-6.5.1-web\webfonts\fa-v4compatibility.woff2" />
     <Content Include="Areas\Admin\Views\Room\AddRoom.cshtml" />
     <Content Include="Areas\Admin\Views\Room\UpdateRoom.cshtml" />
+    <Content Include="Areas\Admin\Views\OrderRoom\booking.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -3164,6 +3166,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="image\" />
     <Folder Include="Views\Admin\" />
   </ItemGroup>
   <ItemGroup>
