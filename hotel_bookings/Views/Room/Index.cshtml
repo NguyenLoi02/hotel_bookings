@@ -1,0 +1,108 @@
+﻿@model List<hotel_bookings.Models.room>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Breadcrumb Section Begin -->
+<div class="breadcrumb-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb-text">
+                    <h2>Danh sách phòng</h2>
+                    <div class="bt-option">
+                        <a href="./home.html">Trang chủ</a>
+                        <span>Phòng</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="nav-right search-switch container" style="">
+    <i class="icon_search "></i>
+</div>
+<!-- Breadcrumb Section End -->
+<!-- Rooms Section Begin -->
+<section class="rooms-section spad">
+    <div class="container">
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-lg-4 col-md-6">
+                    <div class="room-item">
+                        <img src="../Assets/img/room/@item.avatar" alt="">
+                        <div class="ri-text">
+                            <h4>@item.name</h4>
+                            <h3>@item.price đ<span>  /Đêm</span></h3>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="r-o">Diện tích:</td>
+                                        <td>@item.area m2</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="r-o">Số người:</td>
+                                        <td>@(item.adult + item.children)</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="r-o">Phòng chống:</td>
+                                        <td>@item.quantity</td>
+                                    </tr>
+                                    
+                                </tbody>
+                            </table>
+                            <a href="@Url.Action("RoomDetail", "Room" ,new { id = item.id })" class="primary-btn">Chi tiết phòng</a>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            <div class="col-lg-12">
+                <div class="room-pagination">
+                    <a href="#">1</a>
+                    <a href="#">2</a>
+                    <a href="#">Next <i class="fa fa-long-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Rooms Section End -->
+<div class="search-model" style="width: 17%; opacity: 0.5; ">
+    <div class="h-100 d-flex align-items-center justify-content-center">
+        <div class="search-close-switch"><i class="icon_close"></i></div>
+        <div class="room-booking">
+            <h3 style="color: aliceblue;">Tìm kiếm</h3>
+            <form action="#">
+                <div class="check-date">
+                    <label for="date-in">Check In:</label>
+                    <input style="padding: 0 10px;" type="date" class="date-input hasDatepicker" id="date-in">
+                </div>
+                <div class="check-date">
+                    <label for="date-out">Check Out:</label>
+                    <input style="padding: 0 10px;" type="date" class="date-input hasDatepicker" id="date-out">
+                </div>
+                <div class="select-option">
+                    <label for="guest">Guests:</label>
+                    <select id="guest" style="display: none;">
+                        <option value="">3 Adults</option>
+                        <option value="">4 Adults</option>
+                        <option value="">5 Adults</option>
+                    </select>
+                </div>
+                <div class="select-option">
+                    <label for="room">Room:</label>
+                    <select id="room" style="display: none;">
+                        <option value="">1 Room</option>
+                        <option value="">1 Room</option>
+                        <option value="">1 Room</option>
+                    </select><div class="nice-select" tabindex="0"><span class="current">1 Room</span><ul class="list"><li data-value="" class="option selected">1 Room</li></ul></div>
+                </div>
+                <button type="submit">Tìm kiếm</button>
+            </form>
+        </div>
+    </div>
+</div>

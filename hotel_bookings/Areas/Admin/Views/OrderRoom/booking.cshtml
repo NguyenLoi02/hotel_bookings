@@ -1,4 +1,4 @@
-﻿@model List<hotel_bookings.Models.booking_details>
+﻿@model List<hotel_bookings.Models.BookingViewModel>
 
 @{
     ViewBag.Title = "booking";
@@ -16,33 +16,46 @@
             <table class="table">
                 <thead>
                     <tr style="background-color: #221f50; ">
-                        <th>Ảnh phòng</th>
-                        <th>Mã phòng</th>
-                        <th>Tên phòng</th>
-                        <th>Số người</th>
-                        <th>Giá phòng</th>
-                        <th>Số lượng</th>
-                        <th>Trạng thái</th>
+                        <th>Thông tin khách hàng</th>
+                        <th>Thông tin phòng</th>
+                        <th>Thông tin dịch vụ</th>
+                        <th>Thông tin đặt phòng</th>
                         <th>Chức năng</th>
+                       
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var item in Model)
                     {
                         <tr>
-                            <td>@item.id</td>
-                            <td>@item.name</td>
                             <td>
-                                <div>Người lớn: @item.adult</div>
-                                <div>Trẻ em: @item.children</div>
+                                <div class="fst">
+                                    <div ><span class="badge badge-primary">Mã đặt phòng: @item.BookingOrderId</span></div>
+                                    <div><span>Tên: </span>@item.FirstName</div>
+                                    <div><span>Số điện thoại: </span>@item.PhoneNumber</div>
+                                </div>
                             </td>
-                            <td>@item.price</td>
-                            <td>@item.quantity</td>
                             <td>
-                                <a href="@Url.Action("DeleteRoom", "Room",new { id = item.id })"><i class="fa-regular fa-trash-can"></i></a>
-                                <a href="@Url.Action("UpdateRoom", "Room",new { id = item.id })"><i class="fa-regular fa-pen-to-square"></i></a>
+                                <div class="fst">
+                                    <div><span>Tên phòng: </span>@item.RoomName</div>
+                                    <div><span>Giá phòng: </span>@item.RoomPrice</div>
+                                    <div><span>Số lượng đặt: </span>@item.RoomNumber</div>
+                                </div>
+                            </td>
+                            <td ><div class="fst"><span>Tên: </span>@item.ServiceName</div></td>
+                            <td>
+                                <div class="fst">
+                                    <div><span>Ngày đến: </span>@item.CheckInDate.ToString("dd-MM-yyyy")</div>
+                                    <div><span>Ngày đi: </span>@item.CheckInDate.ToString("dd-MM-yyyy")</div>
+                                    <div><span>Ngày đặt: </span>@item.CheckInDate.ToString("dd-MM-yyyy")</div>
+                                </div>
                             </td>
 
+                            <td>
+                                <div style="padding: 4px 0;"><a href="#" class="btn btn-success" style="padding: 0 6px;"><i class="fa-regular fa-pen-to-square"></i>Chỉ định phòng</a></div>
+                                <div style="padding: 4px 0;"><a href="#" class="btn btn-outline-danger" style="padding: 0 8px;"><i class="fa-regular fa-trash-can"></i>Hủy đặt phòng</a></div>
+                            </td>
+ 
                         </tr>
                     }
                 </tbody>

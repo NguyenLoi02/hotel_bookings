@@ -27,18 +27,39 @@ namespace hotel_bookings.Areas.Admin.Data
         
         public void AddRoom(room room)
         {
-            if (room.ImageUpload != null || room.ImageUpload.ContentLength > 0)
+            if (room.ImageUpload != null && room.ImageUpload.ContentLength > 0)
             {
-                string filename = Path.GetFileNameWithoutExtension(room.ImageUpload.FileName);
-                string extention = Path.GetExtension(room.ImageUpload.FileName);
-                filename = filename + extention;
-                room.avatar = filename;
-                filename = Path.Combine(HttpContext.Current.Server.MapPath("~/Assets/images/"), filename);
-                room.ImageUpload.SaveAs(filename);
-               
+                try
+                {
+                    string filename = Path.GetFileNameWithoutExtension(room.ImageUpload.FileName);
+                    string extension = Path.GetExtension(room.ImageUpload.FileName);
+                    filename = filename + extension;
+                    room.avatar = filename;
+                    string filePath = Path.Combine(HttpContext.Current.Server.MapPath("~/Assets/images/"), filename);
+                    room.ImageUpload.SaveAs(filePath);
+                }
+                catch (Exception ex)
+                {
+                    // Xử lý lỗi khi lưu ảnh
+                    // Ví dụ: Ghi log, thông báo người dùng, vv.
+                    // Ví dụ: Logger.Error(ex.Message);
+                    // Ví dụ: ModelState.AddModelError("", "Đã xảy ra lỗi khi lưu ảnh.");
+                }
             }
-            _dbContext.rooms.Add(room);
-            _dbContext.SaveChanges();
+
+            try
+            {
+                _dbContext.rooms.Add(room);
+                _dbContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                // Xử lý lỗi khi lưu phòng
+                // Ví dụ: Ghi log, thông báo người dùng, vv.
+                // Ví dụ: Logger.Error(ex.Message);
+                // Ví dụ: ModelState.AddModelError("", "Đã xảy ra lỗi khi lưu phòng.");
+            }
+
         }
         public room UpdateRoom(int id)
         {

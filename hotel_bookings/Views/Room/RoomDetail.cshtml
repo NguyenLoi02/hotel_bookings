@@ -1,0 +1,161 @@
+﻿@model hotel_bookings.Models.room
+
+@{
+    ViewBag.Title = "RoomDetail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Breadcrumb Section Begin -->
+<div class="breadcrumb-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb-text">
+                    <h2>Chi Tiết phòng</h2>
+                    <div class="bt-option">
+                        <a href="./home.html">Trang chủ</a>
+                        <span>Phòng</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb Section End -->
+<!-- Room Details Section Begin -->
+<section class="room-details-section spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+
+                <div class="room-details-item">
+                    <img style="width: 750px;" src="~/Assets/img/room/@Model.avatar" alt="">
+                    <div class="rd-text">
+                        <div class="rd-title" style=" margin-bottom: 15px;">
+                            <h3>@Model.name</h3>
+
+                        </div>
+                        <h2>@Model.price đ<span>     / Đêm</span></h2>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td class="r-o">Diện tích:</td>
+                                    <td>@Model.area</td>
+                                </tr>
+                                <tr>
+                                    <td class="r-o">Số người:</td>
+                                    <td>@(Model.adult + Model.children)</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                        <p class="f-para">
+                            @Model.description
+                        </p>
+
+                    </div>
+                </div>
+                <div class="rd-reviews">
+                    <h4>Reviews</h4>
+                    <div class="review-item">
+                        <div class="ri-pic">
+                            <img src="~/Assets/img/room/avatar/avatar-1.jpg" alt="">
+                        </div>
+                        <div class="ri-text">
+                            <span>27 Aug 2019</span>
+                            <div class="rating">
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star-half_alt"></i>
+                            </div>
+                            <h5>Brandon Kelley</h5>
+                            <p>
+                                Neque porro qui squam est, qui dolorem ipsum quia dolor sit amet, consectetur,
+                                adipisci velit, sed quia non numquam eius modi tempora. incidunt ut labore et dolore
+                                magnam.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="review-add">
+                    <h4>Add Review</h4>
+                    <form action="#" class="ra-form">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <input type="text" placeholder="Name*">
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="text" placeholder="Email*">
+                            </div>
+                            <div class="col-lg-12">
+                                <div>
+                                    <h5>You Rating:</h5>
+                                    <div class="rating">
+                                        <i class="icon_star"></i>
+                                        <i class="icon_star"></i>
+                                        <i class="icon_star"></i>
+                                        <i class="icon_star"></i>
+                                        <i class="icon_star-half_alt"></i>
+                                    </div>
+                                </div>
+                                <textarea placeholder="Your Review"></textarea>
+                                <button type="submit">Submit Now</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div style="border: 1px solid #c8c8c8; border-radius: 10px;">
+                        <div>
+                            <p style=" margin: 0; padding: 10px; font-size: 20px; text-align: center; border-bottom: 1px solid #c8c8c8; background-color: #f3f2f2; ">
+                            Đặt phòng</p>
+                        </div>
+                        <div style=" padding: 20px;">
+                            <div>
+                                <div style="border-bottom: 2px solid #c8c8c8;">
+                                    <div>
+                                        <p style="margin-bottom: 0;">Chỉnh sửa</p>
+                                    </div>
+                                    <div>
+                                        <p style="margin-bottom: 0;">thứ tư, Th04, 2024 - thứ sáu, Th04, 2024</p>
+
+                                    </div>
+                                    <p>02 Đêm</p>
+                                </div>
+                                <div style="margin-top: 10px; border-bottom: 2px solid #c8c8c8;">
+                                        <p style="margin-bottom: 0; color: #000000;">Phòng:</p>
+                                    <div style="display: inline-flex;">
+                                        <p style="margin-bottom: 0; padding-right: 20px;">x1 Deluxe Hướng Biển Giường Đôi</p>
+                                        <p style="margin-bottom: 0;"><span><span>6.200.000đ</span></span></p>
+                                    </div>
+                                    <div>
+                                        <p style="margin-bottom: 0;">1 Người lớn</p>
+                                        <p>1 Người trẻ em</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="display: flex; margin: 10px 0;">
+                                <div>
+                                    <span style="margin-bottom: 0;">Tổng cộng:</span>
+                                    <p style="margin-bottom: 0; font-size: 13px;">(Bao gồm thuế phí)</p>
+                                </div>
+                                <div>
+                                    <p style="color: #dfa974; font-size: 24px; margin-left: 75px;">6.200.000 đ</p>
+                                </div>
+                            </div>
+                            <div >
+                                <a href="#" style="display: inline-block; color: #ffffff; font-size: 13px; text-transform: uppercase; font-weight: 700; background: #dfa974; padding: 14px 28px 13px; width: 100%; text-align: center; border-radius: 30px; ">
+                                Đặt ngay</a>
+                            </div>
+
+                        </div>   
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Room Details Section End -->

@@ -1,33 +1,50 @@
-﻿<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-    <div class="container">
-        <a class="navbar-brand" href="index.html">Deluxe</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="oi oi-menu"></span> Menu
-        </button>
-
-        <div class="collapse navbar-collapse" id="ftco-nav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
-                <li class="nav-item active"><a href="rooms.html" class="nav-link">Rooms</a></li>
-                <li class="nav-item"><a href="restaurant.html" class="nav-link">Restaurant</a></li>
-                <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
-                <li class="nav-item dang-nhap"><a href="@Url.Action("Login", "Access")" class="nav-link">đăng nhập</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
-<!-- END nav -->
-
-<div class="hero-wrap" style="background-image: url('../Assets/images/bg_1.jpg');">
-    <div class="overlay"></div>
-    <div class="container">
-        <div class="row no-gutters slider-text d-flex align-itemd-end justify-content-center">
-            <div class="col-md-9 ftco-animate text-center d-flex align-items-end justify-content-center">
-                <div class="text">
-                    <p class="breadcrumbs mb-2"><span class="mr-2"><a href="index.html">Home</a></span> <span>About</span></p>
-                    <h1 class="mb-4 bread">Rooms</h1>
+﻿<header class="header-section">
+        <div class="top-nav">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <ul class="tn-left">
+                            <li><i class="fa fa-envelope"></i> info.colorlib@gmail.com</li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="tn-right">
+                            <div class="top-social">
+                                <a href="#"><i class="fa fa-facebook"></i></a>
+                                <a href="#"><i class="fa fa-twitter"></i></a>
+                                <a href="#"><i class="fa fa-instagram"></i></a>
+                            </div>
+                            <a href="#" class="bk-btn">Đăng nhập</a>
+                            
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
+        <div class="menu-item">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <div class="logo">
+                            <a href="./index.html">
+                                <img src="../Assets/img/logo.png" alt="">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-10">
+                        <div class="nav-menu">
+                            <nav class="mainmenu">
+                                <ul>
+                                    <li class="active"><a href="@Url.Action("Index", "Home")">Trang chủ</a></li>
+                                    <li><a href="@Url.Action("Index", "Room")">Phòng</a></li>
+                                    
+                                    <li><a href="@Url.Action("Index", "News")">Tin tức</a></li>
+                                    <li><a href="./contact.html">Liên Hệ</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>

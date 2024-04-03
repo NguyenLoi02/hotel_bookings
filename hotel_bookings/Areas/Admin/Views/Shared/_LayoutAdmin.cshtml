@@ -34,7 +34,16 @@
         .table tbody td {
             text-align: center;
         }
-
+        .fst {
+            text-align: left;
+            /*margin-left: 20px;*/
+        }
+        .fst span {
+            font-weight: bolder;
+        }
+        .fst div {
+            padding: 2px 0px;
+        }
         .table tbody img {
             height: auto;
         }
@@ -196,12 +205,12 @@
                                     <ul class="nav flex-column">
 
                                         <li class="nav-item">
-                                            <a class="nav-link" href="" id="show_booking_room">Quản lý phòng mới đặt</a>
+                                            <a class="nav-link" href="@Url.Action("booking", "OrderRoom")" id="show_booking_room">Quản lý phòng mới đặt</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="" id="show_booked_room">Quản lý phòng đã đặt</a>
+                                            <a class="nav-link" href="@Url.Action("booked", "OrderRoom")" id="show_booked_room">Quản lý phòng đã đặt</a>
                                         </li>
-
+                                        
                                     </ul>
                                 </div>
                             </li>

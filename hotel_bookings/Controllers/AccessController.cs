@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace demo1.Controllers
+namespace hotel_bookings.Controllers
 {
     public class AccessController : Controller
     {

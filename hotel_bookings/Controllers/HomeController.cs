@@ -10,7 +10,6 @@ namespace hotel_bookings.Controllers
     {
         public ActionResult Index()
         {
-            var url = Url.Action("Login", "Access");
             return View();
         }
 
