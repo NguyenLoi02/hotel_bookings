@@ -26,6 +26,7 @@ namespace hotel_bookings.Models
         }
     
         public DbSet<admin> admins { get; set; }
+        public DbSet<admin_role> admin_role { get; set; }
         public DbSet<booking_details> booking_details { get; set; }
         public DbSet<booking_order> booking_order { get; set; }
         public DbSet<carousel> carousels { get; set; }
@@ -35,6 +36,7 @@ namespace hotel_bookings.Models
         public DbSet<news> news { get; set; }
         public DbSet<order_service> order_service { get; set; }
         public DbSet<rating_view> rating_view { get; set; }
+        public DbSet<role> roles { get; set; }
         public DbSet<room> rooms { get; set; }
         public DbSet<room_feature> room_feature { get; set; }
         public DbSet<room_images> room_images { get; set; }

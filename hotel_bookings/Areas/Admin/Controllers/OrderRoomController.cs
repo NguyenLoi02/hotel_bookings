@@ -20,13 +20,82 @@ namespace hotel_bookings.Areas.Admin.Controllers
         // GET: Admin/OrderRoom
         public ActionResult booking()
         {
-            var booking_list = _orderRoomService.GetAllBooking();
-            return View(booking_list.ToList());
+            var viewModel = new BookingViewModel
+            {
+                users = db.users.ToList(),         
+                order_services = db.order_service.ToList(),
+                services = db.services.ToList(),
+                rooms = db.rooms.ToList(),
+                booking_orders = db.booking_order.ToList(),
+                booking_details = db.booking_details.ToList()
+            };
+
+            return View(viewModel);
+        }
+        public ActionResult DeleteBooking(int bookingOrderId)
+        {
+            // Tìm đơn đặt phòng cần xóa từ cơ sở dữ liệu
+            var bookingOrder = db.booking_order.Find(bookingOrderId);
+
+            if (bookingOrder == null)
+            {
+                // Xử lý trường hợp không tìm thấy đơn đặt phòng
+                return HttpNotFound();
+            }
+
+            try
+            {
+                // Xóa đơn đặt phòng từ cơ sở dữ liệu
+                db.booking_order.Remove(bookingOrder);
+                db.SaveChanges();
+
+                // Chuyển hướng về trang danh sách đơn đặt phòng hoặc trang chính
+                return RedirectToAction("booking");
+            }
+            catch (Exception ex)
+            {
+                // Xử lý ngoại lệ nếu có
+                return View("Error", ex);
+            }
+        }
+        public ActionResult StatusBooking(int bookingOrderId)
+        {
+            // Tìm đơn đặt phòng cần xóa từ cơ sở dữ liệu
+            var bookingOrder = db.booking_order.Find(bookingOrderId);
+
+            if (bookingOrder == null)
+            {
+                // Xử lý trường hợp không tìm thấy đơn đặt phòng
+                return HttpNotFound();
+            }
+
+            try
+            {
+                bookingOrder.booking_status = 1;
+                db.SaveChanges();
+                // Chuyển hướng về trang danh sách đơn đặt phòng hoặc trang chính
+                return RedirectToAction("booking");
+            }
+            catch (Exception ex)
+            {
+                // Xử lý ngoại lệ nếu có
+                return View("Error", ex);
+            }
         }
         public ActionResult booked()
         {
-            var booked_list = _orderRoomService.GetAllBooked();
-            return View(booked_list.ToList());
+            var viewModel = new BookingViewModel
+            {
+                users = db.users.ToList(),
+                order_services = db.order_service.ToList(),
+                services = db.services.ToList(),
+                rooms = db.rooms.ToList(),
+                booking_orders = db.booking_order.ToList(),
+                booking_details = db.booking_details.ToList()
+            };
+
+            return View(viewModel);
         }
+
     }
 }

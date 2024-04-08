@@ -31,6 +31,7 @@ namespace hotel_bookings.Models
         public Nullable<int> arrival { get; set; }
     
         public virtual ICollection<booking_details> booking_details { get; set; }
+        public virtual user user { get; set; }
         public virtual ICollection<order_service> order_service { get; set; }
         public virtual ICollection<rating_view> rating_view { get; set; }
     }

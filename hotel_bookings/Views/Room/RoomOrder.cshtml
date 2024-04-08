@@ -1,0 +1,170 @@
+﻿@{
+    DateTime? check_in = ViewBag.CheckIn;
+    DateTime? check_out = ViewBag.CheckOut;
+    double day = ViewBag.Day;
+    string room_name = ViewBag.room_name;
+    int room_price = ViewBag.room_price;
+    int room_adult = ViewBag.room_adult;
+    int room_children = ViewBag.room_children;
+
+}
+@{
+    ViewBag.Title = "RoomOrder";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Breadcrumb Section Begin -->
+<div class="breadcrumb-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb-text">
+                    <h2>Đặt phòng</h2>
+                    <div class="bt-option">
+                        <a href="./home.html">Trang chủ</a>
+                        <span>Phòng</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb Section End -->
+<!-- Room Details Section Begin -->
+<section class="room-details-section spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <form method="post">
+                    <div class="" style=" border: 1px solid #c8c8c8; border-radius: 10px; padding: 0; margin-bottom: 30px;">
+                        <div class="">
+                            <div class="">
+                                <div class="" style="margin: 0; font-size: 20px; text-align: center; border-bottom: 1px solid #c8c8c8; background-color: #f3f2f2;">
+                                    <p style=" margin: 0; font-size: 20px; padding: 10px;">Thông tin người đặt chỗ</p>
+                                </div>
+                                <div class="ant-card-extra">
+                                    <div class="g-height-25"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="padding: 20px;">
+                            <div class="ant-card-body">
+                                <div class="ant-row">
+                                    <div class="row" style=" margin: 10px 0;">
+                                        <div class="col-sm-3">
+                                            <label>Danh xưng</label>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <input name="gender" type="radio" value="1">Ông
+                                            <input name="gender" type="radio" value="0">Bà
+                                            <input name="gender" type="radio" value="0">Khác
+                                        </div>
+                                    </div>
+                                    <div class="row" style=" margin: 10px 0;">
+                                        <div class="col-sm-6">
+                                            <div>
+                                                <label>Họ</label>
+                                            </div>
+                                            <div>
+                                                <input name="last_name" style="width: -webkit-fill-available;" placeholder="Ex: Nguyen" type="text" value="">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div>
+                                                <label>Tên đệm và tên</label>
+                                            </div>
+                                            <div>
+                                                <input name="first_name" style="width: -webkit-fill-available;" placeholder="Ex: Anh Duy" type="text" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" style=" margin: 10px 0;">
+                                    <div class="col-sm-6">
+                                        <div>
+                                            <label>Email nhận thông tin đơn hàng</label>
+                                        </div>
+                                        <div>
+                                            <input name="email" style="width: -webkit-fill-available;" placeholder="abc@xxx.com" type="email" value="">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div>
+                                            <label>Điện thoại</label>
+                                        </div>
+                                        <div>
+                                            <input name="phonenum" style="width: -webkit-fill-available;" placeholder="" type="text" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style=" border: 1px solid #c8c8c8; border-radius: 10px; padding: 0;">
+                        <div style=" margin: 0; font-size: 20px; text-align: center; border-bottom: 1px solid #c8c8c8; background-color: #f3f2f2;">
+                            <p style="margin: 0; font-size: 20px; padding: 10px;">Phương thức thanh toán</p>
+                        </div>
+                        <div style="padding: 10px 33px;">
+                            @*<div style=" margin: 10px 0;">
+                                    <input type="radio" value="DOMESTIC">Thẻ/tài khoản ngân hàng (ATM nội địa/quốc tế)
+                                </div>
+                                <div style=" margin: 10px 0;">
+                                    <input type="radio" value="QRCODE">Thanh toán bằng mã QR
+                                </div>*@
+                            <div style=" margin: 30px 0px 10px;">
+                                <div>
+                                    <button type="submit" style="display: inline-block; color: #ffffff; font-size: 13px; text-transform: uppercase; font-weight: 700; background: #dfa974; padding: 14px 28px 13px; width: 100%; text-align: center; border-radius: 30px; ">
+                                        Đặt ngay
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-lg-4">
+                <div style="border: 1px solid #c8c8c8; border-radius: 10px;">
+                    <div>
+                        <p style=" margin: 0; padding: 10px; font-size: 20px; text-align: center; border-bottom: 1px solid #c8c8c8; background-color: #f3f2f2; ">
+                            Đặt phòng
+                        </p>
+                    </div>
+                    <div style=" padding: 20px;">
+                        <div>
+                            <div style="border-bottom: 2px solid #c8c8c8;">
+                                <div>
+                                    <p style="margin-bottom: 0;">Chỉnh sửa</p>
+                                </div>
+                                <div>
+                                    <p style="margin-bottom: 0;">@check_in - @check_out</p>
+                                </div>
+                                <p>02 Đêm</p>
+                            </div>
+                            <div style="margin-top: 10px; border-bottom: 2px solid #c8c8c8;">
+                                <p style="margin-bottom: 0; color: #000000;">Phòng:</p>
+                                <div class="row">
+                                    <p class="col-sm-8" style="margin-bottom: 0; padding-right: 20px;">@room_name</p>
+                                    <p class="col-sm-4" style="margin-bottom: 0;"><span><span>@(room_price * day) đ</span></span></p>
+                                </div>
+                                <div>
+                                    <p style="margin-bottom: 0;">@room_adult Người lớn</p>
+                                    <p>@room_children Người trẻ em</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="display: flex; margin: 10px 0;">
+                            <div>
+                                <span style="margin-bottom: 0;">Tổng cộng:</span>
+                                <p style="margin-bottom: 0; font-size: 13px;">(Bao gồm thuế phí)</p>
+                            </div>
+                            <div>
+                                <p style="color: #dfa974; font-size: 24px; margin-left: 75px;">@(room_price * day) đ</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Room Details Section End -->

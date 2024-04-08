@@ -1,4 +1,5 @@
-﻿using hotel_bookings.Models;
+﻿using hotel_bookings.Controllers;
+using hotel_bookings.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

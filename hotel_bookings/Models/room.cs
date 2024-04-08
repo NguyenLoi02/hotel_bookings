@@ -13,6 +13,7 @@ namespace hotel_bookings.Models
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Web;
+
     public partial class room
     {
         public room()
@@ -34,7 +35,8 @@ namespace hotel_bookings.Models
         public string avatar { get; set; }
         public Nullable<int> quantity { get; set; }
         public Nullable<int> status { get; set; }
-    
+        
+
         public virtual ICollection<booking_details> booking_details { get; set; }
         public virtual ICollection<rating_view> rating_view { get; set; }
         public virtual ICollection<room_feature> room_feature { get; set; }

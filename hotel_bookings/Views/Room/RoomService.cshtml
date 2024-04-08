@@ -1,0 +1,151 @@
+﻿@model List<hotel_bookings.Models.service>
+
+
+@{
+    DateTime? check_in = ViewBag.CheckIn;
+    DateTime? check_out = ViewBag.CheckOut;
+    double day = ViewBag.Day;
+    string room_name = ViewBag.room_name;
+    int room_price = ViewBag.room_price;
+    int room_adult = ViewBag.room_adult;
+    int room_children = ViewBag.room_children;
+
+}
+@{
+    ViewBag.Title = "RoomService";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!-- Breadcrumb Section Begin -->
+<div class="breadcrumb-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb-text">
+                    <h2>Thêm dịch vụ</h2>
+                    <div class="bt-option">
+                        <a href="./home.html">Trang chủ</a>
+                        <span>Phòng</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb Section End -->
+<!-- Room Details Section Begin -->
+<section class="room-details-section spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="row" style="display: flex; flex-wrap: wrap; grid-row-gap: 20px; row-gap: 20px; grid-column-gap: 12px; -webkit-column-gap: 12px; column-gap: 12px;">
+                    @foreach (var item in Model)
+                    {
+                        <div class="col-sm-4" style="border-top-left-radius: 4px; border-top-right-radius: 4px; width: calc(33.33% - 8px); overflow: hidden;">
+                            <div style="border-radius: 4px 4px 0 0; height: 168px; background-color: #fff; position: relative;">
+                                <img src="~/Assets/img/services/@item.image" data-was-processed="true" style="width: 100%; height: 100%; object-fit: cover;">
+                            </div>
+                            <div style="display: flex; flex-direction: column; justify-content: space-between; border: 1px solid #e0e0e0; border-radius: 4px; margin-top: -12px; padding: 25px 12px 16px; height: 144px;">
+                                <div style="font-weight: 400; font-size: 14px; line-height: 21px; color: #353c46; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; min-height: 41px;">@item.name</div>
+                                <div>
+                                    <div style=" font-weight: 500; font-size: 18px; line-height: 24px; color: #353c46; margin-top: 8px;"><span>@item.price<span>đ</span></span></div>
+                                    <div style="margin-top: 6px; display: flex; justify-content: space-between;">
+                                        <div style=" font-weight: 400; font-size: 12px; line-height: 24px; color: #2a398c; display: flex; cursor: pointer;">
+                                            <img alt="" src="/static/media/fi-br-info.3bd2636e.svg">
+                                            <span>Chi tiết</span>
+                                        </div>
+                                        <div>
+                                            <label>
+                                                <span>
+                                                    <input id="myCheckbox_@item.id" type="checkbox" value="@item.name">
+                                                    <span style="font-weight: 500; font-size: 14px; line-height: 24px; color: #e8952f;">Thêm</span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <script>
+                                $(document).ready(function () {
+                                // Bắt sự kiện khi checkbox thay đổi trạng thái
+                                $("#myCheckbox_@item.id").change(function () {
+                                    if (this.checked) {
+                                        var Content = '<ul style="padding: 0 0 0 20px; list-style-type: disc;">';
+                                        Content += '<li>';
+                                        Content += '<div style="font-weight: 400; font-size: 12px; line-height: 140%; display: flex; align-items: center; justify-content: space-between; color: #353c46;">';
+                                        Content += '<span style="width: 70%;">@item.name</span>';
+                                        Content += '<span style="width: 30%; text-align: right; font-weight: 500;"><span>@item.price<span>đ</span></span></span>';
+                                        Content += '</div>';
+                                        Content += '</li>';
+                                        Content += '</ul>';
+                                        $('#item_service').append(Content);
+
+                                    } else {
+                                        $('#item_service').html('');
+                                    }
+                                });
+                                });
+                        </script>
+                    }
+
+
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div style="border: 1px solid #c8c8c8; border-radius: 10px;">
+                    <div>
+                        <p style=" margin: 0; padding: 10px; font-size: 20px; text-align: center; border-bottom: 1px solid #c8c8c8; background-color: #f3f2f2; ">
+                            Đặt phòng
+                        </p>
+                    </div>
+                    <div style=" padding: 20px;">
+                        <div>
+                            <div style="border-bottom: 2px solid #c8c8c8;">
+                                <div>
+                                    <p style="margin-bottom: 0;">Chỉnh sửa</p>
+                                </div>
+                                <div>
+                                    <p style="margin-bottom: 0;">@check_in - @check_out</p>
+                                </div>
+                                <p>02 Đêm</p>
+                            </div>
+                            <div style="margin-top: 10px; border-bottom: 2px solid #c8c8c8;">
+                                <p style="margin-bottom: 0; color: #000000;">Phòng:</p>
+                                <div class="row">
+                                    <p class="col-sm-8" style="margin-bottom: 0; padding-right: 20px;">@room_name</p>
+                                    <p class="col-sm-4" style="margin-bottom: 0;"><span><span>@(room_price * day) đ</span></span></p>
+                                </div>
+                                <div>
+                                    <p style="margin-bottom: 0;">@room_adult Người lớn</p>
+                                    <p>@room_children Người trẻ em</p>
+                                </div>                               
+                                <div>
+                                    <div id="item_service" style="padding: 8px; background: #f4f6f9;">
+                                            
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div style="display: flex; margin: 10px 0;">
+                            <div>
+                                <span style="margin-bottom: 0;">Tổng cộng:</span>
+                                <p style="margin-bottom: 0; font-size: 13px;">(Bao gồm thuế phí)</p>
+                            </div>
+                            <div>
+                                <p style="color: #dfa974; font-size: 24px; margin-left: 75px;">@(room_price * day) đ</p>
+                            </div>
+                        </div>
+                        <div>
+                            <a href="@Url.Action("RoomOrder", "Room")" style="display: inline-block; color: #ffffff; font-size: 13px; text-transform: uppercase; font-weight: 700; background: #dfa974; padding: 14px 28px 13px; width: 100%; text-align: center; border-radius: 30px; ">
+                                Tiếp tục
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Room Details Section End -->

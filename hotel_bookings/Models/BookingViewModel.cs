@@ -10,16 +10,13 @@ namespace hotel_bookings.Models
 
     public class BookingViewModel
     {
+        public List<booking_order> booking_orders {  get; set; }
+        public List<user> users {  get; set; }
+        public List<booking_details> booking_details {  get; set; }
+        public List<room> rooms {  get; set; }
+        public List<order_service> order_services {  get; set; }
+        public List<service> services {  get; set; }
 
-        public string FirstName { get; set; }
-        public string PhoneNumber { get; set; }
-        public int BookingOrderId { get; set; }
-        public string RoomName { get; set; }
-        public int RoomPrice { get; set; }
-        public int RoomNumber { get; set; }
-        public DateTime CheckInDate { get; set; }
-        public DateTime CheckOutDate { get; set; }
-        public DateTime BookingDate { get; set; }
-        public string ServiceName { get; set; }
+        
     }
 }

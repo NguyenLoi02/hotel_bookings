@@ -1,4 +1,5 @@
 ﻿using hotel_bookings.Areas.Admin.Service;
+using hotel_bookings.Controllers;
 using hotel_bookings.Models;
 using System;
 using System.Collections.Generic;
@@ -35,7 +36,7 @@ namespace hotel_bookings.Areas.Admin.Data
                     string extension = Path.GetExtension(room.ImageUpload.FileName);
                     filename = filename + extension;
                     room.avatar = filename;
-                    string filePath = Path.Combine(HttpContext.Current.Server.MapPath("~/Assets/images/"), filename);
+                    string filePath = Path.Combine(HttpContext.Current.Server.MapPath("~/Assets/img/room/"), filename);
                     room.ImageUpload.SaveAs(filePath);
                 }
                 catch (Exception ex)
@@ -87,7 +88,7 @@ namespace hotel_bookings.Areas.Admin.Data
             room.avatar = filename;
 
             // Save the new image file
-            filename = Path.Combine(HttpContext.Current.Server.MapPath("~/Assets/images/"), filename);
+            filename = Path.Combine(HttpContext.Current.Server.MapPath("~/Assets/img/room/"), filename);
             room.ImageUpload.SaveAs(filename);
             _dbContext.Entry(room).State = EntityState.Modified;
             _dbContext.SaveChanges();

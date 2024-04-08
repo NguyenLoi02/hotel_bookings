@@ -10,6 +10,15 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="admin_role">
+      <EntityTypeMapping TypeName="HotelBookingModel.admin_role">
+        <MappingFragment StoreEntitySet="admin_role">
+          <ScalarProperty Name="admin_id" ColumnName="admin_id" />
+          <ScalarProperty Name="role_id" ColumnName="role_id" />
+          <ScalarProperty Name="note" ColumnName="note" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="booking_details">
       <EntityTypeMapping TypeName="HotelBookingModel.booking_details">
         <MappingFragment StoreEntitySet="booking_details">
@@ -111,6 +120,14 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="roles">
+      <EntityTypeMapping TypeName="HotelBookingModel.role">
+        <MappingFragment StoreEntitySet="role">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="rooms">
       <EntityTypeMapping TypeName="HotelBookingModel.room">
         <MappingFragment StoreEntitySet="room">
@@ -200,6 +217,7 @@
           <ScalarProperty Name="profile" ColumnName="profile" />
           <ScalarProperty Name="password" ColumnName="password" />
           <ScalarProperty Name="date_sign" ColumnName="date_sign" />
+          <ScalarProperty Name="gender" ColumnName="gender" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

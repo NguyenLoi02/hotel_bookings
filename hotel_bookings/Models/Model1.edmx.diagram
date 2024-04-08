@@ -4,28 +4,33 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="4fcaebbe34e84fc49802fedf83ea9429" Name="Diagram1">
-        <EntityTypeShape EntityType="HotelBookingModel.admin" Width="1.5" PointX="10.75" PointY="4.75" IsExpanded="true" />
+      <Diagram DiagramId="e0d7c8c95d884ad68a608df052f98184" Name="Diagram1">
+        <EntityTypeShape EntityType="HotelBookingModel.admin" Width="1.5" PointX="7.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="HotelBookingModel.admin_role" Width="1.5" PointX="10" PointY="0.875" IsExpanded="true" />
         <EntityTypeShape EntityType="HotelBookingModel.booking_details" Width="1.5" PointX="5.25" PointY="6" IsExpanded="true" />
         <EntityTypeShape EntityType="HotelBookingModel.booking_order" Width="1.5" PointX="3" PointY="10.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="HotelBookingModel.carousel" Width="1.5" PointX="10.75" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="HotelBookingModel.contact_details" Width="1.5" PointX="10.75" PointY="10.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="HotelBookingModel.content" Width="1.5" PointX="10" PointY="0.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="HotelBookingModel.feature" Width="1.5" PointX="2.375" PointY="1.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="HotelBookingModel.news" Width="1.5" PointX="7.75" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="HotelBookingModel.order_service" Width="1.5" PointX="8.25" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="HotelBookingModel.carousel" Width="1.5" PointX="10.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HotelBookingModel.contact_details" Width="1.5" PointX="10.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HotelBookingModel.content" Width="1.5" PointX="12" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="HotelBookingModel.feature" Width="1.5" PointX="3" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="HotelBookingModel.news" Width="1.5" PointX="9.75" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="HotelBookingModel.order_service" Width="1.5" PointX="5.25" PointY="11.375" IsExpanded="true" />
         <EntityTypeShape EntityType="HotelBookingModel.rating_view" Width="1.5" PointX="8.25" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HotelBookingModel.role" Width="1.5" PointX="7.75" PointY="10.125" IsExpanded="true" />
         <EntityTypeShape EntityType="HotelBookingModel.room" Width="1.5" PointX="3" PointY="5.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="HotelBookingModel.room_feature" Width="1.5" PointX="5.125" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="HotelBookingModel.room_feature" Width="1.5" PointX="5.25" PointY="2.375" IsExpanded="true" />
         <EntityTypeShape EntityType="HotelBookingModel.room_images" Width="1.5" PointX="5.25" PointY="16.625" IsExpanded="true" />
         <EntityTypeShape EntityType="HotelBookingModel.room_style" Width="1.5" PointX="0.75" PointY="6.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="HotelBookingModel.service" Width="1.5" PointX="6" PointY="19.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HotelBookingModel.service" Width="1.5" PointX="3" PointY="19.25" IsExpanded="true" />
         <EntityTypeShape EntityType="HotelBookingModel.setting" Width="1.5" PointX="12.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="HotelBookingModel.sysdiagram" Width="1.5" PointX="12.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="HotelBookingModel.user" Width="1.5" PointX="6" PointY="9.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="HotelBookingModel.user_question" Width="1.5" PointX="8.25" PointY="15" IsExpanded="true" />
+        <EntityTypeShape EntityType="HotelBookingModel.user" Width="1.5" PointX="0.75" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="HotelBookingModel.user_question" Width="1.5" PointX="3" PointY="15" IsExpanded="true" />
+        <AssociationConnector Association="HotelBookingModel.FK_admin_role_admin" ManuallyRouted="false" />
+        <AssociationConnector Association="HotelBookingModel.FK_admin_role_role" ManuallyRouted="false" />
         <AssociationConnector Association="HotelBookingModel.FK_booking_details_booking_order" ManuallyRouted="false" />
         <AssociationConnector Association="HotelBookingModel.FK_booking_details_room" ManuallyRouted="false" />
+        <AssociationConnector Association="HotelBookingModel.FK_booking_order_user" ManuallyRouted="false" />
         <AssociationConnector Association="HotelBookingModel.FK_order_service_booking_order" ManuallyRouted="false" />
         <AssociationConnector Association="HotelBookingModel.FK_rating_view_booking_order" ManuallyRouted="false" />
         <AssociationConnector Association="HotelBookingModel.FK_content_news" ManuallyRouted="false" />

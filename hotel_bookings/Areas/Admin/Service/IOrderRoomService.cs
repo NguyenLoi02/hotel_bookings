@@ -10,7 +10,5 @@ namespace hotel_bookings.Areas.Admin.Service
 {
     public interface IOrderRoomService
     {
-        IEnumerable<BookingViewModel> GetAllBooking();
-        IEnumerable<BookingViewModel> GetAllBooked();
     }
 }

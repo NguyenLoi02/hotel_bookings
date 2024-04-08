@@ -16,6 +16,7 @@ namespace hotel_bookings.Models
     {
         public user()
         {
+            this.booking_order = new HashSet<booking_order>();
             this.rating_view = new HashSet<rating_view>();
             this.user_question = new HashSet<user_question>();
         }
@@ -30,7 +31,9 @@ namespace hotel_bookings.Models
         public string profile { get; set; }
         public string password { get; set; }
         public Nullable<System.DateTime> date_sign { get; set; }
+        public Nullable<int> gender { get; set; }
     
+        public virtual ICollection<booking_order> booking_order { get; set; }
         public virtual ICollection<rating_view> rating_view { get; set; }
         public virtual ICollection<user_question> user_question { get; set; }
     }

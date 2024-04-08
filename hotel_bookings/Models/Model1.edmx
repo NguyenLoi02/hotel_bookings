@@ -13,6 +13,15 @@
           <Property Name="username" Type="nvarchar" MaxLength="50" />
           <Property Name="password" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="admin_role">
+          <Key>
+            <PropertyRef Name="admin_id" />
+            <PropertyRef Name="role_id" />
+          </Key>
+          <Property Name="admin_id" Type="int" Nullable="false" />
+          <Property Name="role_id" Type="int" Nullable="false" />
+          <Property Name="note" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="booking_details">
           <Key>
             <PropertyRef Name="id" />
@@ -106,6 +115,13 @@
           <Property Name="review_day" Type="date" />
           <Property Name="seen" Type="int" />
         </EntityType>
+        <EntityType Name="role">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="room">
           <Key>
             <PropertyRef Name="id" />
@@ -190,6 +206,7 @@
           <Property Name="profile" Type="varchar" MaxLength="50" />
           <Property Name="password" Type="varchar" MaxLength="200" />
           <Property Name="date_sign" Type="date" />
+          <Property Name="gender" Type="int" />
         </EntityType>
         <EntityType Name="user_question">
           <Key>
@@ -204,6 +221,34 @@
           <Property Name="date_queries" Type="date" />
           <Property Name="seen" Type="int" />
         </EntityType>
+        <Association Name="FK_admin_role_admin">
+          <End Role="admin" Type="Self.admin" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="admin_role" Type="Self.admin_role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="admin">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="admin_role">
+              <PropertyRef Name="admin_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_admin_role_role">
+          <End Role="role" Type="Self.role" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="admin_role" Type="Self.admin_role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="role">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="admin_role">
+              <PropertyRef Name="role_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_booking_details_booking_order">
           <End Role="booking_order" Type="Self.booking_order" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -229,6 +274,18 @@
             </Principal>
             <Dependent Role="booking_details">
               <PropertyRef Name="room_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_booking_order_user">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="booking_order" Type="Self.booking_order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="booking_order">
+              <PropertyRef Name="user_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -388,6 +445,7 @@
         </Association>
         <EntityContainer Name="HotelBookingModelStoreContainer">
           <EntitySet Name="admin" EntityType="Self.admin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="admin_role" EntityType="Self.admin_role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="booking_details" EntityType="Self.booking_details" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="booking_order" EntityType="Self.booking_order" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="carousel" EntityType="Self.carousel" Schema="dbo" store:Type="Tables" />
@@ -397,6 +455,7 @@
           <EntitySet Name="news" EntityType="Self.news" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="order_service" EntityType="Self.order_service" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="rating_view" EntityType="Self.rating_view" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="role" EntityType="Self.role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="room" EntityType="Self.room" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="room_feature" EntityType="Self.room_feature" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="room_images" EntityType="Self.room_images" Schema="dbo" store:Type="Tables" />
@@ -406,6 +465,14 @@
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="user" EntityType="Self.user" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="user_question" EntityType="Self.user_question" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_admin_role_admin" Association="Self.FK_admin_role_admin">
+            <End Role="admin" EntitySet="admin" />
+            <End Role="admin_role" EntitySet="admin_role" />
+          </AssociationSet>
+          <AssociationSet Name="FK_admin_role_role" Association="Self.FK_admin_role_role">
+            <End Role="role" EntitySet="role" />
+            <End Role="admin_role" EntitySet="admin_role" />
+          </AssociationSet>
           <AssociationSet Name="FK_booking_details_booking_order" Association="Self.FK_booking_details_booking_order">
             <End Role="booking_order" EntitySet="booking_order" />
             <End Role="booking_details" EntitySet="booking_details" />
@@ -413,6 +480,10 @@
           <AssociationSet Name="FK_booking_details_room" Association="Self.FK_booking_details_room">
             <End Role="room" EntitySet="room" />
             <End Role="booking_details" EntitySet="booking_details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_booking_order_user" Association="Self.FK_booking_order_user">
+            <End Role="user" EntitySet="user" />
+            <End Role="booking_order" EntitySet="booking_order" />
           </AssociationSet>
           <AssociationSet Name="FK_content_news" Association="Self.FK_content_news">
             <End Role="news" EntitySet="news" />
@@ -471,6 +542,18 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="admin_role" Relationship="Self.FK_admin_role_admin" FromRole="admin" ToRole="admin_role" />
+        </EntityType>
+        <EntityType Name="admin_role">
+          <Key>
+            <PropertyRef Name="admin_id" />
+            <PropertyRef Name="role_id" />
+          </Key>
+          <Property Name="admin_id" Type="Int32" Nullable="false" />
+          <Property Name="role_id" Type="Int32" Nullable="false" />
+          <Property Name="note" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="admin" Relationship="Self.FK_admin_role_admin" FromRole="admin_role" ToRole="admin" />
+          <NavigationProperty Name="role" Relationship="Self.FK_admin_role_role" FromRole="admin_role" ToRole="role" />
         </EntityType>
         <EntityType Name="booking_details">
           <Key>
@@ -499,6 +582,7 @@
           <Property Name="booking_status" Type="Int32" />
           <Property Name="arrival" Type="Int32" />
           <NavigationProperty Name="booking_details" Relationship="Self.FK_booking_details_booking_order" FromRole="booking_order" ToRole="booking_details" />
+          <NavigationProperty Name="user" Relationship="Self.FK_booking_order_user" FromRole="booking_order" ToRole="user" />
           <NavigationProperty Name="order_service" Relationship="Self.FK_order_service_booking_order" FromRole="booking_order" ToRole="order_service" />
           <NavigationProperty Name="rating_view" Relationship="Self.FK_rating_view_booking_order" FromRole="booking_order" ToRole="rating_view" />
         </EntityType>
@@ -577,6 +661,14 @@
           <NavigationProperty Name="booking_order" Relationship="Self.FK_rating_view_booking_order" FromRole="rating_view" ToRole="booking_order" />
           <NavigationProperty Name="room" Relationship="Self.FK_rating_view_room" FromRole="rating_view" ToRole="room" />
           <NavigationProperty Name="user" Relationship="Self.FK_rating_view_user" FromRole="rating_view" ToRole="user" />
+        </EntityType>
+        <EntityType Name="role">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="admin_role" Relationship="Self.FK_admin_role_role" FromRole="role" ToRole="admin_role" />
         </EntityType>
         <EntityType Name="room">
           <Key>
@@ -672,6 +764,8 @@
           <Property Name="profile" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="password" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="date_sign" Type="DateTime" Precision="0" />
+          <Property Name="gender" Type="Int32" />
+          <NavigationProperty Name="booking_order" Relationship="Self.FK_booking_order_user" FromRole="user" ToRole="booking_order" />
           <NavigationProperty Name="rating_view" Relationship="Self.FK_rating_view_user" FromRole="user" ToRole="rating_view" />
           <NavigationProperty Name="user_question" Relationship="Self.FK_user_question_user" FromRole="user" ToRole="user_question" />
         </EntityType>
@@ -689,6 +783,34 @@
           <Property Name="seen" Type="Int32" />
           <NavigationProperty Name="user" Relationship="Self.FK_user_question_user" FromRole="user_question" ToRole="user" />
         </EntityType>
+        <Association Name="FK_admin_role_admin">
+          <End Role="admin" Type="Self.admin" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="admin_role" Type="Self.admin_role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="admin">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="admin_role">
+              <PropertyRef Name="admin_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_admin_role_role">
+          <End Role="role" Type="Self.role" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="admin_role" Type="Self.admin_role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="role">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="admin_role">
+              <PropertyRef Name="role_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_booking_details_booking_order">
           <End Role="booking_order" Type="Self.booking_order" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -714,6 +836,18 @@
             </Principal>
             <Dependent Role="booking_details">
               <PropertyRef Name="room_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_booking_order_user">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="booking_order" Type="Self.booking_order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="booking_order">
+              <PropertyRef Name="user_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -873,6 +1007,7 @@
         </Association>
         <EntityContainer Name="HotelBookingEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="admins" EntityType="Self.admin" />
+          <EntitySet Name="admin_role" EntityType="Self.admin_role" />
           <EntitySet Name="booking_details" EntityType="Self.booking_details" />
           <EntitySet Name="booking_order" EntityType="Self.booking_order" />
           <EntitySet Name="carousels" EntityType="Self.carousel" />
@@ -882,6 +1017,7 @@
           <EntitySet Name="news" EntityType="Self.news" />
           <EntitySet Name="order_service" EntityType="Self.order_service" />
           <EntitySet Name="rating_view" EntityType="Self.rating_view" />
+          <EntitySet Name="roles" EntityType="Self.role" />
           <EntitySet Name="rooms" EntityType="Self.room" />
           <EntitySet Name="room_feature" EntityType="Self.room_feature" />
           <EntitySet Name="room_images" EntityType="Self.room_images" />
@@ -891,6 +1027,14 @@
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="users" EntityType="Self.user" />
           <EntitySet Name="user_question" EntityType="Self.user_question" />
+          <AssociationSet Name="FK_admin_role_admin" Association="Self.FK_admin_role_admin">
+            <End Role="admin" EntitySet="admins" />
+            <End Role="admin_role" EntitySet="admin_role" />
+          </AssociationSet>
+          <AssociationSet Name="FK_admin_role_role" Association="Self.FK_admin_role_role">
+            <End Role="role" EntitySet="roles" />
+            <End Role="admin_role" EntitySet="admin_role" />
+          </AssociationSet>
           <AssociationSet Name="FK_booking_details_booking_order" Association="Self.FK_booking_details_booking_order">
             <End Role="booking_order" EntitySet="booking_order" />
             <End Role="booking_details" EntitySet="booking_details" />
@@ -898,6 +1042,10 @@
           <AssociationSet Name="FK_booking_details_room" Association="Self.FK_booking_details_room">
             <End Role="room" EntitySet="rooms" />
             <End Role="booking_details" EntitySet="booking_details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_booking_order_user" Association="Self.FK_booking_order_user">
+            <End Role="user" EntitySet="users" />
+            <End Role="booking_order" EntitySet="booking_order" />
           </AssociationSet>
           <AssociationSet Name="FK_order_service_booking_order" Association="Self.FK_order_service_booking_order">
             <End Role="booking_order" EntitySet="booking_order" />
@@ -956,6 +1104,15 @@
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="username" ColumnName="username" />
                 <ScalarProperty Name="password" ColumnName="password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="admin_role">
+            <EntityTypeMapping TypeName="HotelBookingModel.admin_role">
+              <MappingFragment StoreEntitySet="admin_role">
+                <ScalarProperty Name="admin_id" ColumnName="admin_id" />
+                <ScalarProperty Name="role_id" ColumnName="role_id" />
+                <ScalarProperty Name="note" ColumnName="note" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1060,6 +1217,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="roles">
+            <EntityTypeMapping TypeName="HotelBookingModel.role">
+              <MappingFragment StoreEntitySet="role">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="rooms">
             <EntityTypeMapping TypeName="HotelBookingModel.room">
               <MappingFragment StoreEntitySet="room">
@@ -1149,6 +1314,7 @@
                 <ScalarProperty Name="profile" ColumnName="profile" />
                 <ScalarProperty Name="password" ColumnName="password" />
                 <ScalarProperty Name="date_sign" ColumnName="date_sign" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

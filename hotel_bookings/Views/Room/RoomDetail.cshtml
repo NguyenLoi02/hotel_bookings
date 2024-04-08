@@ -1,5 +1,10 @@
 ﻿@model hotel_bookings.Models.room
+@{
+    DateTime? check_in = ViewBag.CheckIn;
+    DateTime? check_out = ViewBag.CheckOut;
+    double day = ViewBag.Day;
 
+}
 @{
     ViewBag.Title = "RoomDetail";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -109,49 +114,51 @@
             </div>
             <div class="col-lg-4">
                 <div style="border: 1px solid #c8c8c8; border-radius: 10px;">
+                    <div>
+                        <p style=" margin: 0; padding: 10px; font-size: 20px; text-align: center; border-bottom: 1px solid #c8c8c8; background-color: #f3f2f2; ">
+                            Đặt phòng
+                        </p>
+                    </div>
+                    <div style=" padding: 20px;">
                         <div>
-                            <p style=" margin: 0; padding: 10px; font-size: 20px; text-align: center; border-bottom: 1px solid #c8c8c8; background-color: #f3f2f2; ">
-                            Đặt phòng</p>
+                            <div style="border-bottom: 2px solid #c8c8c8;">
+                                <div>
+                                    <p style="margin-bottom: 0;">Chỉnh sửa</p>
+                                </div>
+                                <div>
+                                    <p style="margin-bottom: 0;">@check_in - @check_out</p>
+
+                                </div>
+                                <p>02 Đêm</p>
+                            </div>
+                            <div style="margin-top: 10px; border-bottom: 2px solid #c8c8c8;">
+                                <p style="margin-bottom: 0; color: #000000;">Phòng:</p>
+                                <div class="row">
+                                    <p class="col-sm-8" style="margin-bottom: 0; padding-right: 20px;">@Model.name</p>
+                                    <p class="col-sm-4" style="margin-bottom: 0;"><span><span>@(Model.price * day) đ</span></span></p>
+                                </div>
+                                <div>
+                                    <p style="margin-bottom: 0;">@Model.adult Người lớn</p>
+                                    <p>@Model.children Người trẻ em</p>
+                                </div>
+                            </div>
                         </div>
-                        <div style=" padding: 20px;">
+                        <div style="display: flex; margin: 10px 0;">
                             <div>
-                                <div style="border-bottom: 2px solid #c8c8c8;">
-                                    <div>
-                                        <p style="margin-bottom: 0;">Chỉnh sửa</p>
-                                    </div>
-                                    <div>
-                                        <p style="margin-bottom: 0;">thứ tư, Th04, 2024 - thứ sáu, Th04, 2024</p>
+                                <span style="margin-bottom: 0;">Tổng cộng:</span>
+                                <p style="margin-bottom: 0; font-size: 13px;">(Bao gồm thuế phí)</p>
+                            </div>
+                            <div>
+                                <p style="color: #dfa974; font-size: 24px; margin-left: 75px;">@(Model.price * day) đ</p>
+                            </div>
+                        </div>
+                        <div>
+                            <a href="@Url.Action("RoomService", "Room",new { id = Model.id })" style="display: inline-block; color: #ffffff; font-size: 13px; text-transform: uppercase; font-weight: 700; background: #dfa974; padding: 14px 28px 13px; width: 100%; text-align: center; border-radius: 30px; ">
+                                Đặt ngay
+                            </a>
+                        </div>
 
-                                    </div>
-                                    <p>02 Đêm</p>
-                                </div>
-                                <div style="margin-top: 10px; border-bottom: 2px solid #c8c8c8;">
-                                        <p style="margin-bottom: 0; color: #000000;">Phòng:</p>
-                                    <div style="display: inline-flex;">
-                                        <p style="margin-bottom: 0; padding-right: 20px;">x1 Deluxe Hướng Biển Giường Đôi</p>
-                                        <p style="margin-bottom: 0;"><span><span>6.200.000đ</span></span></p>
-                                    </div>
-                                    <div>
-                                        <p style="margin-bottom: 0;">1 Người lớn</p>
-                                        <p>1 Người trẻ em</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div style="display: flex; margin: 10px 0;">
-                                <div>
-                                    <span style="margin-bottom: 0;">Tổng cộng:</span>
-                                    <p style="margin-bottom: 0; font-size: 13px;">(Bao gồm thuế phí)</p>
-                                </div>
-                                <div>
-                                    <p style="color: #dfa974; font-size: 24px; margin-left: 75px;">6.200.000 đ</p>
-                                </div>
-                            </div>
-                            <div >
-                                <a href="#" style="display: inline-block; color: #ffffff; font-size: 13px; text-transform: uppercase; font-weight: 700; background: #dfa974; padding: 14px 28px 13px; width: 100%; text-align: center; border-radius: 30px; ">
-                                Đặt ngay</a>
-                            </div>
-
-                        </div>   
+                    </div>
                 </div>
 
             </div>
