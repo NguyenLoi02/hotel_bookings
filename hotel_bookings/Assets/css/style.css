@@ -31,6 +31,73 @@
 
 /* Template default CSS
 /*----------------------------------------*/
+.detail {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	background-color: rgba(0, 0, 0, 0.3);
+	align-items: center;
+	justify-content: center;
+	display: flex;
+}
+
+	.detail .open {
+		display: flex;
+	}
+
+.detail-room {
+	background-color: #ffffff;
+	width: 1200px;
+	max-width: calc(100% - 90px);
+	min-height: 200px;
+	position: relative;
+}
+
+.detail-room-home {
+	padding: 41px 23px 10px;
+}
+
+.detail-room_close i {
+	font-size: 40px;
+	position: absolute;
+	top: 0;
+	right: 0;
+	margin-right: 5px;
+	cursor: pointer;
+}
+
+.detail-room-home_img img {
+	margin-top: 25px;
+	margin-bottom: 0;
+}
+
+	.detail-room-home_img img {
+		width: 100%;
+		height: 540px;
+	}
+
+.detail-room-home .title {
+	margin-top: 18px;
+	margin-bottom: 3px;
+	font-size: 20px;
+	color: black;
+}
+
+.detail-room-home .features {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.detail-room-home .feature {
+	display: flex;
+	margin-left: 17px;
+}
+
+.detail-room-home .feature_icon {
+	padding: 0 8px;
+}
 
 html, body {
 	height: 100%;
@@ -228,6 +295,16 @@ ul, ol {
 	background: #000;
 	z-index: 99999;
 	
+}
+.room-details-item {
+	display: block;
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	left: 0;
+	top: 0;
+	background-color: rgba(255, 255, 255, 0.5);
+	z-index: 99999;
 }
 .search-model-form {
 	padding: 0 15px;
@@ -1234,9 +1311,7 @@ ul, ol {
 .room-details-item {
 	margin-bottom: 50px;
 }
-.room-details-item img {
-	margin-bottom: 40px;
-}
+
 .room-details-item .rd-text .rd-title {
 	overflow: hidden;
 	margin-bottom: 8px;

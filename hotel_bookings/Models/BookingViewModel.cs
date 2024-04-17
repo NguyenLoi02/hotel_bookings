@@ -16,7 +16,8 @@ namespace hotel_bookings.Models
         public List<room> rooms {  get; set; }
         public List<order_service> order_services {  get; set; }
         public List<service> services {  get; set; }
+        public int RowNumber { get; set; }
 
-        
+
     }
 }

@@ -1,5 +1,6 @@
 ﻿@model List<hotel_bookings.Models.room>
 
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -33,9 +34,9 @@
             {
                 <div class="col-lg-4 col-md-6">
                     <div class="room-item">
-                        <img src="../Assets/img/room/@item.avatar" alt="">
+                        <img src="../Assets/img/room/@item.avatar" alt=""  class="room-item" data-room-id="@item.id">
                         <div class="ri-text">
-                            <h4>@item.name</h4>
+                            <h4 class="room-details">@item.name</h4>
                             <h3>@item.price đ<span>  /Đêm</span></h3>
                             <table>
                                 <tbody>
@@ -51,15 +52,13 @@
                                         <td class="r-o">Phòng chống:</td>
                                         <td>@item.quantity</td>
                                     </tr>
-                                    
                                 </tbody>
                             </table>
-                            <a href="@Url.Action("RoomDetail", "Room" ,new { id = item.id })" class="primary-btn">Chi tiết phòng</a>
+                            <a href="@Url.Action("RoomService", "Room" ,new { id = item.id })" class="primary-btn">Chi tiết phòng</a>
                         </div>
                     </div>
                 </div>
             }
-
             <div class="col-lg-12">
                 <div class="room-pagination">
                     <a href="#">1</a>
@@ -86,23 +85,41 @@
                     <input style="padding: 0 10px;" type="date" class="date-input hasDatepicker" name="check_out" id="check_out">
                 </div>
                 @*<div class="select-option">
-                    <label for="guest">Guests:</label>
-                    <select id="guest" style="display: none;">
-                        <option value="">3 Adults</option>
-                        <option value="">4 Adults</option>
-                        <option value="">5 Adults</option>
-                    </select>
-                </div>
-                <div class="select-option">
-                    <label for="room">Room:</label>
-                    <select id="room" style="display: none;">
-                        <option value="">1 Room</option>
-                        <option value="">1 Room</option>
-                        <option value="">1 Room</option>
-                    </select><div class="nice-select" tabindex="0"><span class="current">1 Room</span><ul class="list"><li data-value="" class="option selected">1 Room</li></ul></div>
-                </div>*@
+                        <label for="guest">Guests:</label>
+                        <select id="guest" style="display: none;">
+                            <option value="">3 Adults</option>
+                            <option value="">4 Adults</option>
+                            <option value="">5 Adults</option>
+                        </select>
+                    </div>
+                    <div class="select-option">
+                        <label for="room">Room:</label>
+                        <select id="room" style="display: none;">
+                            <option value="">1 Room</option>
+                            <option value="">1 Room</option>
+                            <option value="">1 Room</option>
+                        </select><div class="nice-select" tabindex="0"><span class="current">1 Room</span><ul class="list"><li data-value="" class="option selected">1 Room</li></ul></div>
+                    </div>*@
                 <button type="submit">Tìm kiếm</button>
             </form>
         </div>
     </div>
 </div>
+<div id="room-detail-container"> </div>
+<script>
+    $(document).ready(function() {
+    $('.room-item').click(function() {
+        var roomId = $(this).data('room-id');
+        $.ajax({
+            url: '@Url.Action("RoomDetails", "Room")',
+            type: 'GET',
+            data: { id: roomId },
+            success: function(result) {
+                $('#room-detail-container').fadeOut(0).delay(200).html(result).fadeIn(200);
+            }
+        });
+    });
+
+});
+
+</script>

@@ -74,7 +74,6 @@ D:\dotnet\hotel_bookings\hotel_bookings\bin\Antlr3.Runtime.pdb
 D:\dotnet\hotel_bookings\hotel_bookings\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 D:\dotnet\hotel_bookings\hotel_bookings\obj\Debug\hotel_bookings.csproj.AssemblyReference.cache
 D:\dotnet\hotel_bookings\hotel_bookings\obj\Debug\hotel_bookings.csproj.CoreCompileInputs.cache
-D:\dotnet\hotel_bookings\hotel_bookings\obj\Debug\hotel_bookings.csproj.CopyComplete
 D:\dotnet\hotel_bookings\hotel_bookings\obj\Debug\hotel_bookings.dll
 D:\dotnet\hotel_bookings\hotel_bookings\obj\Debug\hotel_bookings.pdb
 D:\dotnet\hotel_bookings\hotel_bookings\bin\EntityFramework.dll
@@ -87,3 +86,4 @@ D:\dotnet\hotel_bookings\hotel_bookings\bin\Ninject.xml
 D:\dotnet\hotel_bookings\hotel_bookings\bin\Ninject.Web.Common.xml
 D:\dotnet\hotel_bookings\hotel_bookings\bin\Ninject.Web.Common.WebHost.xml
 D:\dotnet\hotel_bookings\hotel_bookings\bin\Ninject.Web.Mvc.xml
+D:\dotnet\hotel_bookings\hotel_bookings\obj\Debug\hotel_bo.29DB2EC6.Up2Date

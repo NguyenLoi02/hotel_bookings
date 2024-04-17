@@ -22,6 +22,7 @@ namespace hotel_bookings.Areas.Admin.Controllers
         public ActionResult Index()
         {
             var rooms = _roomService.GetAllRooms();
+
             return View(rooms);
         }
         [HttpGet]

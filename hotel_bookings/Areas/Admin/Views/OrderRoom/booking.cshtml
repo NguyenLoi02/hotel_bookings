@@ -16,12 +16,13 @@
             <table class="table">
                 <thead>
                     <tr style="background-color: #221f50; ">
+                        <th>STT</th>
                         <th>Thông tin khách hàng</th>
                         <th>Thông tin phòng</th>
                         <th>Thông tin dịch vụ</th>
                         <th>Thông tin đặt phòng</th>
                         <th>Chức năng</th>
-                       
+
                     </tr>
                 </thead>
                 <tbody>
@@ -30,6 +31,11 @@
                         if (Model.booking_orders[i].booking_status == 0)
                         {
                             <tr>
+                                <td>
+                                    <div class="fst">
+                                        @Model.booking_orders[i].RowNumber
+                                    </div>
+                                </td>
                                 <td>
                                     <div class="fst">
                                         <div><span class="badge badge-primary">Mã đặt phòng: @Model.booking_orders[i].id</span></div>

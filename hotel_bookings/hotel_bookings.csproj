@@ -140,6 +140,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AccessController.cs" />
+    <Compile Include="Areas\Admin\Controllers\AccountController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CustomerController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\OrderRoomController.cs" />
     <Compile Include="Areas\Admin\Controllers\RoomController.cs" />
@@ -3057,6 +3059,8 @@
     <Content Include="Assets\fonts\fontawesome-free-6.5.1-web\webfonts\fa-solid-900.woff2" />
     <Content Include="Assets\fonts\fontawesome-free-6.5.1-web\webfonts\fa-v4compatibility.ttf" />
     <Content Include="Assets\fonts\fontawesome-free-6.5.1-web\webfonts\fa-v4compatibility.woff2" />
+    <Content Include="Areas\Admin\Views\Customer\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Account\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -3087,6 +3091,7 @@
     <Content Include="Views\Order\Index.cshtml" />
     <Content Include="Views\Room\RoomService.cshtml" />
     <Content Include="Views\Room\RoomOrder.cshtml" />
+    <Content Include="Views\Room\roomDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

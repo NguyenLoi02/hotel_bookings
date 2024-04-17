@@ -1,0 +1,38 @@
+﻿@model hotel_bookings.Models.room
+<div class="room-details-item">
+    <div class="h-100 d-flex align-items-center justify-content-center">
+        <div class="detail">
+            <div class="detail-room">
+                <div class="search-close-switch" id="close-btn" style=" top: 8px; right: 10px"><i class="icon_close"></i></div>
+                <div class="detail-room-home">
+                    <div class="detail-room-home_img">
+                        <img class="img" src="../Assets/img/room/@Model.avatar" alt="">
+                    </div>
+                    <div class="detail-room-home_review">
+                        <p class="title">@Model.name</p>
+                        <p class="content">@Model.description</p>
+                    </div>
+                    <div class="detail-room-home_feature">
+                        <p class="title">Tiện ích</p>
+                        <div class="features">
+                            @*@foreach ($room_feature as $item)*@
+                            <div class="feature">
+                                <div class="feature_icon"><i class="fa-solid fa-phone-volume"></i></div>
+                                <span class="feature_text"></span>
+                            </div>
+                            @*@endforeach*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('#close-btn').click(function () {
+            $('#room-detail-container').fadeOut(100).delay(100).empty().fadeIn(100);
+        });
+    });
+
+</script>

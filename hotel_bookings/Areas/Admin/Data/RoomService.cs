@@ -23,7 +23,14 @@ namespace hotel_bookings.Areas.Admin.Data
 
         public IEnumerable<room> GetAllRooms()
         {
-            return _dbContext.rooms.ToList();
+            var rooms = _dbContext.rooms.ToList();
+            int count = 1;
+            foreach (var item in rooms)
+            {
+                item.RowNumber = count;
+                count++;
+            }
+            return rooms;
         }
         
         public void AddRoom(room room)

@@ -30,8 +30,25 @@ namespace hotel_bookings.Areas.Admin.Controllers
                 booking_details = db.booking_details.ToList()
             };
 
+            int count = 1;
+            foreach (var item in viewModel.booking_orders)
+            {
+                if (item.trans_status == 0)
+                {
+
+                    item.RowNumber = count;
+                    count++;
+                }
+                else
+                {
+                    // Reset count if trans_status is not 0
+                    count = 1;
+                }
+            }
             return View(viewModel);
         }
+
+
         public ActionResult DeleteBooking(int bookingOrderId)
         {
             // Tìm đơn đặt phòng cần xóa từ cơ sở dữ liệu

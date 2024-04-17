@@ -23,7 +23,8 @@ namespace hotel_bookings.Models
             this.room_feature = new HashSet<room_feature>();
             this.room_images = new HashSet<room_images>();
         }
-    
+        public int RowNumber { get; set; }
+
         public int id { get; set; }
         public int room_style_id { get; set; }
         public string name { get; set; }

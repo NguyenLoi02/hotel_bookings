@@ -38,38 +38,49 @@ namespace hotel_bookings.Controllers
             return RedirectToAction("Index");
         }
         [HttpGet]
-        public ActionResult RoomDetail(int id)
+        //public ActionResult RoomDetail(int id)
+        //{
+
+        //    if (id == null || Session["check_in"] == null || Session["check_out"] == null)
+        //    {
+        //        return RedirectToAction("Index");
+        //    }
+        //    else
+        //    {
+        //        DateTime check_in = (DateTime)Session["check_in"];
+        //        ViewBag.CheckIn = check_in;
+        //        DateTime check_out = (DateTime)Session["check_out"];
+        //        ViewBag.CheckOut = check_out;
+        //        double days = (double)Session["day"];
+        //        ViewBag.Day = days;
+        //        var detail = db.rooms.Find(id);
+        //        Session["room_id"] = id;
+        //        Session["room_name"] = detail.name;
+        //        Session["room_price"] = detail.price;
+        //        Session["room_adult"] = detail.adult;
+        //        Session["room_children"] = detail.children;           
+        //        return View(detail);
+        //    }
+
+        //}
+        public ActionResult RoomDetails(int id)
         {
-
-            if (id == null || Session["check_in"] == null || Session["check_out"] == null)
-            {
-                return RedirectToAction("Index");
-            }
-            else
-            {
-                DateTime check_in = (DateTime)Session["check_in"];
-                ViewBag.CheckIn = check_in;
-                DateTime check_out = (DateTime)Session["check_out"];
-                ViewBag.CheckOut = check_out;
-                double days = (double)Session["day"];
-                ViewBag.Day = days;
-                var detail = db.rooms.Find(id);
-                Session["room_id"] = id;
-                Session["room_name"] = detail.name;
-                Session["room_price"] = detail.price;
-                Session["room_adult"] = detail.adult;
-                Session["room_children"] = detail.children;           
-                return View(detail);
-            }
-
+            var detail = db.rooms.Find(id);
+            return View(detail);
         }
-        public ActionResult RoomService()
+        public ActionResult RoomService(int id)
         {
             var service = db.services.ToList();
             if (Session["check_in"] == null || Session["check_out"] == null)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index");
             }
+            var detail = db.rooms.Find(id);
+            Session["room_id"] = id;
+            Session["room_name"] = detail.name;
+            Session["room_price"] = detail.price;
+            Session["room_adult"] = detail.adult;
+            Session["room_children"] = detail.children;
             DateTime check_in = (DateTime)Session["check_in"];
             ViewBag.CheckIn = check_in;
             DateTime check_out = (DateTime)Session["check_out"];
@@ -91,7 +102,7 @@ namespace hotel_bookings.Controllers
         {
             if (Session["check_in"] == null || Session["check_out"] == null)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index");
             }
             DateTime check_in = (DateTime)Session["check_in"];
             ViewBag.CheckIn = check_in;
@@ -124,6 +135,7 @@ namespace hotel_bookings.Controllers
 
             booking_order bookingOrder = new booking_order();
             bookingOrder.user_id = user_id;
+            bookingOrder.booking_status = 0;
             bookingOrder.trans_money = (int)(days*room_price);
             db.booking_order.Add(bookingOrder);
             db.SaveChanges();
