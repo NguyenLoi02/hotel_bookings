@@ -1,11 +1,14 @@
 ﻿
 using hotel_bookings.Models;
 using hotel_bookings.Services;
+using PagedList;
 using System;
 using System.Collections.Generic;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI;
 using WebGrease.Css.Extensions;
 
 namespace hotel_bookings.Controllers
@@ -21,21 +24,43 @@ namespace hotel_bookings.Controllers
         }
 
         // GET: Room
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
+            // Số lượng mục trên mỗi trang
+            int pageSize = 6;
+
+            // Số trang hiện tại (nếu không có sẽ mặc định là 1)
+            int pageNumber = (page ?? 1);
             var room_list = _roomServices.GetAllRooms();
-            return View(room_list);
+            return View(room_list.ToPagedList(pageNumber, pageSize));
         }
         [HttpPost]
-        public ActionResult Index(DateTime check_in, DateTime check_out)
+        public ActionResult Index(int? page,DateTime check_in, DateTime check_out)
         {
+          
+            // Số lượng mục trên mỗi trang
+            int pageSize = 6;
+
+            // Số trang hiện tại (nếu không có sẽ mặc định là 1)
+            int pageNumber = (page ?? 1);
+            var bookedRoomIds = db.booking_details
+            .Where(b => !(b.check_in >= check_out || b.check_out <= check_in))
+            .Select(b => b.id)
+            .ToList();
+
+            var availableRooms = db.rooms
+                .Where(r => !bookedRoomIds.Contains(r.id))
+                .ToList();
             System.Web.HttpContext.Current.Session.Timeout = 30;
             TimeSpan difference = check_out - check_in;
             double totalDays = difference.TotalDays;
             Session["day"] = totalDays;
             Session["check_in"] = check_in.Date;
             Session["check_out"] = check_out.Date;
-            return RedirectToAction("Index");
+            ViewBag.CheckIn = check_in;
+            ViewBag.CheckIn = check_out;
+
+            return View(availableRooms.ToPagedList(pageNumber, pageSize));
         }
         [HttpGet]
         //public ActionResult RoomDetail(int id)

@@ -1,5 +1,6 @@
 ﻿using hotel_bookings.Areas.Admin.Service;
 using hotel_bookings.Models;
+using PagedList;
 using System.Data;
 using System.IO;
 using System.Web;
@@ -7,6 +8,7 @@ using System.Web.Mvc;
 
 namespace hotel_bookings.Areas.Admin.Controllers
 {
+    //[Authorize]
 
     public class RoomController : Controller
     {
@@ -19,11 +21,16 @@ namespace hotel_bookings.Areas.Admin.Controllers
             _roomService = roomService;
         }
         [HttpGet]
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
+            // Số lượng mục trên mỗi trang
+            int pageSize = 8;
+
+            // Số trang hiện tại (nếu không có sẽ mặc định là 1)
+            int pageNumber = (page ?? 1);
             var rooms = _roomService.GetAllRooms();
 
-            return View(rooms);
+            return View(rooms.ToPagedList(pageNumber, pageSize));
         }
         [HttpGet]
         public ActionResult AddRoom()

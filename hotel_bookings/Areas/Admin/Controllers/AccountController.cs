@@ -7,10 +7,13 @@ using System.Web.Mvc;
 
 namespace hotel_bookings.Areas.Admin.Controllers
 {
+    //[Authorize]
+
     public class AccountController : Controller
     {
         // GET: Admin/Account
         private HotelBookingEntities db = new HotelBookingEntities();
+        [Authorize(Roles = "admin")]
 
         public ActionResult Index()
         {

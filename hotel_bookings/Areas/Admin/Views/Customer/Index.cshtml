@@ -1,4 +1,6 @@
-﻿@model List<hotel_bookings.Models.user>
+﻿@model PagedList.IPagedList<hotel_bookings.Models.user>
+@using PagedList.Mvc
+
 
 @{
     ViewBag.Title = "Index";
@@ -49,7 +51,11 @@
                         </tr>
                     }
                 </tbody>
+
             </table>
+            <div class="pagination-container">
+                @Html.PagedListPager(Model, page => Url.Action("Index", new { page }), new PagedListRenderOptions { Display = PagedListDisplayMode.IfNeeded })
+            </div>
         </div>
     </div>
 </div>

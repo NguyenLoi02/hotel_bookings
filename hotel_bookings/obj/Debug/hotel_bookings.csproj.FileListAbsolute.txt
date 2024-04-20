@@ -87,3 +87,7 @@ D:\dotnet\hotel_bookings\hotel_bookings\bin\Ninject.Web.Common.xml
 D:\dotnet\hotel_bookings\hotel_bookings\bin\Ninject.Web.Common.WebHost.xml
 D:\dotnet\hotel_bookings\hotel_bookings\bin\Ninject.Web.Mvc.xml
 D:\dotnet\hotel_bookings\hotel_bookings\obj\Debug\hotel_bo.29DB2EC6.Up2Date
+D:\dotnet\hotel_bookings\hotel_bookings\bin\PagedList.dll
+D:\dotnet\hotel_bookings\hotel_bookings\bin\PagedList.Mvc.dll
+D:\dotnet\hotel_bookings\hotel_bookings\bin\PagedList.xml
+D:\dotnet\hotel_bookings\hotel_bookings\bin\PagedList.Mvc.xml

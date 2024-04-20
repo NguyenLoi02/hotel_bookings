@@ -7,18 +7,18 @@ using System.Web.Mvc;
 
 namespace hotel_bookings.Areas.Admin.Controllers
 {
+    //[Authorize]
     public class HomeController : Controller
     {
         // GET: Admin/Home
         private HotelBookingEntities db = new HotelBookingEntities();
-        //[Authentication]
         public ActionResult Index()
         {
 
-            //if (Session["user"] == null)
-            //{
-            //    return RedirectToAction("Login", "Access");
-            //}
+            if (Session["user"] == null)
+            {
+                return RedirectToAction("Login", "Access");
+            }
             return View();
 
         }

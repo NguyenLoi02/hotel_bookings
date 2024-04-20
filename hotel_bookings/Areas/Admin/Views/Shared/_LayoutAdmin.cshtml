@@ -165,14 +165,10 @@
                             <div class="dropdown-menu dropdown-menu-right nav-user-dropdown" aria-labelledby="navbarDropdownMenuLink2">
                                 <div class="nav-user-info">
                                     <h4 class="mb-0 text-white nav-user-name">
-                                        @*@{
-                                                var user = (hotel_bookings.Models.admin)HttpContext.Current.Session["user"];
-                                                if (user != null)
-                                                {
-                                                    var adminUsername = user.username;
-                                                    @adminUsername
-                                                }
-                                            }*@
+                                        @if (Session["admin"] != null)
+                                        {
+                                            <h3>@Session["admin"]</h3>
+                                        }
                                     </h4>
                                 </div>
                                 <a class="dropdown-item" href="#"><i class="fas fa-user mr-2"></i>Account</a>
@@ -214,7 +210,7 @@
                                         <li class="nav-item">
                                             <a class="nav-link" href="@Url.Action("booked", "OrderRoom")" id="show_booked_room">Quản lý phòng đã đặt</a>
                                         </li>
-                                        
+
                                     </ul>
                                 </div>
                             </li>
@@ -230,15 +226,19 @@
                             <li class="nav-item">
                                 <a class="nav-link" href=""><i class="fa fa-fw fa-user-circle"></i> Quản lý vấn đề khách hàng</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="@Url.Action("Index", "Account")"><i class="fa fa-fw fa-user-circle"></i> Quản lý tài khoản</a>
-                            </li>
+                            @if (User.IsInRole("admin"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" href="@Url.Action("Index", "Account")"><i class="fa fa-fw fa-user-circle"></i> Quản lý tài khoản</a>
+                                </li>
+
+                            }
                             <li class="nav-item">
                                 <a class="nav-link" href=""><i class="fa fa-fw fa-user-circle"></i> Cài đặt</a>
                             </li>
                             @*<li class="nav-item active">
-                                    <a class="nav-link" href="">Quản lý tài khoản</a>
-                                </li>*@
+            <a class="nav-link" href="">Quản lý tài khoản</a>
+        </li>*@
 
 
                         </ul>

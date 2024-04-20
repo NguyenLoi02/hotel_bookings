@@ -5,9 +5,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace hotel_bookings.Areas.Admin.Controllers
 {
+    
+
     public class AccessController : Controller
     {
         // GET: Admin/Login
@@ -18,25 +21,33 @@ namespace hotel_bookings.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(string username, string password)
+        public ActionResult Login(admin u)
         {
-            var Account = db.admins.SingleOrDefault(m => m.username.ToLower() == username.ToLower() && m.password == password);
-            if (Account != null)
+            if (ModelState.IsValid)
             {
-                Session["user"] = Account;
-                return RedirectToAction("Index", "Home");
+                var Account = db.admins.Where(m => m.username.ToLower() == u.username.ToLower() && m.password == u.password).FirstOrDefault();
+                if (Account != null)
+                {
+                    FormsAuthentication.SetAuthCookie(u.username, false);
+                    Session["admin"] = u.username.ToString();
+                    if (Account != null)
+                    {
+                        return RedirectToAction("Index", "Home");
+                        //return Redirect(ReturnUrl);
+                    }
+                    else
+                    {
+                        return RedirectToAction("Login", "Access");
+                    }
+                }
             }
-            else
-            {
-                return View();
-
-            }
+            return View();
         }
 
         public ActionResult Logout()
         {
+            FormsAuthentication.SignOut();
             Session.Clear();
-            Session.Abandon();
             return RedirectToAction("Login", "Access");
         }
     }

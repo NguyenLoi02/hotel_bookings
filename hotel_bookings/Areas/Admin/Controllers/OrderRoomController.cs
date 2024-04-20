@@ -8,6 +8,8 @@ using System.Web.Mvc;
 
 namespace hotel_bookings.Areas.Admin.Controllers
 {
+    //[Authorize]
+
     public class OrderRoomController : Controller
     {
         private HotelBookingEntities db = new HotelBookingEntities();
