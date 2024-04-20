@@ -1,0 +1,6 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/hotel_bookings/FileContentIndex/0c993067-74dd-4f29-8eaa-c35c5c13ce9a.vsidx
+*.vsidx
