@@ -1,0 +1,41 @@
+﻿@model hotel_bookings.Models.news
+
+@{
+    ViewBag.Title = "UpdateNews";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="container">
+    <div class="card">
+        @*<div class="card-header">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h3>Thêm Sản Phẩm</h3>
+                    </div>
+                </div>
+            </div>*@
+        <div class="card-body">
+            <form action="" method="post" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <strong>Tiêu đề</strong>
+                            <input type="text" name="title" class="form-control" value="@Model.title">
+                        </div>
+
+
+                        <div class="form-group">
+                            <strong>Ảnh tin</strong>
+                            <input type="file" name="ImageUpload" class="form-control" value="@Model.image">
+                        </div>
+
+
+                    </div>
+                </div>
+                <a href="@Url.Action("Index", "News")" class="btn btn-light float-right" style="margin: 8px 0px;">Hủy</a>
+                <button type="submit" class="btn btn-success mt-2 float-right" style=" margin: 2px 10px; ">Lưu</button>
+            </form>
+        </div>
+    </div>
+</div>
+

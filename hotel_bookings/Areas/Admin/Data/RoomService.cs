@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace hotel_bookings.Areas.Admin.Data
 {
@@ -23,6 +24,7 @@ namespace hotel_bookings.Areas.Admin.Data
 
         public IEnumerable<room> GetAllRooms()
         {
+
             var rooms = _dbContext.rooms.ToList();
             int count = 1;
             foreach (var item in rooms)
@@ -32,7 +34,15 @@ namespace hotel_bookings.Areas.Admin.Data
             }
             return rooms;
         }
-        
+        public IEnumerable<room> SearchRooms(string a)
+        {
+            var SearchView = new SearchViewModel
+            {
+                rooms = _dbContext.rooms.ToList(),
+                room_Styles = _dbContext.room_style.ToList(),
+            };
+            return SearchView.rooms;
+        }
         public void AddRoom(room room)
         {
             if (room.ImageUpload != null && room.ImageUpload.ContentLength > 0)
@@ -110,5 +120,6 @@ namespace hotel_bookings.Areas.Admin.Data
             }
         }
 
+        
     }
 }

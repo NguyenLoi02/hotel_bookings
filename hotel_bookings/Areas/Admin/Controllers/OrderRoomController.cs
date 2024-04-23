@@ -13,13 +13,9 @@ namespace hotel_bookings.Areas.Admin.Controllers
     public class OrderRoomController : Controller
     {
         private HotelBookingEntities db = new HotelBookingEntities();
-        private readonly IOrderRoomService _orderRoomService;
 
-        public OrderRoomController(IOrderRoomService roomService)
-        {
-            _orderRoomService = roomService;
-        }
         // GET: Admin/OrderRoom
+        [HttpGet]
         public ActionResult booking()
         {
             var viewModel = new BookingViewModel
@@ -49,6 +45,46 @@ namespace hotel_bookings.Areas.Admin.Controllers
             }
             return View(viewModel);
         }
+        [HttpPost] // Đánh dấu phương thức chỉ được gọi khi gửi dữ liệu bằng phương thức POST
+        public ActionResult booking(string phonenum)
+        {
+            // Lấy danh sách các đặt phòng từ cơ sở dữ liệu
+            var viewModel = new BookingViewModel
+            {
+                users = db.users.ToList(),
+                order_services = db.order_service.ToList(),
+                services = db.services.ToList(),
+                rooms = db.rooms.ToList(),
+                booking_orders = db.booking_order.ToList(),
+                booking_details = db.booking_details.ToList()
+            };
+
+            // Thêm logic tìm kiếm vào đây
+            if (!string.IsNullOrEmpty(phonenum))
+            {
+                // Nếu có số điện thoại được nhập vào biểu mẫu, thực hiện tìm kiếm
+                viewModel.users = viewModel.users.Where(u => u.phonenum == phonenum).ToList();
+            }
+
+            // Sắp xếp lại số thứ tự nếu cần
+            int count = 1;
+            foreach (var item in viewModel.booking_orders)
+            {
+                if (item.trans_status == 0)
+                {
+                    item.RowNumber = count;
+                    count++;
+                }
+                else
+                {
+                    // Reset count if trans_status is not 0
+                    count = 1;
+                }
+            }
+
+            return View(viewModel);
+        }
+
 
 
         public ActionResult DeleteBooking(int bookingOrderId)

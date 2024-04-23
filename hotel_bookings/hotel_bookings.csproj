@@ -149,12 +149,16 @@
     <Compile Include="Areas\Admin\Controllers\AccountController.cs" />
     <Compile Include="Areas\Admin\Controllers\CustomerController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\NewsController.cs" />
     <Compile Include="Areas\Admin\Controllers\OrderRoomController.cs" />
     <Compile Include="Areas\Admin\Controllers\RoomController.cs" />
-    <Compile Include="Areas\Admin\Data\OrderRoomService.cs" />
+    <Compile Include="Areas\Admin\Data\NewsService.cs" />
     <Compile Include="Areas\Admin\Data\RoomService.cs" />
-    <Compile Include="Areas\Admin\Service\IOrderRoomService.cs" />
+    <Compile Include="Areas\Admin\Service\INewsService.cs" />
     <Compile Include="Areas\Admin\Service\IRoomService.cs" />
+    <Compile Include="Controllers\NewsController.cs" />
+    <Compile Include="Models\RoleViewModel.cs" />
+    <Compile Include="Models\SearchViewModel.cs" />
     <Compile Include="MyRoleProvider.cs" />
     <Compile Include="Controllers\AccessController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -2796,6 +2800,7 @@
     <Content Include="Assets\img\hero\hero-2.jpg" />
     <Content Include="Assets\img\hero\hero-3.jpg" />
     <Content Include="Assets\img\logo.png" />
+    <Content Include="Assets\img\news\news01.jpg" />
     <Content Include="Assets\img\play.png" />
     <Content Include="Assets\img\room\avatar\avatar-1.jpg" />
     <Content Include="Assets\img\room\avatar\avatar-2.jpg" />
@@ -3069,6 +3074,10 @@
     <Content Include="Assets\fonts\fontawesome-free-6.5.1-web\webfonts\fa-v4compatibility.woff2" />
     <Content Include="Areas\Admin\Views\Customer\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Account\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\News\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\News\AddNews.cshtml" />
+    <Content Include="Areas\Admin\Views\News\UpdateNews.cshtml" />
+    <Content Include="Areas\Admin\Views\Account\role.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -3101,6 +3110,8 @@
     <Content Include="Views\Room\RoomOrder.cshtml" />
     <Content Include="Views\Room\roomDetails.cshtml" />
     <Content Include="Views\Room\search.cshtml" />
+    <Content Include="Views\News\Index.cshtml" />
+    <Content Include="Views\News\NewsDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

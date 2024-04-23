@@ -35,7 +35,7 @@ namespace hotel_bookings.Controllers
             return View(room_list.ToPagedList(pageNumber, pageSize));
         }
         [HttpPost]
-        public ActionResult Index(int? page,DateTime check_in, DateTime check_out)
+        public ActionResult search(int? page,DateTime check_in, DateTime check_out)
         {
           
             // Số lượng mục trên mỗi trang
@@ -49,7 +49,7 @@ namespace hotel_bookings.Controllers
             .ToList();
 
             var availableRooms = db.rooms
-                .Where(r => !bookedRoomIds.Contains(r.id))
+                .Where(r => !bookedRoomIds.Contains(r.id) && r.quantity > 0)
                 .ToList();
             System.Web.HttpContext.Current.Session.Timeout = 30;
             TimeSpan difference = check_out - check_in;

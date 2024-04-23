@@ -35,5 +35,22 @@ namespace hotel_bookings.Areas.Admin.Controllers
             }
             return View(customer.ToPagedList(pageNumber, pageSize));
         }
+        [HttpPost]
+        public ActionResult Index(int? page, string sdt)
+        {
+            // Số lượng mục trên mỗi trang
+            int pageSize = 10;
+
+            // Số trang hiện tại (nếu không có sẽ mặc định là 1)
+            int pageNumber = (page ?? 1);
+            var customer = db.users.Where(r => r.phonenum == sdt).ToList();
+            int count = 1;
+            foreach (var item in customer)
+            {
+                item.RowNumber = count;
+                count++;
+            }
+            return View(customer.ToPagedList(pageNumber, pageSize));
+        }
     }
 }

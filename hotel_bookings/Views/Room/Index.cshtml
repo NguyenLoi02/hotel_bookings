@@ -23,14 +23,105 @@
         </div>
     </div>
 </div>
-<div class="nav-right search-switch container" style="">
-    <i class="icon_search "></i>
-</div>
+
 <!-- Breadcrumb Section End -->
 <!-- Rooms Section Begin -->
+
 <section class="rooms-section spad">
     <div class="container">
         <div class="row">
+            <script>
+                $(document).ready(function () {
+                    $('#bookingForm').submit(function(event) {
+                        event.preventDefault(); // Ngăn chặn hành động mặc định của form
+
+                        // Lấy dữ liệu từ form
+                        var formData = {
+                            check_in: $('#checkInDatePicker').val(),
+                            check_out: $('#checkOutDatePicker').val()
+                        };
+
+                        // Gửi yêu cầu Ajax
+                        $.ajax({
+                            type: 'POST',
+                            url: '@Url.Action("search", "Room")', // Thay thế Tên_Controller bằng tên thực tế của controller
+                            data: formData,
+                            success: function(response) {
+                                // Xử lý kết quả nếu cần
+                                $('#searchRoom').html(response);
+                            },
+                            error: function(xhr, status, error) {
+                                // Xử lý lỗi nếu có
+                                console.error('Lỗi khi gửi dữ liệu: ' + error);
+                            }
+                        });
+                    });
+                    // Bắt sự kiện click cho tất cả các thẻ <a> có class bookingLink
+                    $('.bookingLink').click(function(event) {
+                        event.preventDefault(); // Ngăn chặn hành động mặc định của thẻ <a>
+
+                        var roomId = $(this).data('room-id'); // Lấy id từ thuộc tính data-room-id của thẻ <a>
+
+                        var checkInDate = $('#checkInDatePicker').val();
+                        var checkOutDate = $('#checkOutDatePicker').val();
+
+                        if (!checkInDate || !checkOutDate) {
+                            // Ngày đến hoặc ngày đi chưa được nhập
+                            $('#checkInDatePicker').addClass('is-invalid');
+                            $('#checkOutDatePicker').addClass('is-invalid');
+                        } else {
+                            // Ngày đến và ngày đi đã được nhập
+                            $('#checkInDatePicker').removeClass('is-invalid');
+                            $('#checkOutDatePicker').removeClass('is-invalid');
+
+                            // Tạo URL sử dụng Url.Action và chuyển hướng đến đó
+                            var url = '@Url.Action("RoomService", "Room")' + '?id=' + roomId;
+                            window.location.href = url;
+                        }
+                    });
+
+                });
+                    $(document).ready(function() {
+                    $('.room-item').click(function() {
+                        var roomId = $(this).data('room-id');
+                        $.ajax({
+                            url: '@Url.Action("RoomDetails", "Room")',
+                            type: 'GET',
+                            data: { id: roomId },
+                            success: function(result) {
+                                $('#room-detail-container').fadeOut(0).delay(200).html(result).fadeIn(200);
+                            }
+                        });
+                    });
+
+                });
+            </script>
+            <style>
+                .is-invalid {
+                    border-color: red; /* Thiết lập màu đỏ cho khung input */
+                }
+            </style>
+
+            <div class="col-lg-8 col-md-6">
+                <form id="bookingForm" method="" class="form-inline">
+                    <div class="form-group mr-2">
+                        <label for="checkInDatePicker" class="mr-2">Ngày đến:</label>
+                        <input type="date" class="form-control" id="checkInDatePicker" name="check_in">
+                    </div>
+                    <div class="form-group mr-2">
+                        <label for="checkOutDatePicker" class="mr-2">Ngày đi:</label>
+                        <input type="date" class="form-control" id="checkOutDatePicker" name="check_out">
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="color: #fff; background-color: #dfa974; border-color: #dfa974;">Tìm kiếm</button>
+                </form>
+            </div>
+            <div class="col-lg-4 col-md-6 nav-right search-switch container" style="">
+                <i style="font-size: 29px; float: right;" class="icon_search "></i>
+            </div>
+        </div>
+
+        
+        <div class="row" id="searchRoom">
             @foreach (var item in Model)
             {
                 <div class="col-lg-4 col-md-6">
@@ -55,11 +146,14 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <a href="@Url.Action("RoomService", "Room" ,new { id = item.id })" class="primary-btn">Chi tiết phòng</a>
+                            <a class="primary-btn bookingLink" data-room-id="@item.id">Đặt phòng</a>
                         </div>
                     </div>
                 </div>
             }
+
+       
+
             <div class="col-lg-12">
                 <div class="room-pagination">
                     @Html.PagedListPager(Model, page => Url.Action("Index", new { page, check_in = ViewBag.CheckIn, check_out = ViewBag.CheckOut }))
@@ -71,24 +165,7 @@
         </div>
     </div>
 </section>
-<script>
-    // Lấy ngày hiện tại
-    var today = new Date();
-    // Lấy ngày, tháng và năm từ đối tượng Date
-    var day = String(today.getDate()).padStart(2, '0');
-    var month = String(today.getMonth() + 1).padStart(2, '0'); // Tháng bắt đầu từ 0 nên cần cộng thêm 1
-    var year = today.getFullYear();
 
-    // Tạo chuỗi đại diện cho ngày hiện tại theo định dạng dd-mm-yyyy
-    var formattedDate = day + '-' + month + '-' + year;
-
-
-    // Thiết lập thuộc tính min của thẻ input type="date" của ngày đến
-    document.getElementById("checkInDatePicker").setAttribute("min", formattedDate);
-
-    // Thiết lập thuộc tính min của thẻ input type="date" của ngày đi
-    document.getElementById("checkOutDatePicker").setAttribute("min", formattedDate);
-</script>
 <!-- Rooms Section End -->
 <div class="search-model" style="width: 17%; opacity: 0.5; ">
     <div class="h-100 d-flex align-items-center justify-content-center">
@@ -130,19 +207,6 @@
 </div>
 <div id="room-detail-container"> </div>
 <script>
-    $(document).ready(function() {
-    $('.room-item').click(function() {
-        var roomId = $(this).data('room-id');
-        $.ajax({
-            url: '@Url.Action("RoomDetails", "Room")',
-            type: 'GET',
-            data: { id: roomId },
-            success: function(result) {
-                $('#room-detail-container').fadeOut(0).delay(200).html(result).fadeIn(200);
-            }
-        });
-    });
-
-});
-
+    
 </script>
+

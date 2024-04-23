@@ -26,5 +26,21 @@ namespace hotel_bookings.Areas.Admin.Controllers
             }
             return View(account);
         }
+        public ActionResult role()
+        {
+            var RoleView = new RoleViewModel
+            {
+                admins = db.admins.ToList(),
+                admin_Roles = db.admin_role.ToList(),
+                roles = db.roles.ToList(),
+            };
+            int count = 1;
+            foreach (var item in RoleView.admins)
+            {
+                item.RowNumber = count;
+                count++;
+            }
+            return View(RoleView);
+        }
     }
 }

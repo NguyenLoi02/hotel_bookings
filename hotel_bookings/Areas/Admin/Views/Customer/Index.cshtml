@@ -9,14 +9,27 @@
 
 <div class="container">
     <div class="card">
-        <div class="#" style="display: inline-flex;justify-content: flex-end;">
-            <div id="custom-search" class="top-search-bar">
-                <input class="form-control" type="text" placeholder="Search..">
-            </div>
-            <div>
-                <a href="@Url.Action("AddRoom", "Room")" class="badge badge-info" style="margin-top: 16px; margin-right: 22px; font-size: 18px;">Thêm <i class="fa-solid fa-plus"></i></a>
+        <div class="container">
+            <div class="row">
+                <div id="custom-search" class="col-sm-8" >
+                    <form class="row" method="post"style="padding: 0 6px;">
+                        <div class="form-group col-sm-6">
+                            <input type="text" class="form-control" name="sdt" placeholder="Nhập số điện thoại">
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="btn-group" role="group">
+                                <button class="btn btn-dark" type="submit">Tìm kiếm</button>
+                                <a href="@Url.Action("Index", "Customer")" class="btn btn-dark">Reset</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-sm-4">
+                    <a href="@Url.Action("AddRoom", "Room")" class="btn btn-info" style="margin-top: 10px; font-size: 18px; float: right; margin-right: 7px;">Thêm <i class="fa-solid fa-plus"></i></a>
+                </div>
             </div>
         </div>
+
         <div class="card-body">
             <table class="table">
                 <thead>
@@ -29,7 +42,6 @@
                         <th>Email</th>
                         <th>Địa chỉ</th>
                         <th>Chức năng</th>
-
                     </tr>
                 </thead>
                 <tbody>
@@ -53,8 +65,16 @@
                 </tbody>
 
             </table>
-            <div class="pagination-container">
-                @Html.PagedListPager(Model, page => Url.Action("Index", new { page }), new PagedListRenderOptions { Display = PagedListDisplayMode.IfNeeded })
+            <div class="container mt-5">
+                <ul class="pagination">
+                    @for (int i = 1; i <= Model.PageCount; i++)
+                    {
+                        <li class="page-item @(Model.PageNumber == i ? "active" : "")">
+                            <a class="page-link" href="@Url.Action("Index", new { page = i })">@i</a>
+                        </li>
+                    }
+
+                </ul>
             </div>
         </div>
     </div>

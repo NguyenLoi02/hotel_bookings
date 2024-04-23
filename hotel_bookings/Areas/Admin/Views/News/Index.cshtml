@@ -1,0 +1,52 @@
+﻿@model PagedList.IPagedList<hotel_bookings.Models.news>
+@using PagedList.Mvc
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="container">
+    <div class="card">
+        <div class="#" style="display: inline-flex;justify-content: flex-end;">
+            <div id="custom-search" class="top-search-bar">
+                <input class="form-control" type="text" placeholder="Search..">
+            </div>
+            <div>
+                <a href="@Url.Action("AddNews", "News")" class="badge badge-info" style="margin-top: 16px; margin-right: 22px; font-size: 18px;">Thêm <i class="fa-solid fa-plus"></i></a>
+            </div>
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                    <tr style="background-color: #221f50; ">
+                        <th>STT</th>
+                        <th>Ảnh tin tức</th>
+                        <th>Ngày đăng</th>
+                        <th>Tiêu đề</th>
+                        <th>Chức năng</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.RowNumber</td>
+                            <td><img src="~/Assets/img/news/@item.image" alt="" height="100" width="100"></td>
+                            <td>@item.date_news</td>
+                            <td>@item.title</td>                           
+                            <td>
+                                <a href="@Url.Action("DeleteNews", "News",new { id = item.id })"><i class="fa-regular fa-trash-can"></i></a>
+                                <a href="@Url.Action("UpdateNews", "News",new { id = item.id })"><i class="fa-regular fa-pen-to-square"></i></a>
+                            </td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div class="pagination-container">
+                @Html.PagedListPager(Model, page => Url.Action("Index", new { page }), new PagedListRenderOptions { Display = PagedListDisplayMode.IfNeeded })
+            </div>
+        </div>
+    </div>
+</div>
+

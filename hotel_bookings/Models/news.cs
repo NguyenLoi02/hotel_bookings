@@ -11,7 +11,9 @@ namespace hotel_bookings.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Web;
+
     public partial class news
     {
         public news()
@@ -25,5 +27,8 @@ namespace hotel_bookings.Models
         public string image { get; set; }
     
         public virtual ICollection<content> contents { get; set; }
+        public int RowNumber { get; internal set; }
+        [NotMapped]
+        public HttpPostedFileBase ImageUpload { get; set; }
     }
 }

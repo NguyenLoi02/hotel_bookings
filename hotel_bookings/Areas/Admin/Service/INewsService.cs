@@ -4,11 +4,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web;
 
 namespace hotel_bookings.Areas.Admin.Service
 {
-    public interface IOrderRoomService
+    public interface INewsService
     {
+        IEnumerable<news> GetAllNews();
+        void AddNews(news News);
+        news UpdateNews(int id);
+        void UpdateNews(news News);
+        void DeleteNews(int id);
     }
 }

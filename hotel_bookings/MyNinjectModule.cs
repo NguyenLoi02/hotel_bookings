@@ -10,9 +10,11 @@ namespace hotel_bookings
         public override void Load()
         {
             Bind<IRoomService>().To<RoomService>();
-            Bind<IOrderRoomService>().To<OrderRoomService>();
 
+            Bind<INewsService>().To<NewsService>();
             Bind<IRoomServices>().To<RoomServices>();
+
+
 
         }
     }

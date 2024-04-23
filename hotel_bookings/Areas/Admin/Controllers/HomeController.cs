@@ -8,6 +8,8 @@ using System.Web.Mvc;
 namespace hotel_bookings.Areas.Admin.Controllers
 {
     //[Authorize]
+    [AllowAnonymous]
+
     public class HomeController : Controller
     {
         // GET: Admin/Home
@@ -15,7 +17,7 @@ namespace hotel_bookings.Areas.Admin.Controllers
         public ActionResult Index()
         {
 
-            if (Session["user"] == null)
+            if (Session["admin"] == null)
             {
                 return RedirectToAction("Login", "Access");
             }
