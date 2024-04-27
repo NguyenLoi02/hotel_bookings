@@ -1,7 +1,5 @@
-﻿using hotel_bookings.Areas.Admin.Data;
-using hotel_bookings.Areas.Admin.Service;
-using hotel_bookings.Repositories;
-using hotel_bookings.Services;
+﻿using hotel_bookings.Models.Data;
+using hotel_bookings.Models.Service;
 using Ninject.Modules;
 namespace hotel_bookings
 {
@@ -10,9 +8,7 @@ namespace hotel_bookings
         public override void Load()
         {
             Bind<IRoomService>().To<RoomService>();
-
             Bind<INewsService>().To<NewsService>();
-            Bind<IRoomServices>().To<RoomServices>();
 
 
 

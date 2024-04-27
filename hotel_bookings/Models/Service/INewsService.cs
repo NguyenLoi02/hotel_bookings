@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace hotel_bookings.Areas.Admin.Service
+namespace hotel_bookings.Models.Service
 {
     public interface INewsService
     {

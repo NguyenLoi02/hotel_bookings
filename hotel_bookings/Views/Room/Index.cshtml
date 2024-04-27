@@ -1,7 +1,9 @@
 ﻿
 @model PagedList.IPagedList<hotel_bookings.Models.room>
 @using PagedList.Mvc
-
+@{
+    var roomStyleList = ViewBag.roomStyleList as List<hotel_bookings.Models.room_style>;
+}
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -29,80 +31,99 @@
 
 <section class="rooms-section spad">
     <div class="container">
-        <div class="row">
+        <div class="row ">
             <script>
                 $(document).ready(function () {
-                    $('#bookingForm').submit(function(event) {
-                        event.preventDefault(); // Ngăn chặn hành động mặc định của form
+                $('#bookingForm').submit(function (event) {
+                    event.preventDefault(); // Ngăn chặn hành động mặc định của form
 
-                        // Lấy dữ liệu từ form
-                        var formData = {
-                            check_in: $('#checkInDatePicker').val(),
-                            check_out: $('#checkOutDatePicker').val()
-                        };
+                    // Lấy dữ liệu từ form
+                    var formData = {
+                        check_in: $('#checkInDatePicker').val(),
+                        check_out: $('#checkOutDatePicker').val()
+                    };
 
-                        // Gửi yêu cầu Ajax
-                        $.ajax({
-                            type: 'POST',
-                            url: '@Url.Action("search", "Room")', // Thay thế Tên_Controller bằng tên thực tế của controller
-                            data: formData,
-                            success: function(response) {
-                                // Xử lý kết quả nếu cần
-                                $('#searchRoom').html(response);
-                            },
-                            error: function(xhr, status, error) {
-                                // Xử lý lỗi nếu có
-                                console.error('Lỗi khi gửi dữ liệu: ' + error);
-                            }
-                        });
-                    });
-                    // Bắt sự kiện click cho tất cả các thẻ <a> có class bookingLink
-                    $('.bookingLink').click(function(event) {
-                        event.preventDefault(); // Ngăn chặn hành động mặc định của thẻ <a>
-
-                        var roomId = $(this).data('room-id'); // Lấy id từ thuộc tính data-room-id của thẻ <a>
-
-                        var checkInDate = $('#checkInDatePicker').val();
-                        var checkOutDate = $('#checkOutDatePicker').val();
-
-                        if (!checkInDate || !checkOutDate) {
-                            // Ngày đến hoặc ngày đi chưa được nhập
-                            $('#checkInDatePicker').addClass('is-invalid');
-                            $('#checkOutDatePicker').addClass('is-invalid');
-                        } else {
-                            // Ngày đến và ngày đi đã được nhập
-                            $('#checkInDatePicker').removeClass('is-invalid');
-                            $('#checkOutDatePicker').removeClass('is-invalid');
-
-                            // Tạo URL sử dụng Url.Action và chuyển hướng đến đó
-                            var url = '@Url.Action("RoomService", "Room")' + '?id=' + roomId;
-                            window.location.href = url;
+                    // Gửi yêu cầu Ajax
+                    $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("search", "Room")', // Thay thế Tên_Controller bằng tên thực tế của controller
+                        data: formData,
+                        success: function (response) {
+                            // Xử lý kết quả nếu cần
+                            $('#searchRoom').html(response);
+                        },
+                        error: function (xhr, status, error) {
+                            // Xử lý lỗi nếu có
+                            console.error('Lỗi khi gửi dữ liệu: ' + error);
                         }
                     });
-
                 });
-                    $(document).ready(function() {
-                    $('.room-item').click(function() {
-                        var roomId = $(this).data('room-id');
-                        $.ajax({
-                            url: '@Url.Action("RoomDetails", "Room")',
-                            type: 'GET',
-                            data: { id: roomId },
-                            success: function(result) {
-                                $('#room-detail-container').fadeOut(0).delay(200).html(result).fadeIn(200);
-                            }
-                        });
+                    $('#filter').submit(function (event) {
+                    event.preventDefault(); // Ngăn chặn hành động mặc định của form
+
+                    // Lấy dữ liệu từ form
+                    var formData = {
+                        filterRoom: $('#filterRoom').val(),
+                       
+                    };
+
+                    // Gửi yêu cầu Ajax
+                    $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("filter", "Room")', // Thay thế Tên_Controller bằng tên thực tế của controller
+                        data: formData,
+                        success: function (response) {
+                            // Xử lý kết quả nếu cần
+                            $('#searchRoom').html(response);
+                        },
+                        error: function (xhr, status, error) {
+                            // Xử lý lỗi nếu có
+                            console.error('Lỗi khi gửi dữ liệu: ' + error);
+                        }
                     });
-
                 });
-            </script>
-            <style>
-                .is-invalid {
-                    border-color: red; /* Thiết lập màu đỏ cho khung input */
-                }
-            </style>
+                // Bắt sự kiện click cho tất cả các thẻ <a> có class bookingLink
+                $('.bookingLink').click(function (event) {
+                    event.preventDefault(); // Ngăn chặn hành động mặc định của thẻ <a>
 
-            <div class="col-lg-8 col-md-6">
+                    var roomId = $(this).data('room-id'); // Lấy id từ thuộc tính data-room-id của thẻ <a>
+
+                    var checkInDate = $('#checkInDatePicker').val();
+                    var checkOutDate = $('#checkOutDatePicker').val();
+
+                    if (!checkInDate || !checkOutDate) {
+                        // Ngày đến hoặc ngày đi chưa được nhập
+                        $('#checkInDatePicker').addClass('is-invalid');
+                        $('#checkOutDatePicker').addClass('is-invalid');
+                    } else {
+                        // Ngày đến và ngày đi đã được nhập
+                        $('#checkInDatePicker').removeClass('is-invalid');
+                        $('#checkOutDatePicker').removeClass('is-invalid');
+
+                        // Tạo URL sử dụng Url.Action và chuyển hướng đến đó
+                        var url = '@Url.Action("RoomService", "Room")' + '?id=' + roomId;
+                        window.location.href = url;
+                    }
+                });
+
+            });
+            $(document).ready(function () {
+                $('.room-item').click(function () {
+                    var roomId = $(this).data('room-id');
+                    $.ajax({
+                        url: '@Url.Action("RoomDetails", "Room")',
+                        type: 'GET',
+                        data: { id: roomId },
+                        success: function (result) {
+                            $('#room-detail-container').fadeOut(0).delay(200).html(result).fadeIn(200);
+                        }
+                    });
+                });
+
+            });
+            </script>
+
+            <div class="col-lg-12 col-md-6">
                 <form id="bookingForm" method="" class="form-inline">
                     <div class="form-group mr-2">
                         <label for="checkInDatePicker" class="mr-2">Ngày đến:</label>
@@ -115,13 +136,16 @@
                     <button type="submit" class="btn btn-primary" style="color: #fff; background-color: #dfa974; border-color: #dfa974;">Tìm kiếm</button>
                 </form>
             </div>
-            <div class="col-lg-4 col-md-6 nav-right search-switch container" style="">
+
+        </div>
+        <div class="row">
+
+            <div class="col-lg-12 col-md-6 nav-right search-switch container" style="">
                 <i style="font-size: 29px; float: right;" class="icon_search "></i>
             </div>
         </div>
 
-        
-        <div class="row" id="searchRoom">
+        <div class="row " id="searchRoom">
             @foreach (var item in Model)
             {
                 <div class="col-lg-4 col-md-6">
@@ -152,7 +176,7 @@
                 </div>
             }
 
-       
+
 
             <div class="col-lg-12">
                 <div class="room-pagination">
@@ -172,41 +196,45 @@
         <div class="search-close-switch"><i class="icon_close"></i></div>
         <div class="room-booking">
             <h3 style="color: aliceblue;">Tìm kiếm</h3>
-            <form method="post">
+            <form id="filter" method="post">
                 <div class="check-date">
-                    <label for="date-in">Ngày đến:</label>
-                    <input style="padding: 0 10px;" type="date" id="checkInDatePicker" name="check_in">
+                    <label for="date-in">Chọn loại phòng:</label>
+                    <select class="form-control" id="filterRoom">
+                        @foreach (var item in roomStyleList)
+                        {
+                            <option value="@item.id">@item.name</option>
+
+                        }
+
+                    </select>
                 </div>
-                <div class="check-date">
-                    <label for="date-out">Ngày đi:</label>
-                    <input style="padding: 0 10px;" type="date" id="checkOutDatePicker" name="check_out">
-                </div>
+
                 @*<div class="select-option">
-            <label for="guest">guests:</label>
-            <select id="guest" style="display: none;">
-                <option value="">3 adults</option>
-                <option value="">4 adults</option>
-                <option value="">5 adults</option>
-            </select>
-        </div>
-        <div class="select-option">
-            <label for="room">room:</label>
-            <select id="room" style="display: none;">
-                <option value="">1 room</option>
-                <option value="">1 room</option>
-                <option value="">1 room</option>
-            </select><div class="nice-select" tabindex="0"><span class="current">1 room</span><ul class="list"><li data-value="" class="option selected">1 room</li></ul></div>
-        </div>*@
+                        <label for="guest">guests:</label>
+                        <select id="guest" style="display: none;">
+                            <option value="">3 adults</option>
+                            <option value="">4 adults</option>
+                            <option value="">5 adults</option>
+                        </select>
+                    </div>
+                    <div class="select-option">
+                        <label for="room">room:</label>
+                        <select id="room" style="display: none;">
+                            <option value="">1 room</option>
+                            <option value="">1 room</option>
+                            <option value="">1 room</option>
+                        </select><div class="nice-select" tabindex="0"><span class="current">1 room</span><ul class="list"><li data-value="" class="option selected">1 room</li></ul></div>
+                    </div>*@
                 <button type="submit">tìm kiếm</button>
             </form>
 
-            
+
 
         </div>
     </div>
 </div>
 <div id="room-detail-container"> </div>
 <script>
-    
+
 </script>
 

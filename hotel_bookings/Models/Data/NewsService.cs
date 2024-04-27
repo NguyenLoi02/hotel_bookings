@@ -1,4 +1,4 @@
-﻿using hotel_bookings.Areas.Admin.Service;
+﻿using hotel_bookings.Models.Service;
 using hotel_bookings.Models;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 
-namespace hotel_bookings.Areas.Admin.Data
+namespace hotel_bookings.Models.Data
 {
     public class NewsService : INewsService
     {

@@ -1,0 +1,79 @@
+﻿@model PagedList.IPagedList<hotel_bookings.Models.room>
+@using PagedList.Mvc
+<script>
+    $('.bookingLink').click(function(event) {
+    event.preventDefault(); // Ngăn chặn hành động mặc định của thẻ <a>
+
+    var roomId = $(this).data('room-id'); // Lấy id từ thuộc tính data-room-id của thẻ <a>
+
+    var checkInDate = $('#checkInDatePicker').val();
+    var checkOutDate = $('#checkOutDatePicker').val();
+
+    if (!checkInDate || !checkOutDate) {
+        // Ngày đến hoặc ngày đi chưa được nhập
+        $('#checkInDatePicker').addClass('is-invalid');
+        $('#checkOutDatePicker').addClass('is-invalid');
+    } else {
+        // Ngày đến và ngày đi đã được nhập
+        $('#checkInDatePicker').removeClass('is-invalid');
+        $('#checkOutDatePicker').removeClass('is-invalid');
+
+        // Tạo URL sử dụng Url.Action và chuyển hướng đến đó
+        var url = '@Url.Action("RoomService", "Room")' + '?id=' + roomId;
+        window.location.href = url;
+        }
+
+    });
+    $(document).ready(function() {
+    $('.room-item').click(function() {
+        var roomId = $(this).data('room-id');
+        $.ajax({
+            url: '@Url.Action("RoomDetails", "Room")',
+            type: 'GET',
+            data: { id: roomId },
+            success: function(result) {
+                $('#room-detail-container').fadeOut(0).delay(200).html(result).fadeIn(200);
+            }
+        });
+    });
+
+});
+</script>
+@foreach (var item in Model)
+{
+    <div class="col-lg-4 col-md-6">
+        <div class="room-item">
+            <img src="../Assets/img/room/@item.avatar" alt="" class="room-item" data-room-id="@item.id">
+            <div class="ri-text">
+                <h4 class="room-details">@item.name</h4>
+                <h3>@item.price đ<span>  /Đêm</span></h3>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td class="r-o">Diện tích:</td>
+                            <td>@item.area m2</td>
+                        </tr>
+                        <tr>
+                            <td class="r-o">Số người:</td>
+                            <td>@(item.adult + item.children)</td>
+                        </tr>
+                        <tr>
+                            <td class="r-o">Phòng chống:</td>
+                            <td>@item.quantity</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <a class="primary-btn bookingLink" data-room-id="@item.id">Đặt phòng</a>
+            </div>
+        </div>
+    </div>
+}
+
+
+
+<div class="col-lg-12">
+    <div class="room-pagination">
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page, check_in = ViewBag.CheckIn, check_out = ViewBag.CheckOut }))
+
+    </div>
+</div>

@@ -1,4 +1,4 @@
-﻿using hotel_bookings.Areas.Admin.Service;
+﻿using hotel_bookings.Models.Service;
 using hotel_bookings.Models;
 using System;
 using System.Collections.Generic;

@@ -1,4 +1,4 @@
-﻿using hotel_bookings.Areas.Admin.Service;
+﻿using hotel_bookings.Models.Service;
 using hotel_bookings.Models;
 using PagedList;
 using System.Data;
@@ -54,7 +54,7 @@ namespace hotel_bookings.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Index(int? room_style_id, int? status)
         {
-            
+
             var query = db.rooms.AsQueryable();
 
             if (room_style_id != null)

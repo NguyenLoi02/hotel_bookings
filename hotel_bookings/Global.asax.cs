@@ -1,5 +1,5 @@
-﻿using hotel_bookings.Areas.Admin.Data;
-using hotel_bookings.Areas.Admin.Service;
+﻿using hotel_bookings.Models.Data;
+using hotel_bookings.Models.Service;
 using Ninject.Web.Mvc;
 using Ninject;
 using System;

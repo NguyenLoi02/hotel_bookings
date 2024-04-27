@@ -1,4 +1,4 @@
-﻿using hotel_bookings.Areas.Admin.Service;
+﻿using hotel_bookings.Models.Service;
 using hotel_bookings.Controllers;
 using hotel_bookings.Models;
 using System;
@@ -10,7 +10,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 
-namespace hotel_bookings.Areas.Admin.Data
+namespace hotel_bookings.Models.Data
 {
     public class RoomService : IRoomService
     {
@@ -120,6 +120,31 @@ namespace hotel_bookings.Areas.Admin.Data
             }
         }
 
-        
+        public IEnumerable<room> CheckRoom(DateTime check_in, DateTime check_out)
+        {
+            var bookedRoomIds = _dbContext.booking_details
+            .Where(b => !(b.check_in >= check_out || b.check_out <= check_in))
+            .Select(b => b.id)
+            .ToList();
+
+            var availableRooms = _dbContext.rooms
+                .Where(r => !bookedRoomIds.Contains(r.id) && r.quantity > 0)
+                .ToList();
+            return availableRooms;
+        }
+
+        public IEnumerable<room> RoomFilter(int? room_style_id)
+        {
+
+            var bookedRoomIds = _dbContext.room_style
+            .Where(b => b.id== room_style_id)
+            .Select(b => b.id)
+            .ToList();
+
+            var availableRooms = _dbContext.rooms
+                .Where(r => !bookedRoomIds.Contains(r.id))
+                .ToList();
+            return availableRooms;
+        }
     }
 }

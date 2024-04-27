@@ -1,4 +1,4 @@
-﻿
+﻿﻿
 @model hotel_bookings.Models.SearchViewModel
 
 @{
@@ -40,7 +40,7 @@
                         </div>
                     </form>
                 </div>
-                <div  class="col-sm-4">
+                <div class="col-sm-4">
                     <a href="@Url.Action("AddRoom", "Room")" class="btn btn-info" style="margin-top: 10px; font-size: 18px; float: right; margin-right: 7px;">Thêm <i class="fa-solid fa-plus"></i></a>
                 </div>
             </div>
@@ -95,9 +95,8 @@
                 </tbody>
             </table>
             @*<div class="pagination-container">
-                @Html.PagedListPager(Model, page => Url.Action("Index", new { page }), new PagedListRenderOptions { Display = PagedListDisplayMode.IfNeeded })
-            </div>*@
+                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }), new PagedListRenderOptions { Display = PagedListDisplayMode.IfNeeded })
+                </div>*@
         </div>
     </div>
 </div>
-

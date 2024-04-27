@@ -1,0 +1,26 @@
+﻿.is-invalid {
+    border-color: red; /* Thiết lập màu đỏ cho khung input */
+}
+form#bookingForm {
+    justify-content: center;
+    margin-bottom: 40px;
+}
+i.icon_search {
+    font-size: 28px;
+    float: right;
+    background-color: #e5ba90;
+    padding: 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    color: aliceblue;
+    margin-bottom: 6px;
+}
+.room-booking form .check-date label {
+    font-size: 20px;
+    color: #f0f0f3;
+    display: block;
+    margin-bottom: 10px;
+}
+.nice-select.form-control {
+    font-size: 24px;
+}
