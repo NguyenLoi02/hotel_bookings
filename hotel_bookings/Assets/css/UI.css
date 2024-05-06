@@ -24,3 +24,8 @@ i.icon_search {
 .nice-select.form-control {
     font-size: 24px;
 }
+
+.rating_room i {
+    color: #dfa974;
+    cursor: pointer;
+}

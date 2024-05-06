@@ -1,4 +1,5 @@
 ﻿
+using Google.Apis.Gmail.v1;
 using hotel_bookings.Models;
 using hotel_bookings.Models.Service;
 using Microsoft.Ajax.Utilities;
@@ -13,7 +14,12 @@ using System.Web.Mvc;
 using System.Web.Security;
 using System.Web.UI;
 using WebGrease.Css.Extensions;
-
+using System.Threading.Tasks;
+using System.Web.Mvc;
+using Google.Apis.Auth.OAuth2.Flows;
+using Google.Apis.Auth.OAuth2;
+using Google.Apis.Util.Store;
+using hotel_bookings.Common;
 namespace hotel_bookings.Controllers
 {
     public class RoomController : Controller
@@ -81,22 +87,22 @@ namespace hotel_bookings.Controllers
 
             return View(availableRooms.ToPagedList(pageNumber, pageSize));
         }
-        [HttpGet]
-        public ActionResult RoomFilter(int? page,int? room_style_id)
-        {
+        //[HttpGet]
+        //public ActionResult RoomFilter(int? page,int? room_style_id)
+        //{
 
-            var availableRooms = _roomServices.RoomFilter(room_style_id);
+        //    var availableRooms = _roomServices.RoomFilter(room_style_id);
 
 
-            // Số lượng mục trên mỗi trang
-            int pageSize = 6;
-            // Số trang hiện tại (nếu không có sẽ mặc định là 1)
-            int pageNumber = (page ?? 1);
-            System.Web.HttpContext.Current.Session.Timeout = 30;
+        //    // Số lượng mục trên mỗi trang
+        //    int pageSize = 6;
+        //    // Số trang hiện tại (nếu không có sẽ mặc định là 1)
+        //    int pageNumber = (page ?? 1);
+        //    System.Web.HttpContext.Current.Session.Timeout = 30;
            
 
-            return View(availableRooms.ToPagedList(pageNumber, pageSize));
-        }
+        //    return View(availableRooms.ToPagedList(pageNumber, pageSize));
+        //}
         [HttpGet]
         //public ActionResult RoomDetail(int id)
         //{
@@ -130,6 +136,7 @@ namespace hotel_bookings.Controllers
         }
         public ActionResult RoomService(int id)
         {
+            
             var service = db.services.ToList();
             if (Session["check_in"] == null || Session["check_out"] == null)
             {
@@ -158,12 +165,51 @@ namespace hotel_bookings.Controllers
 
             return View(service);
         }
+        [HttpPost]
+        public ActionResult RoomService(int[] selectedOption)
+        {
+            if (selectedOption != null)
+            {
+                // Lưu mảng selectedOptions vào Session
+                Session["SelectedOptions"] = selectedOption;
+            }
+            return RedirectToAction("RoomOrder");
+        }
+        [HttpGet]
         public ActionResult RoomOrder()
         {
+           
             if (Session["check_in"] == null || Session["check_out"] == null)
             {
                 return RedirectToAction("Index");
             }
+            var selectedOptions = Session["SelectedOptions"] as int[];
+            var itemList = new List<service>();
+            if (selectedOptions != null && selectedOptions.Length > 0)
+            {
+                // Lặp qua từng phần tử trong mảng selectedOptions
+                foreach (var optionId in selectedOptions)
+                {
+                    // Thực hiện truy vấn vào cơ sở dữ liệu sử dụng optionId
+                    var item = db.services.FirstOrDefault(items => items.id == optionId);
+
+                    // Kiểm tra xem phần tử có tồn tại
+                    if (item != null)
+                    {
+                        // Thêm đối tượng vào danh sách itemList
+                        itemList.Add(item);
+                    }
+                }
+            }
+
+
+            // Kiểm tra và xử lý giá trị nếu cần
+            if (selectedOptions != null)
+            {
+                // Gán giá trị vào ViewBag để truyền qua view
+                ViewBag.SelectedOptions = selectedOptions;
+            }
+
             DateTime check_in = (DateTime)Session["check_in"];
             ViewBag.CheckIn = check_in;
             DateTime check_out = (DateTime)Session["check_out"];
@@ -178,7 +224,7 @@ namespace hotel_bookings.Controllers
             ViewBag.room_adult = room_adult;
             int room_children = (int)Session["room_children"];
             ViewBag.room_children = room_children;
-            return View();
+            return View(itemList);
         }
         [HttpPost]
         public ActionResult RoomOrder(user user)
@@ -213,12 +259,27 @@ namespace hotel_bookings.Controllers
             db.booking_details.Add(booking_details);
             db.SaveChanges();
 
-            string contentCustomer = System.IO.File.ReadAllText(Server.MapPath("~/Common/send2.html"));
+            string contentCustomer = System.IO.File.ReadAllText(Server.MapPath("~/Common/templateEmail.html"));
             contentCustomer = contentCustomer.Replace("{{MaBooking}}", Convert.ToString(booking_order_id));
             contentCustomer = contentCustomer.Replace("{{TenPhong}}", roomName);
             contentCustomer = contentCustomer.Replace("{{TenKhachHang}}", firstName);
-            hotel_bookings.Common.Common.SendMail("hotelL", "Đơn Hàng #" + Convert.ToString(booking_order_id), contentCustomer, user.email);
+            try
+            {
+                string subject = "Test Email";
+                string body = "This is a test email sent from the ASP.NET MVC application.";
+                string to = "user.email"; // Update with the recipient's email address
+
+                GoogleAuthentication.SendEmail("Hotel HL", contentCustomer.ToString(), user.email);
+                Console.WriteLine("Email sent successfully.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("$\"Failed to send email");
+
+                // Log the exception here
+            }
             return RedirectToAction("Index");
+
         }
     }
 }

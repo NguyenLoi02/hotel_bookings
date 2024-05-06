@@ -26,6 +26,8 @@
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="~/Assets/access/css/util.css">
     <link rel="stylesheet" type="text/css" href="~/Assets/access/css/main.css">
+    <link href="~/Assets/fonts/fontawesome-free-6.5.1-web/css/all.min.css" rel="stylesheet" />
+
     <!--===============================================================================================-->
 </head>
 <body style="background-color: #666666;">
@@ -36,42 +38,42 @@
                 <div class="limiter-icon">
                     <a href="#"><i class="fa-solid fa-arrow-left"></i></a>
                 </div>
-                <form class="login100-form validate-form" action="" method="">
+                <form class="login100-form validate-form" action="" method="post">
                     <span class="login100-form-title p-b-43">
                         Đăng ký
                     </span>
 
 
-                    <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
-                        <input class="input100" type="Email" name="Email">
+                    <div class="wrap-input100 validate-input" data-validate="Vui lòng nhập email (Ví dụ: ex@abc.xyz)">
+                        <input class="input100" type="Email" name="email">
                         <span class="focus-input100"></span>
                         <span class="label-input100">Email</span>
 
                     </div>
 
 
-                    <div class="wrap-input100 validate-input" data-validate="Ho dem is required">
-                        <input class="input100" type="text" name="HoDem">
+                    <div class="wrap-input100 validate-input" data-validate="Vui lòng nhập họ đệm ">
+                        <input class="input100" type="text" name="last_name">
                         <span class="focus-input100"></span>
                         <span class="label-input100">Họ đệm</span>
 
                     </div>
 
-                    <div class="wrap-input100 validate-input" data-validate="Password is required">
-                        <input class="input100" type="text" name="Ten">
+                    <div class="wrap-input100 validate-input" data-validate="Vui lòng nhập tên">
+                        <input class="input100" type="text" name="first_name">
                         <span class="focus-input100"></span>
                         <span class="label-input100">Tên</span>
 
                     </div>
 
-                    <div class="wrap-input100 validate-input" data-validate="Password is required">
-                        <input class="input100" type="password" name="Password">
+                    <div class="wrap-input100 validate-input" data-validate="Vui lòng nhập mật khẩu">
+                        <input class="input100" type="password" name="password">
                         <span class="focus-input100"></span>
                         <span class="label-input100">Mật khẩu</span>
 
                     </div>
-                    <div class="wrap-input100 validate-input" data-validate="Password is required">
-                        <input class="input100" type="password" name="ComfirmPass">
+                    <div class="wrap-input100 validate-input" data-validate="Vui lòng nhập lại mật khẩu">
+                        <input class="input100" type="password" name="ConfirmPassword">
                         <span class="focus-input100"></span>
                         <span class="label-input100">Nhập lại mật khẩu</span>
 

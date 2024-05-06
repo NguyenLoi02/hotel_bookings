@@ -1,8 +1,11 @@
-﻿using hotel_bookings.Models;
+﻿using Google.Apis.Gmail.v1.Data;
+using hotel_bookings.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Web.Security;
 
@@ -47,9 +50,20 @@ namespace hotel_bookings.Controllers
             Session.Clear();
             return RedirectToAction("Index", "Home");
         }
+
         public ActionResult Register()
         {
             return View();
+        }
+        [HttpPost]
+
+        public ActionResult Register(user user)
+        {
+
+           
+            db.users.Add(user);
+            db.SaveChanges();
+            return RedirectToAction("Login", "Access");
         }
 
     }
