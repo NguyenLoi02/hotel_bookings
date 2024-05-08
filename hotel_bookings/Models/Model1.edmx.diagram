@@ -41,7 +41,6 @@
         <AssociationConnector Association="HotelBookingModel.FK_room_feature_room" ManuallyRouted="false" />
         <AssociationConnector Association="HotelBookingModel.FK_room_images_room" ManuallyRouted="false" />
         <AssociationConnector Association="HotelBookingModel.FK_room_room_style" ManuallyRouted="false" />
-        <AssociationConnector Association="HotelBookingModel.FK_user_question_user" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

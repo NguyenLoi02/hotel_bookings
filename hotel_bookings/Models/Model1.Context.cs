@@ -46,6 +46,5 @@ namespace hotel_bookings.Models
         public DbSet<sysdiagram> sysdiagrams { get; set; }
         public DbSet<user> users { get; set; }
         public DbSet<user_question> user_question { get; set; }
-
     }
 }

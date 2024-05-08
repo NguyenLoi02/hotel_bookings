@@ -1,0 +1,55 @@
+﻿@model List<hotel_bookings.Models.rating_view>
+
+<div class="reviews">
+    <div id="benTrai" class="h-100 d-flex  justify-content-center">
+        <div class="search-close-switch"><i class="icon_close"></i></div>
+        <div class="rd-reviews">
+            <h4>Reviews</h4>
+            <div data-bs-spy="scroll" data-bs-offset="0" tabindex="0" style="padding: 0 40px;">
+                @foreach (var item in Model)
+                {
+                    <div class="review-item" id="1">
+                        <div class="ri-pic">
+                            <img src="img/room/avatar/avatar-1.jpg" alt="">
+                        </div>
+                        <div class="ri-text">
+                            <span>27 Aug 2019</span>
+                            <div class="rating">
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star-half_alt"></i>
+                            </div>
+                            <h5>Brandon Kelley</h5>
+                            <p>
+                                @item.review
+                            </p>
+                        </div>
+                    </div>
+                }
+
+
+                <div class="review-add">
+                    <form action="#" class="ra-form">
+                        <div class="row">
+
+                            <textarea placeholder="Your Review"></textarea>
+                            <button type="submit">Submit Now</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<script>
+    $('.search-close-switch').click(function (e) {
+        e.preventDefault(); // Ngăn chặn form submit theo cách thông thường
+        $('.reviews').fadeOut(400); // Sửa từ 'fadein()' thành 'fadeIn()'
+
+    });
+</script>

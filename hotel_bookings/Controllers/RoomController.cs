@@ -134,6 +134,11 @@ namespace hotel_bookings.Controllers
             var detail = db.rooms.Find(id);
             return View(detail);
         }
+        public ActionResult RoomReview(int id)
+        {
+            var detail = db.rating_view.Where(x => x.room_id == id).ToList();
+            return View(detail);
+        }
         public ActionResult RoomService(int id)
         {
             
@@ -185,6 +190,10 @@ namespace hotel_bookings.Controllers
             }
             var selectedOptions = Session["SelectedOptions"] as int[];
             var itemList = new List<service>();
+            var servicePrice = 0;
+            if (selectedOptions.Length == 0) {
+                ViewBag.servicePrice = 0;
+            }
             if (selectedOptions != null && selectedOptions.Length > 0)
             {
                 // Lặp qua từng phần tử trong mảng selectedOptions
@@ -192,16 +201,18 @@ namespace hotel_bookings.Controllers
                 {
                     // Thực hiện truy vấn vào cơ sở dữ liệu sử dụng optionId
                     var item = db.services.FirstOrDefault(items => items.id == optionId);
-
+                    servicePrice += (int)item.price;
                     // Kiểm tra xem phần tử có tồn tại
                     if (item != null)
                     {
                         // Thêm đối tượng vào danh sách itemList
                         itemList.Add(item);
                     }
+                    ViewBag.servicePrice = servicePrice;
                 }
             }
 
+            Session["servicePrice"] = (double)servicePrice;
 
             // Kiểm tra và xử lý giá trị nếu cần
             if (selectedOptions != null)
@@ -240,8 +251,9 @@ namespace hotel_bookings.Controllers
             string roomName = db.rooms.Where(r => r.id == room_id).Select(r => r.name).FirstOrDefault();
             string firstName = db.users.Where(r => r.id == user_id).Select(r => r.first_name).FirstOrDefault();
 
+            double servicePrice = (double)Session["servicePrice"];
             DateTime currentDate = DateTime.Now;
-            var trans_money = room_price * days;
+            double trans_money = room_price * days + servicePrice;
             booking_order bookingOrder = new booking_order();
             bookingOrder.user_id = user_id;
             bookingOrder.booking_status = 0;
@@ -249,6 +261,27 @@ namespace hotel_bookings.Controllers
             bookingOrder.trans_money = (int)trans_money;
             db.booking_order.Add(bookingOrder);
             db.SaveChanges();
+
+            var selectedOptions = Session["SelectedOptions"] as int[];
+            if (selectedOptions != null && selectedOptions.Length > 0)
+            {
+                // Lặp qua từng phần tử trong mảng selectedOptions
+                foreach (var optionId in selectedOptions)
+                {
+                    // Thực hiện truy vấn vào cơ sở dữ liệu sử dụng optionId
+                    var item = db.services.FirstOrDefault(items => items.id == optionId);
+                    // Kiểm tra xem phần tử có tồn tại
+                    if (item != null)
+                    {
+                        order_service order_service = new order_service();
+                        order_service.booking_order_id = bookingOrder.id;
+                        order_service.service_id = optionId;
+                        db.order_service.Add(order_service);
+                        db.SaveChanges();
+                    }
+                }
+            }
+            Session["servicePrice"] = null;
 
             var booking_order_id = bookingOrder.id;
             booking_details booking_details = new booking_details();

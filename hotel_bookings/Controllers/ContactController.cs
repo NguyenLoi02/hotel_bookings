@@ -18,5 +18,16 @@ namespace hotel_bookings.Controllers
 
             return View(detail);
         }
+        [HttpPost]
+        public ActionResult Index(string name, string email, string message)
+        {
+            user_question question = new user_question();
+            question.name = name;
+            question.email = email;
+            question.message = message;
+            db.user_question.Add(question);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
     }
 }

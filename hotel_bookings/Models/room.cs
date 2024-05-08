@@ -36,7 +36,7 @@ namespace hotel_bookings.Models
         public string avatar { get; set; }
         public Nullable<int> quantity { get; set; }
         public Nullable<int> status { get; set; }
-        
+
 
         public virtual ICollection<booking_details> booking_details { get; set; }
         public virtual ICollection<rating_view> rating_view { get; set; }

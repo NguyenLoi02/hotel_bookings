@@ -23,7 +23,7 @@ namespace hotel_bookings.Models
         public string username { get; set; }
         public string password { get; set; }
         public int RowNumber { get; set; }
-
+    
         public virtual ICollection<admin_role> admin_role { get; set; }
     }
 }

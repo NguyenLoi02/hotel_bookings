@@ -13,7 +13,7 @@ namespace hotel_bookings.Models
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Web;
-
+    
     public partial class news
     {
         public news()

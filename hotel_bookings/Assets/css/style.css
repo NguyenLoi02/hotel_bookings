@@ -286,16 +286,21 @@ ul, ol {
 	cursor: pointer;
 }
 .search-model {
-	display: none;
+	opacity: 0.5;
+	background: #000000;
+	 display: none; 
 	position: fixed;
-	width: 17%;
+	width: 100%;
 	height: 100%;
 	left: 0;
 	top: 0;
-	background: #000;
+	background: #060606;
 	z-index: 99999;
-	
 }
+
+
+
+
 .room-details-item {
 	display: block;
 	position: fixed;
@@ -318,6 +323,28 @@ ul, ol {
 	color: #999;
 }
 .search-close-switch {
+	position: absolute;
+	width: 50px;
+	height: 50px;
+	background: #333;
+	color: #fff;
+	text-align: center;
+	border-radius: 50%;
+	font-size: 28px;
+	line-height: 28px;
+	top: 30px;
+	cursor: pointer;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	justify-content: center;
+}
+.reviews-close {
 	position: absolute;
 	width: 50px;
 	height: 50px;

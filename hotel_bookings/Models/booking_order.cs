@@ -21,7 +21,7 @@ namespace hotel_bookings.Models
             this.rating_view = new HashSet<rating_view>();
         }
         public int RowNumber { get; set; }
-
+    
         public int id { get; set; }
         public int user_id { get; set; }
         public Nullable<int> trans_money { get; set; }

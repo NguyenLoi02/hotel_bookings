@@ -49,7 +49,6 @@
     <NavigationProperty Name="booking_details" Relationship="Self.FK_booking_details_booking_order" FromRole="booking_order" ToRole="booking_details" />
     <NavigationProperty Name="user" Relationship="Self.FK_booking_order_user" FromRole="booking_order" ToRole="user" />
     <NavigationProperty Name="order_service" Relationship="Self.FK_order_service_booking_order" FromRole="booking_order" ToRole="order_service" />
-    <NavigationProperty Name="rating_view" Relationship="Self.FK_rating_view_booking_order" FromRole="booking_order" ToRole="rating_view" />
   </EntityType>
   <EntityType Name="carousel">
     <Key>
@@ -116,14 +115,12 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="booking_order_id" Type="Int32" Nullable="false" />
     <Property Name="room_id" Type="Int32" />
     <Property Name="user_id" Type="Int32" />
     <Property Name="review" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="rating" Type="Int32" />
     <Property Name="review_day" Type="DateTime" Precision="0" />
     <Property Name="seen" Type="Int32" />
-    <NavigationProperty Name="booking_order" Relationship="Self.FK_rating_view_booking_order" FromRole="rating_view" ToRole="booking_order" />
     <NavigationProperty Name="room" Relationship="Self.FK_rating_view_room" FromRole="rating_view" ToRole="room" />
     <NavigationProperty Name="user" Relationship="Self.FK_rating_view_user" FromRole="rating_view" ToRole="user" />
   </EntityType>
@@ -232,21 +229,18 @@
     <Property Name="gender" Type="Int32" />
     <NavigationProperty Name="booking_order" Relationship="Self.FK_booking_order_user" FromRole="user" ToRole="booking_order" />
     <NavigationProperty Name="rating_view" Relationship="Self.FK_rating_view_user" FromRole="user" ToRole="rating_view" />
-    <NavigationProperty Name="user_question" Relationship="Self.FK_user_question_user" FromRole="user" ToRole="user_question" />
   </EntityType>
   <EntityType Name="user_question">
     <Key>
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="user_id" Type="Int32" Nullable="false" />
     <Property Name="name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
     <Property Name="email" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
     <Property Name="subject" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
     <Property Name="message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="date_queries" Type="DateTime" Precision="0" />
     <Property Name="seen" Type="Int32" />
-    <NavigationProperty Name="user" Relationship="Self.FK_user_question_user" FromRole="user_question" ToRole="user" />
   </EntityType>
   <Association Name="FK_admin_role_admin">
     <End Role="admin" Type="Self.admin" Multiplicity="1">
@@ -326,20 +320,6 @@
         <PropertyRef Name="id" />
       </Principal>
       <Dependent Role="order_service">
-        <PropertyRef Name="booking_order_id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_rating_view_booking_order">
-    <End Role="booking_order" Type="Self.booking_order" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="rating_view" Type="Self.rating_view" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="booking_order">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="rating_view">
         <PropertyRef Name="booking_order_id" />
       </Dependent>
     </ReferentialConstraint>
@@ -456,20 +436,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_user_question_user">
-    <End Role="user" Type="Self.user" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="user_question" Type="Self.user_question" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="user">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="user_question">
-        <PropertyRef Name="user_id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <EntityContainer Name="HotelBookingEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="admins" EntityType="Self.admin" />
     <EntitySet Name="admin_role" EntityType="Self.admin_role" />
@@ -516,10 +482,6 @@
       <End Role="booking_order" EntitySet="booking_order" />
       <End Role="order_service" EntitySet="order_service" />
     </AssociationSet>
-    <AssociationSet Name="FK_rating_view_booking_order" Association="Self.FK_rating_view_booking_order">
-      <End Role="booking_order" EntitySet="booking_order" />
-      <End Role="rating_view" EntitySet="rating_view" />
-    </AssociationSet>
     <AssociationSet Name="FK_content_news" Association="Self.FK_content_news">
       <End Role="news" EntitySet="news" />
       <End Role="content" EntitySet="contents" />
@@ -551,10 +513,6 @@
     <AssociationSet Name="FK_room_room_style" Association="Self.FK_room_room_style">
       <End Role="room_style" EntitySet="room_style" />
       <End Role="room" EntitySet="rooms" />
-    </AssociationSet>
-    <AssociationSet Name="FK_user_question_user" Association="Self.FK_user_question_user">
-      <End Role="user" EntitySet="users" />
-      <End Role="user_question" EntitySet="user_question" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

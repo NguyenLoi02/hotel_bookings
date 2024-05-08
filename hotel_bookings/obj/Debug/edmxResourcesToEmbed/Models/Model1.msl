@@ -110,7 +110,6 @@
       <EntityTypeMapping TypeName="HotelBookingModel.rating_view">
         <MappingFragment StoreEntitySet="rating_view">
           <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="booking_order_id" ColumnName="booking_order_id" />
           <ScalarProperty Name="room_id" ColumnName="room_id" />
           <ScalarProperty Name="user_id" ColumnName="user_id" />
           <ScalarProperty Name="review" ColumnName="review" />
@@ -225,7 +224,6 @@
       <EntityTypeMapping TypeName="HotelBookingModel.user_question">
         <MappingFragment StoreEntitySet="user_question">
           <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="user_id" ColumnName="user_id" />
           <ScalarProperty Name="name" ColumnName="name" />
           <ScalarProperty Name="email" ColumnName="email" />
           <ScalarProperty Name="subject" ColumnName="subject" />

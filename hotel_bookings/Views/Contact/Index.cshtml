@@ -14,7 +14,7 @@
 
                     <table>
                         @foreach (var item in Model)
-                         {
+                        {
                             <tbody>
                                 <tr>
                                     <td class="c-o">Địa chỉ:</td>
@@ -33,26 +33,27 @@
                                     <td><a style="color: #dfa974;" href="@item.facebook">@item.facebook</a></td>
                                 </tr>
                             </tbody>
-                        }      
-                    
+                        }
+
                     </table>
                 </div>
             </div>
             <div class="col-lg-7 offset-lg-1">
-                <form action="#" class="contact-form">
+                <form id="contactForm" action="#" method="post" class="contact-form">
                     <div class="row">
                         <div class="col-lg-6">
-                            <input type="text" placeholder="Nhập tên">
+                            <input type="text" id="name" name="name" placeholder="Nhập tên">
                         </div>
                         <div class="col-lg-6">
-                            <input type="text" placeholder="Nhập email">
+                            <input type="text" id="email" name="email" placeholder="Nhập email">
                         </div>
                         <div class="col-lg-12">
-                            <textarea placeholder="Nhập nội dung"></textarea>
-                            <button type="submit">Gửi</button>
+                            <textarea id="message" name="message" placeholder="Nhập nội dung"></textarea>
+                            <button type="button" id="submitButton">Gửi</button>
                         </div>
                     </div>
                 </form>
+
             </div>
         </div>
         <div class="map">
@@ -61,4 +62,86 @@
         </div>
     </div>
 </section>
+<script>
+    $(document).ready(function () {
+        $('#submitButton').click(function (e) {
+            e.preventDefault(); // Ngăn chặn form submit theo cách thông thường
+            $('.successForm').fadeIn(); // Sửa từ 'fadein()' thành 'fadeIn()'
+            setTimeout(function () {
+                $('.successForm').fadeOut(); // Sửa từ 'fadeout()' thành 'fadeOut()'
+            }, 500);
+            setTimeout(function () {
+                $('.successForm2').fadeIn();
+            }, 500);
+            setTimeout(function () {
+                $('.successForm2').fadeOut(); // Sửa từ 'fadeout()' thành 'fadeOut()'
+            }, 500);
+
+            // Lấy dữ liệu từ form
+            var formData = {
+                'name': $('#name').val(),
+                'email': $('#email').val(),
+                'message': $('#message').val()
+            };
+
+            // Gửi dữ liệu qua AJAX
+
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("Index", "Contact")', // Thay thế 'url-xu-ly-dang-ky.php' bằng đường dẫn của trang xử lý form
+                data: formData,
+                success: function (result) {
+
+                },
+            })
+        });
+    });
+</script>
+<div class="successForm " >
+    <div class="h-100 d-flex align-items-center justify-content-center">
+        <div class="spinner-border custom-size" role="status">
+            <span class="visually-hidden"></span>
+        </div>
+    </div>
+</div>
+<div class="successForm2 ">
+    <div class="h-100 d-flex align-items-center justify-content-center">
+       <div>
+           <i class="fa-solid fa-circle-check"></i>
+           <p>Gửi thành công</p>
+       </div>
+    </div>
+</div>
+<style>
+    .successForm {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 99999;
+        justify-content: center;
+        color: #dfa974;
+    }
+    .successForm2 {
+        display: flex;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 99999;
+        justify-content: center;
+        color: #dfa974;
+    }
+    button#submitButton {
+        float: right;
+    }
+    .custom-size {
+        width: 3rem; /* Điều chỉnh chiều rộng */
+        height: 3rem; /* Điều chỉnh chiều cao */
+    }
+
+    /* CSS code with keyframes */
+
+</style>
 

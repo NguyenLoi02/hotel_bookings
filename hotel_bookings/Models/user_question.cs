@@ -15,14 +15,11 @@ namespace hotel_bookings.Models
     public partial class user_question
     {
         public int id { get; set; }
-        public int user_id { get; set; }
         public string name { get; set; }
         public string email { get; set; }
         public string subject { get; set; }
         public string message { get; set; }
         public Nullable<System.DateTime> date_queries { get; set; }
         public Nullable<int> seen { get; set; }
-    
-        public virtual user user { get; set; }
     }
 }

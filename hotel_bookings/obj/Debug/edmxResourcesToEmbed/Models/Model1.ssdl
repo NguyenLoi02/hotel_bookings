@@ -35,7 +35,7 @@
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="user_id" Type="int" Nullable="false" />
-    <Property Name="trans_money" Type="int" />
+    <Property Name="trans_money" Type="float" />
     <Property Name="trans_status" Type="int" />
     <Property Name="rate_review" Type="nvarchar(max)" />
     <Property Name="book_day" Type="date" />
@@ -208,7 +208,6 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="user_id" Type="int" Nullable="false" />
     <Property Name="name" Type="nvarchar" MaxLength="200" />
     <Property Name="email" Type="varchar" MaxLength="200" />
     <Property Name="subject" Type="varchar" MaxLength="200" />
@@ -424,20 +423,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_user_question_user">
-    <End Role="user" Type="Self.user" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="user_question" Type="Self.user_question" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="user">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="user_question">
-        <PropertyRef Name="user_id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <EntityContainer Name="HotelBookingModelStoreContainer">
     <EntitySet Name="admin" EntityType="Self.admin" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="admin_role" EntityType="Self.admin_role" Schema="dbo" store:Type="Tables" />
@@ -519,10 +504,6 @@
     <AssociationSet Name="FK_room_room_style" Association="Self.FK_room_room_style">
       <End Role="room_style" EntitySet="room_style" />
       <End Role="room" EntitySet="room" />
-    </AssociationSet>
-    <AssociationSet Name="FK_user_question_user" Association="Self.FK_user_question_user">
-      <End Role="user" EntitySet="user" />
-      <End Role="user_question" EntitySet="user_question" />
     </AssociationSet>
   </EntityContainer>
 </Schema>
