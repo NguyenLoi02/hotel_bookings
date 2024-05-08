@@ -11,19 +11,19 @@ namespace hotel_bookings.Models
 {
     using System;
     using System.Collections.Generic;
-    
+
     public partial class admin
     {
         public admin()
         {
             this.admin_role = new HashSet<admin_role>();
         }
-    
+
         public int id { get; set; }
         public string username { get; set; }
         public string password { get; set; }
         public int RowNumber { get; set; }
-    
+
         public virtual ICollection<admin_role> admin_role { get; set; }
     }
 }

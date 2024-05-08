@@ -11,6 +11,7 @@ namespace hotel_bookings.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
     public partial class user
@@ -19,8 +20,9 @@ namespace hotel_bookings.Models
         {
             this.booking_order = new HashSet<booking_order>();
             this.rating_view = new HashSet<rating_view>();
+            this.user_question = new HashSet<user_question>();
         }
-    
+
         public int id { get; set; }
         public string last_name { get; set; }
         public string first_name { get; set; }
@@ -33,13 +35,16 @@ namespace hotel_bookings.Models
         //[Required]
         public string password { get; set; }
         [NotMapped]
+
+
         public string ConfirmPassword { get; set; }
         public Nullable<System.DateTime> date_sign { get; set; }
         public Nullable<int> gender { get; set; }
         public int RowNumber { get; set; }
-    
+
         public virtual ICollection<booking_order> booking_order { get; set; }
         public virtual ICollection<rating_view> rating_view { get; set; }
         public virtual ICollection<user_question> user_question { get; set; }
+
     }
 }

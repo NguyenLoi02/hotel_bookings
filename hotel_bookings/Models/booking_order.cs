@@ -11,29 +11,28 @@ namespace hotel_bookings.Models
 {
     using System;
     using System.Collections.Generic;
-    
+
     public partial class booking_order
     {
         public booking_order()
         {
             this.booking_details = new HashSet<booking_details>();
             this.order_service = new HashSet<order_service>();
-            this.rating_view = new HashSet<rating_view>();
         }
         public int RowNumber { get; set; }
-    
+
         public int id { get; set; }
         public int user_id { get; set; }
-        public Nullable<int> trans_money { get; set; }
+        public Nullable<double> trans_money { get; set; }
         public Nullable<int> trans_status { get; set; }
         public string rate_review { get; set; }
         public Nullable<System.DateTime> book_day { get; set; }
         public Nullable<int> booking_status { get; set; }
         public Nullable<int> arrival { get; set; }
-    
+
         public virtual ICollection<booking_details> booking_details { get; set; }
         public virtual user user { get; set; }
         public virtual ICollection<order_service> order_service { get; set; }
-        public virtual ICollection<rating_view> rating_view { get; set; }
+
     }
 }

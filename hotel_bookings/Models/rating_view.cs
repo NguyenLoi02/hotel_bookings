@@ -15,7 +15,6 @@ namespace hotel_bookings.Models
     public partial class rating_view
     {
         public int id { get; set; }
-        public int booking_order_id { get; set; }
         public Nullable<int> room_id { get; set; }
         public Nullable<int> user_id { get; set; }
         public string review { get; set; }
@@ -23,7 +22,6 @@ namespace hotel_bookings.Models
         public Nullable<System.DateTime> review_day { get; set; }
         public Nullable<int> seen { get; set; }
     
-        public virtual booking_order booking_order { get; set; }
         public virtual room room { get; set; }
         public virtual user user { get; set; }
     }
