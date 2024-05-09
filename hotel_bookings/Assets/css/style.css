@@ -1414,11 +1414,7 @@ ul, ol {
 	float: left;
 	margin-right: 30px;
 }
-.rd-reviews .review-item .ri-pic img {
-	height: 70px;
-	width: 70px;
-	border-radius: 50%;
-}
+
 .rd-reviews .review-item .ri-text {
 	overflow: hidden;
 	position: relative;

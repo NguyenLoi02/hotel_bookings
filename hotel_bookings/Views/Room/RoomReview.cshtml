@@ -1,55 +1,77 @@
-﻿@model List<hotel_bookings.Models.rating_view>
-
+﻿@model hotel_bookings.Models.ReviewViewModel
+<style>
+    .rd-reviews-scroll {
+        max-height: 500px; /* Đặt chiều cao tối đa của rd-reviews */
+        overflow-y: auto; /* Kích hoạt thanh cuộn dọc khi nội dung vượt quá chiều cao */
+    }
+</style>
 <div class="reviews">
-    <div id="benTrai" class="h-100 d-flex  justify-content-center">
+    <div id="benTrai" class="h-100 d-flex justify-content-center">
         <div class="search-close-switch"><i class="icon_close"></i></div>
-        <div class="rd-reviews">
-            <h4>Reviews</h4>
-            <div data-bs-spy="scroll" data-bs-offset="0" tabindex="0" style="padding: 0 40px;">
-                @foreach (var item in Model)
-                {
-                    <div class="review-item" id="1">
-                        <div class="ri-pic">
-                            <img src="~/Assets/img/avatar-clone.jpg" alt="" />
-                        </div>
-                        <div class="ri-text">
-                            <span>27 Aug 2019</span>
-                            <div class="rating">
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star-half_alt"></i>
+        <div class="rd-reviews" style="padding-top: 88px;">
+            <h4></h4>
+            <div >
+                <div class="rd-reviews-scroll overflow-auto">
+                    @foreach (var ratingView in Model.rating_views)
+                    {
+                        <div class="review-item">
+                            <div class="ri-pic">
+                                <!-- Hiển thị ảnh đại diện của người dùng -->
+                                <img style="height: 50px; width: 50px; border-radius: 50%;" src="~/Assets/img/avatar-clone.jpg" alt="" />
                             </div>
-                            <h5>Brandon Kelley</h5>
-                            <p>
-                                @item.review
-                            </p>
+                            <div class="ri-text">
+                                <!-- Hiển thị thông tin đánh giá -->
+                                <div class="rating">
+                                    <!-- Hiển thị xếp hạng đánh giá -->
+                                    <!-- Code hiển thị sao -->
+                                </div>
+                                <h5>@ratingView.user.first_name</h5>
+                                <p>@ratingView.review</p>
+                            </div>
                         </div>
-                    </div>
-                }
-
-
-                <div class="review-add">
+                    }
+                </div>
+                
+                <div class="review-add" style="padding-top: 50px; }">
                     <form action="#" class="ra-form">
                         <div class="row">
-
-                            <textarea placeholder="Your Review"></textarea>
-                            <button type="submit">Submit Now</button>
+                            <!-- Form để người dùng thêm đánh giá -->
+                            <textarea id="review-text" placeholder="Your Review"></textarea>
+                            <button type="button" id="submit-review">Submit Now</button>
                         </div>
                     </form>
-
                 </div>
             </div>
         </div>
-
     </div>
-
 </div>
+
+
 <script>
     $('.search-close-switch').click(function (e) {
         e.preventDefault(); // Ngăn chặn form submit theo cách thông thường
         $('.reviews').fadeOut(400); // Sửa từ 'fadein()' thành 'fadeIn()'
 
     });
+     $(document).ready(function() {
+         $("#submit-review").click(function (event) {
+             event.preventDefault()
+        var reviewText = $("#review-text").val(); // Lấy nội dung đánh giá từ textarea
+
+        // Thực hiện POST request bằng Ajax
+        $.ajax({
+            url: "@Url.Action("RoomReview", "Room")", // Địa chỉ URL của action controller nhận POST request
+            method: "POST",
+            data: { review: reviewText }, // Dữ liệu gửi đi (trong trường hợp này là nội dung đánh giá)
+            success: function(response) {
+                // Xử lý khi request thành công
+                console.log("Review submitted successfully!");
+            },
+            error: function(xhr, status, error) {
+                // Xử lý khi có lỗi xảy ra
+                console.error("Error:", error);
+            }
+        });
+    });
+});
 </script>

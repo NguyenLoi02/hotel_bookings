@@ -136,8 +136,28 @@ namespace hotel_bookings.Controllers
         }
         public ActionResult RoomReview(int id)
         {
-            var detail = db.rating_view.Where(x => x.room_id == id).ToList();
-            return View(detail);
+            var viewModel = new ReviewViewModel
+            {
+                users = db.users.ToList(),
+                rating_views = db.rating_view.Where(x => x.room_id == id).ToList(),
+             };
+            Session["room_id"] = id;
+            return View(viewModel);
+        }
+        [HttpPost]
+        public ActionResult RoomReview(string review)
+        {
+            int room_id = (int)Session["room_id"];
+            var check = (string)Session["user"];
+            var user = db.users.Where(m => m.email == check).FirstOrDefault();
+            var user_id = user.id;
+            rating_view rating_views = new rating_view();
+            rating_views.user_id = user_id;
+            rating_views.room_id = room_id;
+            rating_views.review = review;
+            db.rating_view.Add(rating_views);
+            db.SaveChanges();
+            return RedirectToAction("RoomReview");
         }
         public ActionResult RoomService(int id)
         {

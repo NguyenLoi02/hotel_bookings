@@ -246,6 +246,7 @@
     <Compile Include="Models\rating_view.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ReviewViewModel.cs" />
     <Compile Include="Models\role.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
