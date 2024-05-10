@@ -20,6 +20,8 @@ using Google.Apis.Auth.OAuth2.Flows;
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Util.Store;
 using hotel_bookings.Common;
+using Newtonsoft.Json;
+using System.Globalization;
 namespace hotel_bookings.Controllers
 {
     public class RoomController : Controller
@@ -136,6 +138,8 @@ namespace hotel_bookings.Controllers
         }
         public ActionResult RoomReview(int id)
         {
+            //string currentUrl = HttpContext.Request.Url.AbsoluteUri;
+
             var viewModel = new ReviewViewModel
             {
                 users = db.users.ToList(),
@@ -149,15 +153,35 @@ namespace hotel_bookings.Controllers
         {
             int room_id = (int)Session["room_id"];
             var check = (string)Session["user"];
-            var user = db.users.Where(m => m.email == check).FirstOrDefault();
-            var user_id = user.id;
-            rating_view rating_views = new rating_view();
-            rating_views.user_id = user_id;
-            rating_views.room_id = room_id;
-            rating_views.review = review;
-            db.rating_view.Add(rating_views);
-            db.SaveChanges();
-            return RedirectToAction("RoomReview");
+            if (check != null)
+            {
+                var user = db.users.Where(m => m.email == check).FirstOrDefault();
+                var user_id = user.id;
+                var user_name = user.first_name;
+                var user_profile = user.profile;
+                var user_review = review;
+                DateTime currentDate = DateTime.Now;
+                DateTime? reviewDay = null;
+                string currentDateAsString = currentDate.ToString("dd/MM/yyyy");
+
+                if (DateTime.TryParseExact(currentDateAsString, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime parsedDate))
+                {
+                    reviewDay = parsedDate;
+                }
+                rating_view rating_views = new rating_view();
+                rating_views.user_id = user_id;
+                rating_views.room_id = room_id;
+                rating_views.review = review;
+                rating_views.review_day = reviewDay;
+                rating_views.seen = 1;
+                db.rating_view.Add(rating_views);
+                db.SaveChanges();
+                var successJson = new { success = true, name = user_name, profile = user_profile, review = user_review, date = currentDate.ToString() };
+                return Content(JsonConvert.SerializeObject(successJson), "application/json");
+            }
+            return RedirectToAction("Login", "Access");
+
+
         }
         public ActionResult RoomService(int id)
         {

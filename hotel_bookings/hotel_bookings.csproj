@@ -196,6 +196,7 @@
     <Compile Include="Common\GoogleAuthentication.cs" />
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
+    <Compile Include="Helpers\VnPayLibrary.cs" />
     <Compile Include="Models\admin.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>

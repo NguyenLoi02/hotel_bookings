@@ -32,6 +32,7 @@ namespace hotel_bookings.Controllers
                     Session["user"] = u.email.ToString();
                     if (Account != null)
                     {
+
                         return RedirectToAction("Index", "Home");
                         //return Redirect(ReturnUrl);
                     }

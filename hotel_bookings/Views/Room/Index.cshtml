@@ -124,8 +124,9 @@
             $(document).ready(function () {
                 $('.reviews-open').click(function () {
                     var roomId = $(this).data('room-id');
+                    var url = '/Room/RoomReview?id=' + roomId;
                     $.ajax({
-                        url: '@Url.Action("RoomReview", "Room")',
+                        url: url,
                         type: 'GET',
                         data: { id: roomId },
                         success: function (result) {

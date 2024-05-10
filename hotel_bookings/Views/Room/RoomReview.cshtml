@@ -4,46 +4,81 @@
         max-height: 500px; /* Đặt chiều cao tối đa của rd-reviews */
         overflow-y: auto; /* Kích hoạt thanh cuộn dọc khi nội dung vượt quá chiều cao */
     }
+    .successForm {
+        display: none;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 99999;
+        justify-content: center;
+        color: #dfa974;
+    }
+    #benTrai{
+        position: relative;
+    }
+    .bk-btn {
+        margin-top: 51px;
+        display: inline-block;
+        font-size: 13px;
+        font-weight: 700;
+        padding: 16px 28px 15px;
+        background: #dfa974;
+        color: #ffffff;
+        text-transform: uppercase;
+        letter-spacing: 2px;
 </style>
 <div class="reviews">
     <div id="benTrai" class="h-100 d-flex justify-content-center">
         <div class="search-close-switch"><i class="icon_close"></i></div>
         <div class="rd-reviews" style="padding-top: 88px;">
             <h4></h4>
-            <div >
-                <div class="rd-reviews-scroll overflow-auto">
+            <div>
+                <div class="rd-reviews-scroll overflow-auto" id="review-new">
                     @foreach (var ratingView in Model.rating_views)
                     {
                         <div class="review-item">
                             <div class="ri-pic">
-                                <!-- Hiển thị ảnh đại diện của người dùng -->
                                 <img style="height: 50px; width: 50px; border-radius: 50%;" src="~/Assets/img/avatar-clone.jpg" alt="" />
                             </div>
                             <div class="ri-text">
-                                <!-- Hiển thị thông tin đánh giá -->
-                                <div class="rating">
-                                    <!-- Hiển thị xếp hạng đánh giá -->
-                                    <!-- Code hiển thị sao -->
-                                </div>
+                                <span>@ratingView.review_day.ToString()</span>
                                 <h5>@ratingView.user.first_name</h5>
                                 <p>@ratingView.review</p>
                             </div>
                         </div>
                     }
+
                 </div>
-                
+
                 <div class="review-add" style="padding-top: 50px; }">
                     <form action="#" class="ra-form">
                         <div class="row">
-                            <!-- Form để người dùng thêm đánh giá -->
-                            <textarea id="review-text" placeholder="Your Review"></textarea>
-                            <button type="button" id="submit-review">Submit Now</button>
+                            @if (Session["user"] == null)
+                            {
+                                <a href="@Url.Action("Login", "Access")" class="bk-btn">Đánh giá</a>
+                            }
+                            @if (Session["user"] != null)
+                            {
+                                <!-- Form để người dùng thêm đánh giá -->
+                                <textarea id="review-text" placeholder="Nhập nội dung tại dây..."></textarea>
+                                <button type="button" id="submit-review">Gửi</button>
+                            }
+
                         </div>
                     </form>
                 </div>
             </div>
         </div>
+        <div class="successForm ">
+            <div class="h-100 d-flex align-items-center justify-content-center">
+                <div class="spinner-border custom-size" style="width: 3rem; height: 3rem;" role="status">
+                    <span class="visually-hidden"></span>
+                </div>
+            </div>
+        </div>
     </div>
+    
 </div>
 
 
@@ -63,9 +98,27 @@
             url: "@Url.Action("RoomReview", "Room")", // Địa chỉ URL của action controller nhận POST request
             method: "POST",
             data: { review: reviewText }, // Dữ liệu gửi đi (trong trường hợp này là nội dung đánh giá)
-            success: function(response) {
-                // Xử lý khi request thành công
-                console.log("Review submitted successfully!");
+            success: function (response) {
+
+                if (response.success) {
+                    $('.successForm').fadeIn(); // Sửa từ 'fadein()' thành 'fadeIn()'
+                    setTimeout(function () {
+                        $('.successForm').fadeOut(); // Sửa từ 'fadeout()' thành 'fadeOut()'
+                    }, 500);
+                    var html = "<div class='review-item'>" +
+                        "<div class='ri-pic'>" +
+                        "<img style='height: 50px; width: 50px; border-radius: 50%;' src='../Assets/img/" +response.profile+"' alt='' />" +
+                        "</div>" +
+                        "<div class='ri-text'>" +
+                        "<span>" + response.date + "</span>"+
+                        "<h5>" + response.name + "</h5>" +
+                        "<p>" + response.review + "</p>" +
+                        "</div>" +
+                        "</div>";
+                    setTimeout(function () {
+                        $('#review-new').append(html);
+                    }, 500);
+                }
             },
             error: function(xhr, status, error) {
                 // Xử lý khi có lỗi xảy ra
