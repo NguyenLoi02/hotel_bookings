@@ -40,13 +40,12 @@ namespace hotel_bookings.Helpers
         public string CreateRequestUrl(string baseUrl, string vnpHashSecret)
         {
             var data = new StringBuilder();
-            foreach (KeyValuePair<string, string> kv in _requestData.Where(kv => !string.IsNullOrEmpty(kv.Value)))
+            foreach (var kv in _requestData.Where(kv => !string.IsNullOrEmpty(kv.Value)))
             {
                 var key = kv.Key;
                 var value = kv.Value;
-                data.Append(WebUtility.UrlEncode(key) + "=" + WebUtility.UrlEncode(value) + "&");
+                data.Append(HttpUtility.UrlEncode(key) + "=" + HttpUtility.UrlEncode(value) + "&");
             }
-
 
             var querystring = data.ToString();
 
@@ -152,30 +151,48 @@ namespace hotel_bookings.Helpers
 
         //    return "127.0.0.1";
         //}
-        public static string GetIpAddress(HttpContextBase context)
+        public static string GetIpAddress()
         {
-            var ipAddress = string.Empty;
             try
             {
-                var remoteIpAddress = context.Request.UserHostAddress;
-
-                if (!string.IsNullOrEmpty(remoteIpAddress))
+                // Lấy địa chỉ IP từ yêu cầu hiện tại
+                var ipAddress = HttpContext.Current.Request.UserHostAddress;
+                if (ipAddress == "::1")
                 {
-                    if (remoteIpAddress.Contains(":")) // IPv6
+                    // Thay thế địa chỉ IPv6 loopback bằng địa chỉ IPv4 loopback
+                    ipAddress = "192.168.1.154";
+                }
+                if (!string.IsNullOrEmpty(ipAddress))
+                {
+                    // Kiểm tra nếu là địa chỉ IPv6
+                    if (IPAddress.TryParse(ipAddress, out IPAddress ip))
                     {
-                        remoteIpAddress = remoteIpAddress.Split(':').First(); // Trim the scope ID
+                        if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetworkV6)
+                        {
+                            // Loại bỏ phần scope ID của địa chỉ IPv6
+                            ipAddress = ip.MapToIPv6().ToString();
+                        }
                     }
 
-                    ipAddress = remoteIpAddress;
+                    return ipAddress;
                 }
-
-                return ipAddress;
+                else
+                {
+                    // Trả về giá trị mặc định hoặc null thay vì thông báo lỗi
+                    return null;
+                }
             }
             catch (Exception ex)
             {
-                return "Invalid IP: " + ex.Message;
+                // Ghi log nếu có lỗi xảy ra
+                // Logger.Log("Error occurred while getting IP address: " + ex.Message);
+                return null;
             }
         }
+
+
+
+
     }
 
     public class VnPayCompare : IComparer<string>

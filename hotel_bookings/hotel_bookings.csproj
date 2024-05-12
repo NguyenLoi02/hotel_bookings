@@ -196,6 +196,7 @@
     <Compile Include="Common\GoogleAuthentication.cs" />
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
+    <Compile Include="Helpers\MySetting.cs" />
     <Compile Include="Helpers\VnPayLibrary.cs" />
     <Compile Include="Models\admin.cs">
       <DependentUpon>Model.tt</DependentUpon>
@@ -220,6 +221,7 @@
     </Compile>
     <Compile Include="Models\Data\NewsService.cs" />
     <Compile Include="Models\Data\RoomService.cs" />
+    <Compile Include="Models\Data\VnPayService.cs" />
     <Compile Include="Models\feature.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -271,6 +273,7 @@
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Models\RoleViewModel.cs" />
     <Compile Include="Models\SearchViewModel.cs" />
+    <Compile Include="Models\Service\IVnPayService.cs" />
     <Compile Include="Models\setting.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -283,6 +286,7 @@
     <Compile Include="Models\user_question.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\VnPaymentResponseModel.cs" />
     <Compile Include="MyRoleProvider.cs" />
     <Compile Include="Controllers\AccessController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -2869,6 +2873,7 @@
     <Content Include="Assets\img\services\service-3.jpg" />
     <Content Include="Assets\img\testimonial-logo.png" />
     <Content Include="Assets\img\video-bg.jpg" />
+    <Content Include="Assets\img\vnpay.jpg" />
     <Content Include="Assets\js\bootstrap.min.js" />
     <Content Include="Assets\js\jquery-3.3.1.min.js" />
     <Content Include="Assets\js\jquery-3.7.1.js" />
@@ -3168,6 +3173,8 @@
     <Content Include="Views\Profile\Index.cshtml" />
     <Content Include="Views\Contact\Index.cshtml" />
     <Content Include="Views\Room\RoomReview.cshtml" />
+    <Content Include="Views\Room\PaymentFail.cshtml" />
+    <Content Include="Views\Room\PaymentSuccess.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

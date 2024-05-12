@@ -27,11 +27,13 @@ namespace hotel_bookings.Controllers
     public class RoomController : Controller
     {
         private readonly IRoomService _roomServices;
+        private readonly IVnPayService _vnPayService;
         private HotelBookingEntities db = new HotelBookingEntities();
 
-        public RoomController(IRoomService roomServices)
+        public RoomController(IRoomService roomServices, IVnPayService vnPayService)
         {
             _roomServices = roomServices;
+            _vnPayService = vnPayService;
         }
 
         // GET: Room
@@ -217,7 +219,7 @@ namespace hotel_bookings.Controllers
         [HttpPost]
         public ActionResult RoomService(int[] selectedOption)
         {
-            if (selectedOption != null)
+            if (selectedOption != null && selectedOption.Count()>0)
             {
                 // Lưu mảng selectedOptions vào Session
                 Session["SelectedOptions"] = selectedOption;
@@ -235,7 +237,8 @@ namespace hotel_bookings.Controllers
             var selectedOptions = Session["SelectedOptions"] as int[];
             var itemList = new List<service>();
             var servicePrice = 0;
-            if (selectedOptions.Length == 0) {
+            if (selectedOptions == null || selectedOptions.Length == 0)
+            {
                 ViewBag.servicePrice = 0;
             }
             if (selectedOptions != null && selectedOptions.Length > 0)
@@ -282,8 +285,9 @@ namespace hotel_bookings.Controllers
             return View(itemList);
         }
         [HttpPost]
-        public ActionResult RoomOrder(user user)
+        public ActionResult RoomOrder(user user, bool? vnPay)
         {
+           
             DateTime check_in = (DateTime)Session["check_in"];
             DateTime check_out = (DateTime)Session["check_out"];
             double days = (double)Session["day"];
@@ -294,10 +298,28 @@ namespace hotel_bookings.Controllers
             var user_id = user.id;
             string roomName = db.rooms.Where(r => r.id == room_id).Select(r => r.name).FirstOrDefault();
             string firstName = db.users.Where(r => r.id == user_id).Select(r => r.first_name).FirstOrDefault();
-
             double servicePrice = (double)Session["servicePrice"];
             DateTime currentDate = DateTime.Now;
             double trans_money = room_price * days + servicePrice;
+
+            if (vnPay == true)
+            {
+                var vnPayModel = new VnPaymentRequestModel
+                {
+                    Amount = trans_money,
+                    CreatedDate = DateTime.Now,
+                    Description = $"{user.first_name} {user.phonenum}",
+                    FullName = user.first_name,
+                    OrderId = new Random().Next(1000,100000),
+                };
+
+                // Gọi phương thức CreatePaymentUrl của _vnPayService với HttpContextBase
+                var paymentUrl = _vnPayService.CreatePaymentUrl(HttpContext, vnPayModel);
+
+                // Chuyển hướng người dùng đến URL thanh toán
+                return Redirect(paymentUrl);
+            }
+
             booking_order bookingOrder = new booking_order();
             bookingOrder.user_id = user_id;
             bookingOrder.booking_status = 0;
@@ -356,6 +378,28 @@ namespace hotel_bookings.Controllers
                 // Log the exception here
             }
             return RedirectToAction("Index");
+
+        }
+        public ActionResult PaymentFail()
+        {
+            return View();  
+        }
+        public ActionResult PaymentSuccess()
+        {
+            return View();
+        }
+        public ActionResult PaymentCallBack()
+        {
+            var respoonse = _vnPayService.PaymentExecute(Request.QueryString);
+            if(respoonse == null || respoonse.VnPayResponseCode != "00")
+            {
+                TempData["Message"] = $"Lỗi thanh toán VN Pay: {respoonse.VnPayResponseCode}";
+                return RedirectToAction("PaymentFail");
+            }
+
+            TempData["Message"] = $"Thanh toán VN Pay thành công";
+
+            return RedirectToAction("PaymentSuccess");
 
         }
     }

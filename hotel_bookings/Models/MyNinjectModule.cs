@@ -9,6 +9,7 @@ namespace hotel_bookings
         {
             Bind<IRoomService>().To<RoomService>();
             Bind<INewsService>().To<NewsService>();
+            Bind<IVnPayService>().To<VnPayService>();
 
 
 

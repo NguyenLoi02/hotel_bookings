@@ -14,7 +14,29 @@
     ViewBag.Title = "RoomOrder";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<style>
 
+    .background-div {
+        border-radius: 5px;
+        position: relative;
+        width: 100px; /* Độ rộng của thẻ div */
+        height: 100px; /* Chiều cao của thẻ div */
+        background-image: url('../Assets/img/vnpay.jpg');
+        background-size: cover; /* Đảm bảo hình ảnh sẽ được hiển thị đúng kích thước */
+        background-position: center; /* Canh giữa hình ảnh */
+        /* Các thuộc tính khác nếu cần */
+    }
+
+        /* CSS để thiết lập vị trí của checkbox */
+        .background-div input[type="checkbox"] {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            width: 20px;
+            height: 18px;
+        }
+
+</style>
 <!-- Breadcrumb Section Begin -->
 <div class="breadcrumb-section">
     <div class="container">
@@ -100,19 +122,19 @@
                                     </div>
                                 </div>
                             </div>
+                            
                         </div>
                     </div>
                     <div style=" border: 1px solid #c8c8c8; border-radius: 10px; padding: 0;">
                         <div style=" margin: 0; font-size: 20px; text-align: center; border-bottom: 1px solid #c8c8c8; background-color: #f3f2f2;">
                             <p style="margin: 0; font-size: 20px; padding: 10px;">Phương thức thanh toán</p>
+
                         </div>
                         <div style="padding: 10px 33px;">
-                            @*<div style=" margin: 10px 0;">
-                                    <input type="radio" value="DOMESTIC">Thẻ/tài khoản ngân hàng (ATM nội địa/quốc tế)
-                                </div>
-                                <div style=" margin: 10px 0;">
-                                    <input type="radio" value="QRCODE">Thanh toán bằng mã QR
-                                </div>*@
+                            <div class="background-div">
+                                <input type="checkbox" id="vnPay" name="vnPay" value="true">
+                            </div>
+
                             <div style=" margin: 30px 0px 10px;">
                                 <div>
                                     <button type="submit" style="display: inline-block; color: #ffffff; font-size: 13px; text-transform: uppercase; font-weight: 700; background: #dfa974; padding: 14px 28px 13px; width: 100%; text-align: center; border-radius: 30px; ">
