@@ -1,8 +1,210 @@
-﻿
-@{
-    ViewBag.Title = "PaymentSuccess";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+﻿<!DOCTYPE html>
+<html lang="zxx">
 
-<h2>PaymentSuccess</h2>
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Sona Template">
+    <meta name="keywords" content="Sona, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sona | Template</title>
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Cabin:400,500,600,700&display=swap" rel="stylesheet">
 
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="~/Assets/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="~/Assets/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="~/Assets/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="~/Assets/css/flaticon.css" type="text/css">
+    <link rel="stylesheet" href="~/Assets/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="~/Assets/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="~/Assets/css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="~/Assets/css/magnific-popup.css" type="text/css">
+    <link rel="stylesheet" href="~/Assets/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="~/Assets/css/style.css" type="text/css">
+    <link href="~/Assets/fonts/fontawesome-free-6.5.1-web/css/all.min.css" rel="stylesheet" />
+
+    <link href="~/Assets/css/UI.css" rel="stylesheet" />
+    <script src="~/Assets/js/jquery-3.7.1.js"></script>
+
+    <style>
+    </style>
+</head>
+
+<body style="position: relative;">
+    <!-- Page Preloder -->
+    @{
+
+        string email = ViewBag.Email;
+
+
+    }
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+    <header class="header-section">
+        <div class="top-nav">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-lg-12">
+                        <div class="tn-right">
+                            <div class="top-social">
+                                <a href="#"><i class="fa fa-facebook"></i></a>
+                                <a href="#"><i class="fa fa-twitter"></i></a>
+                                <a href="#"><i class="fa fa-instagram"></i></a>
+                            </div>
+                            @if (Session["user"] == null)
+                            {
+                                <a href="@Url.Action("Login", "Access")" class="bk-btn">Đăng nhập</a>
+                            }
+
+                            @if (Session["user"] != null)
+                            {
+                                <div class="language-option">
+                                    <img src="~/Assets/img/avatar-clone.jpg" />
+                                    <span>@Session["name"] <i class="fa fa-angle-down"></i></span>
+                                    <div class="flag-dropdown">
+                                        <ul>
+                                            <li><a href="@Url.Action("Index", "Profile")">Hồ sơ</a></li>
+                                            <li style=" margin-top: 10px;"><a href="@Url.Action("Logout", "Access")">Đăng xuất</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="menu-item">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <div class="logo">
+                            <a href="./index.html">
+                                <img src="../Assets/img/logo.png" alt="">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-10">
+                        <div class="nav-menu">
+                            <nav class="mainmenu">
+                                <ul>
+                                    <li class="active"><a href="@Url.Action("Index", "Home")">Trang chủ</a></li>
+                                    <li><a href="@Url.Action("Index", "Room")">Phòng</a></li>
+
+                                    <li><a href="@Url.Action("Index", "News")">Tin tức</a></li>
+                                    <li><a href="@Url.Action("Index", "Contact")">Liên Hệ</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Header Section Begin -->
+    <!-- Header End -->
+    <!-- Hero Section Begin -->
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 text-center">
+                <div class="card mt-5">
+                    <div class="card-body">
+                        <i style=" font-size: 6pc; color: #41bb5c;" class="fa-regular fa-circle-check"></i>
+                        <p class="display-4" style=" font-size: 2.5rem; font-weight: 300; line-height: 1.2; padding: 22px 0px;">Đặt phòng thành công!</p>
+                        <p class="lead">Chúc bạn có một trải nghiệm tuyệt vời.</p>
+                        <hr class="my-4">
+                        <p class="mb-0">Mã đặt phòng của bạn là: <strong>#123456789</strong></p>
+                        <p>Chúng tôi đã gửi một email xác nhận đến địa chỉ email của bạn.</p>
+                        <a href="@Url.Action("Index", "Home")" style="background-color: #dfa974; border-color: aliceblue; " class="btn btn-primary mt-3">Về trang chủ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Blog Section End -->
+    <!-- Footer Section Begin -->
+    <footer class="footer-section" style="position: absolute; bottom: 0; right: 0; width: 100%;">
+        <div class="container">
+            <div class="footer-text">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="ft-about">
+                            <div class="logo">
+                                <a href="#">
+                                    <img src="../Assets/img/footer-logo.png" alt="">
+                                </a>
+                            </div>
+                            <p>Chúng tôi truyền cảm hứng và tiếp cận <br />hàng triệu khách du lịch</p>
+                            <div class="fa-social">
+                                <a href="#"><i class="fa fa-facebook"></i></a>
+                                <a href="#"><i class="fa fa-twitter"></i></a>
+                                <a href="#"><i class="fa fa-tripadvisor"></i></a>
+                                <a href="#"><i class="fa fa-instagram"></i></a>
+                                <a href="#"><i class="fa fa-youtube-play"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 offset-lg-1">
+                        <div class="ft-contact">
+                            <h6>Thông tin khách sạn</h6>
+                            <ul>
+                                <li>(12) 345 67890</li>
+                                <li>info.colorlib@gmail.com</li>
+                                <li>856 Cordia Extension Apt. 356, Lake, United State</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 offset-lg-1">
+                        <div class="ft-newslatter">
+                            <h6>Mới nhất</h6>
+                            <p>Nhận các bản cập nhật và ưu đãi mới nhất.</p>
+                            <form action="#" class="fn-form">
+                                <input type="text" placeholder="Email">
+                                <button type="submit"><i class="fa fa-send"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--<div class="copyright-option">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-7">
+                    <ul>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Terms of use</a></li>
+                        <li><a href="#">Privacy</a></li>
+                        <li><a href="#">Environmental Policy</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-5">
+                    <div class="co-text">
+                        <p>-->
+        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+        <!--Copyright &copy;
+        <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>-->
+        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+        <!--</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>-->
+    </footer>
+    <!-- Js Plugins -->
+    <script src="~/Assets/js/jquery-3.3.1.min.js"></script>
+    <script src="~/Assets/js/bootstrap.min.js"></script>
+    <script src="~/Assets/js/jquery.magnific-popup.min.js"></script>
+    <script src="~/Assets/js/jquery.nice-select.min.js"></script>
+    <script src="~/Assets/js/jquery-ui.min.js"></script>
+    <script src="~/Assets/js/jquery.slicknav.js"></script>
+    <script src="~/Assets/js/owl.carousel.min.js"></script>
+    <script src="~/Assets/js/main.js"></script>
+</body>
+
+</html>

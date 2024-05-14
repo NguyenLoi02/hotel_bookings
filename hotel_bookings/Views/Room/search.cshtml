@@ -36,7 +36,21 @@
             }
         });
     });
+        $(document).ready(function () {
+            $('.reviews-open').click(function () {
+                var roomId = $(this).data('room-id');
+                var url = '/Room/RoomReview?id=' + roomId;
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    data: { id: roomId },
+                    success: function (result) {
+                        $('#room-reviews').fadeOut(0).delay(200).html(result).fadeIn(200);
+                    }
+                });
+            });
 
+        });
 });
 </script>
 @foreach (var item in Model)
@@ -64,12 +78,8 @@
                     </tbody>
                 </table>
                 <div style="display: flex;">
-                    <div style="flex: 1;" class="rating_room">
-                        <i class="icon_star"></i>
-                        <i class="icon_star"></i>
-                        <i class="icon_star"></i>
-                        <i class="icon_star"></i>
-                        <i class="icon_star-half_alt"></i>
+                    <div style="flex: 1;" class="rating_room ">
+                        <a class="reviews-open" data-room-id="@item.id">Đánh giá</a>
                     </div>
                     <a style="cursor: pointer;" class="primary-btn bookingLink" data-room-id="@item.id">Đặt phòng</a>
                 </div>

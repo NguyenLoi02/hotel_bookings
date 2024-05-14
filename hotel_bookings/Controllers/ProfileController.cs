@@ -15,7 +15,9 @@ namespace hotel_bookings.Controllers
         public ActionResult Index()
         {
             var check = (string)Session["user"];
-            var user = db.users.Where(m => m.email == check).ToList();
+            var users = db.users.Where(m => m.email == check).FirstOrDefault();
+            var id = users.id ;
+            var user = db.users.Find(id);
             return View(user);
         }
     }

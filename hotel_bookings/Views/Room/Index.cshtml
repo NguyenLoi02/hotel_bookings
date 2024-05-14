@@ -34,6 +34,39 @@
         <div class="row ">
             <script>
                 $(document).ready(function () {
+
+                    function updateMinCheckOutDate() {
+                        const checkInDate = new Date($('#checkInDatePicker').val());
+                        $('#checkOutDatePicker').attr('min', checkInDate.toISOString().split('T')[0]);
+                    }
+
+                    // Đặt giá trị từ localStorage nếu có
+                    if (localStorage.getItem('check_in')) {
+                        $('#checkInDatePicker').val(localStorage.getItem('check_in'));
+                    }
+                    if (localStorage.getItem('check_out')) {
+                        $('#checkOutDatePicker').val(localStorage.getItem('check_out'));
+                    }
+
+                    $('#checkInDatePicker').on('change', function () {
+                        const checkInDate = new Date($(this).val());
+                        $('#checkOutDatePicker').attr('min', checkInDate.toISOString().split('T')[0]);
+
+                        // Xóa ngày đi nếu ngày đi nhỏ hơn ngày đến
+                        if ($('#checkOutDatePicker').val() && new Date($('#checkOutDatePicker').val()) < checkInDate) {
+                            $('#checkOutDatePicker').val('');
+                        }
+
+                        // Lưu giá trị ngày đến vào localStorage
+                        localStorage.setItem('check_in', $(this).val());
+                    });
+
+                    $('#checkOutDatePicker').on('change', function () {
+                        const checkOutDate = new Date($(this).val());
+
+                        // Lưu giá trị ngày đi vào localStorage
+                        localStorage.setItem('check_out', $(this).val());
+                    });
                 $('#bookingForm').submit(function (event) {
                     event.preventDefault(); // Ngăn chặn hành động mặc định của form
 
@@ -142,13 +175,13 @@
 
             <div class="col-lg-12 col-md-6">
                 <form id="bookingForm" method="" class="form-inline">
-                    <div class="form-group mr-2">
-                        <label for="checkInDatePicker" class="mr-2">Ngày đến:</label>
-                        <input type="date" class="form-control" id="checkInDatePicker" name="check_in">
+                    <div class="check-date">
+                        <label for="date-in">Ngày đến:</label>
+                        <input type="date"  id="checkInDatePicker">
                     </div>
-                    <div class="form-group mr-2">
-                        <label for="checkOutDatePicker" class="mr-2">Ngày đi:</label>
-                        <input type="date" class="form-control" id="checkOutDatePicker" name="check_out">
+                    <div class="check-date">
+                        <label for="date-out">Ngày đi:</label>
+                        <input type="date"  id="checkOutDatePicker">
                     </div>
                     <button type="submit" class="btn btn-primary" style="color: #fff; background-color: #dfa974; border-color: #dfa974;">Tìm kiếm</button>
                 </form>
@@ -294,6 +327,40 @@
     }
     .reviews-open{
         cursor: pointer;
+    }
+    .checkNgay {
+
+        width: 80px;
+        height: 38px;
+        border-radius: 6px;
+
+    }
+    form .check-date {
+        position: relative;
+        margin-bottom: 15px;
+    }
+    form .check-date input {
+        width: 100%;
+        height: 50px;
+        border: 1px solid #ebebeb;
+        border-radius: 2px;
+        font-size: 16px;
+        color: #19191a;
+        text-transform: uppercase;
+        font-weight: 500;
+        padding-left: 20px;
+    }
+form .check-date i {
+        color: #dfa974;
+        position: absolute;
+        right: 18px;
+        bottom: 17px;
+    }
+    .check-date label {
+        font-size: 14px;
+        color: #707079;
+        display: block;
+        margin-bottom: 10px;
     }
 </style>
 <div id="room-detail-container"> </div>

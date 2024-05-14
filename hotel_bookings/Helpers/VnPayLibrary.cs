@@ -7,6 +7,8 @@ using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web;
+using System.Security.Policy;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace hotel_bookings.Helpers
 {
@@ -44,7 +46,7 @@ namespace hotel_bookings.Helpers
             {
                 var key = kv.Key;
                 var value = kv.Value;
-                data.Append(HttpUtility.UrlEncode(key) + "=" + HttpUtility.UrlEncode(value) + "&");
+                data.Append(System.Net.WebUtility.UrlEncode(key) + "=" + System.Net.WebUtility.UrlEncode(value) + "&");
             }
 
             var querystring = data.ToString();
@@ -83,14 +85,14 @@ namespace hotel_bookings.Helpers
             {
                 _responseData.Remove("vnp_SecureHash");
             }
-            foreach (KeyValuePair<string, string> kv in _requestData.Where(kv => !string.IsNullOrEmpty(kv.Value)))
+
+
+            foreach (var kv in _requestData.Where(kv => !string.IsNullOrEmpty(kv.Value)))
             {
                 var key = kv.Key;
                 var value = kv.Value;
-                data.Append(WebUtility.UrlEncode(key) + "=" + WebUtility.UrlEncode(value) + "&");
+                data.Append(System.Net.WebUtility.UrlEncode(key) + "=" + System.Net.WebUtility.UrlEncode(value) + "&");
             }
-
-
             //remove last '&'
             if (data.Length > 0)
             {
@@ -99,6 +101,7 @@ namespace hotel_bookings.Helpers
 
             return data.ToString();
         }
+
         #endregion
 
     }
@@ -120,6 +123,7 @@ namespace hotel_bookings.Helpers
             }
 
             return hash.ToString();
+
         }
 
 
@@ -155,27 +159,35 @@ namespace hotel_bookings.Helpers
         {
             try
             {
-                // Lấy địa chỉ IP từ yêu cầu hiện tại
-                var ipAddress = HttpContext.Current.Request.UserHostAddress;
-                if (ipAddress == "::1")
+                string hostName = Dns.GetHostName();
+                IPAddress[] addresses = Dns.GetHostAddresses(hostName);
+
+                // Tìm địa chỉ IPv4
+                string ipv4Address = null;
+                foreach (IPAddress address in addresses)
                 {
-                    // Thay thế địa chỉ IPv6 loopback bằng địa chỉ IPv4 loopback
-                    ipAddress = "192.168.1.154";
+                    if (address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                    {
+                        ipv4Address = address.ToString();
+                        break;
+                    }
                 }
-                if (!string.IsNullOrEmpty(ipAddress))
+                if (!string.IsNullOrEmpty(ipv4Address))
                 {
                     // Kiểm tra nếu là địa chỉ IPv6
-                    if (IPAddress.TryParse(ipAddress, out IPAddress ip))
+                    if (IPAddress.TryParse(ipv4Address, out IPAddress ip))
                     {
                         if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetworkV6)
                         {
-                            // Loại bỏ phần scope ID của địa chỉ IPv6
-                            ipAddress = ip.MapToIPv6().ToString();
+                            // Chuyển đổi địa chỉ IPv6 thành IPv4
+                            IPAddress ipv4 = ip.MapToIPv4();
+                            ipv4Address = ipv4.ToString();
                         }
                     }
 
-                    return ipAddress;
+                    return ipv4Address;
                 }
+
                 else
                 {
                     // Trả về giá trị mặc định hoặc null thay vì thông báo lỗi

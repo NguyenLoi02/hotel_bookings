@@ -12,7 +12,7 @@ namespace hotel_bookings.Models.Service
 {
     public interface IVnPayService
     {
-        string CreatePaymentUrl(HttpContextBase context, VnPaymentRequestModel model);
+        string CreatePaymentUrl(VnPaymentRequestModel model);
         VnPaymentResponseModel PaymentExecute(NameValueCollection collecttion);
     }
 }

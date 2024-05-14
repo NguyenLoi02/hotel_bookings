@@ -20,7 +20,7 @@ namespace hotel_bookings.Models.Data
             _config = ConfigurationManager.AppSettings;
         }
 
-        public string CreatePaymentUrl(HttpContextBase  context, VnPaymentRequestModel model)
+        public string CreatePaymentUrl(VnPaymentRequestModel model)
         {
             var tick = DateTime.Now.Ticks.ToString();
             var vnpay = new VnPayLibrary();
@@ -69,13 +69,13 @@ namespace hotel_bookings.Models.Data
 
             bool checkSignature = vnpay.ValidateSignature(vnp_SecureHash, _config["HashSecret"]);
 
-            if (!checkSignature)
-            {
-                return new VnPaymentResponseModel
-                {
-                    Success = false,
-                };
-            }
+            //if (!checkSignature)
+            //{
+            //    return new VnPaymentResponseModel
+            //    {
+            //        Success = false,
+            //    };
+            //}
 
             return new VnPaymentResponseModel
             {

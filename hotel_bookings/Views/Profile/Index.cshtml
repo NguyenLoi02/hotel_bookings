@@ -1,4 +1,4 @@
-﻿@model List<hotel_bookings.Models.user>
+﻿@model hotel_bookings.Models.user
 
 @{
     ViewBag.Title = "Index";
@@ -24,13 +24,10 @@
         </div>
         <div class="col-md-8">
             <div class="card-body">
-                @foreach (var item in Model)
-                {
-                    <p><strong>Họ và tên:</strong>@item.first_name</p>
-                    <p><strong>Email:</strong> @item.email</p>
-                    <p><strong>Số điện thoại:</strong> @item.phonenum</p>
-                    <p><strong>Địa chỉ:</strong> @item.address</p>
-                }
+                <p><strong>Họ và tên:</strong>@Model.first_name</p>
+                <p><strong>Email:</strong> @Model.email</p>
+                <p><strong>Số điện thoại:</strong> @Model.phonenum</p>
+                <p><strong>Địa chỉ:</strong> @Model.address</p>
 
 
                 <button type="submit" class="btn btn-primary btn-block">Lưu thông tin</button>

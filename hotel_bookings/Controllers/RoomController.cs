@@ -287,21 +287,15 @@ namespace hotel_bookings.Controllers
         [HttpPost]
         public ActionResult RoomOrder(user user, bool? vnPay)
         {
-           
-            DateTime check_in = (DateTime)Session["check_in"];
-            DateTime check_out = (DateTime)Session["check_out"];
-            double days = (double)Session["day"];
-            int room_price = (int)Session["room_price"];
-            var room_id = Session["room_id"] as int?;
-            db.users.Add(user);
-            db.SaveChanges();
-            var user_id = user.id;
-            string roomName = db.rooms.Where(r => r.id == room_id).Select(r => r.name).FirstOrDefault();
-            string firstName = db.users.Where(r => r.id == user_id).Select(r => r.first_name).FirstOrDefault();
             double servicePrice = (double)Session["servicePrice"];
-            DateTime currentDate = DateTime.Now;
+            int room_price = (int)Session["room_price"];
+            double days = (double)Session["day"];
             double trans_money = room_price * days + servicePrice;
-
+            Session["last_name"] = user.last_name;
+            Session["first_name"] = user.first_name;
+            Session["email"] = user.email;
+            Session["phonenum"] = user.phonenum;
+            Session["trans_money"] = trans_money;
             if (vnPay == true)
             {
                 var vnPayModel = new VnPaymentRequestModel
@@ -310,23 +304,55 @@ namespace hotel_bookings.Controllers
                     CreatedDate = DateTime.Now,
                     Description = $"{user.first_name} {user.phonenum}",
                     FullName = user.first_name,
-                    OrderId = new Random().Next(1000,100000),
+                    OrderId = new Random().Next(1000, 100000),
                 };
 
                 // Gọi phương thức CreatePaymentUrl của _vnPayService với HttpContextBase
-                var paymentUrl = _vnPayService.CreatePaymentUrl(HttpContext, vnPayModel);
+                var paymentUrl = _vnPayService.CreatePaymentUrl(vnPayModel);
 
                 // Chuyển hướng người dùng đến URL thanh toán
                 return Redirect(paymentUrl);
             }
+           
+            return RedirectToAction("Index");
+
+        }
+        public ActionResult PaymentFail()
+        {
+            return View();  
+        }
+        public ActionResult PaymentSuccess()
+        {
+            DateTime check_in = (DateTime)Session["check_in"];
+            DateTime check_out = (DateTime)Session["check_out"];
+            var room_id = Session["room_id"] as int?;
+            var last_name = (string)Session["last_name"];
+            var first_name = (string)Session["first_name"];
+            var email = (string)Session["email"];
+            var phonenum = (string)Session["phonenum"];
+            var trans_money = (double)Session["trans_money"];
+            user user = new user();
+            user.last_name = last_name;
+            user.first_name = first_name;
+            user.email = email;
+            user.last_name = last_name;
+            user.phonenum = phonenum;
+            //db.users.Add(user);
+            //db.SaveChanges();
+            var user_id = user.id;
+            string roomName = db.rooms.Where(r => r.id == room_id).Select(r => r.name).FirstOrDefault();
+            string firstName = db.users.Where(r => r.id == user_id).Select(r => r.first_name).FirstOrDefault();
+            DateTime currentDate = DateTime.Now;
+
+
 
             booking_order bookingOrder = new booking_order();
             bookingOrder.user_id = user_id;
             bookingOrder.booking_status = 0;
             bookingOrder.book_day = currentDate;
             bookingOrder.trans_money = (int)trans_money;
-            db.booking_order.Add(bookingOrder);
-            db.SaveChanges();
+            //db.booking_order.Add(bookingOrder);
+            //db.SaveChanges();
 
             var selectedOptions = Session["SelectedOptions"] as int[];
             if (selectedOptions != null && selectedOptions.Length > 0)
@@ -342,8 +368,8 @@ namespace hotel_bookings.Controllers
                         order_service order_service = new order_service();
                         order_service.booking_order_id = bookingOrder.id;
                         order_service.service_id = optionId;
-                        db.order_service.Add(order_service);
-                        db.SaveChanges();
+                        //db.order_service.Add(order_service);
+                        //db.SaveChanges();
                     }
                 }
             }
@@ -355,37 +381,28 @@ namespace hotel_bookings.Controllers
             booking_details.room_id = (int)room_id;
             booking_details.check_in = check_in;
             booking_details.check_out = check_out;
-            db.booking_details.Add(booking_details);
-            db.SaveChanges();
-
+            //db.booking_details.Add(booking_details);
+            //db.SaveChanges();
+           
             string contentCustomer = System.IO.File.ReadAllText(Server.MapPath("~/Common/templateEmail.html"));
             contentCustomer = contentCustomer.Replace("{{MaBooking}}", Convert.ToString(booking_order_id));
             contentCustomer = contentCustomer.Replace("{{TenPhong}}", roomName);
             contentCustomer = contentCustomer.Replace("{{TenKhachHang}}", firstName);
-            try
-            {
-                string subject = "Test Email";
-                string body = "This is a test email sent from the ASP.NET MVC application.";
-                string to = "user.email"; // Update with the recipient's email address
+            //try
+            //{
+            //    string subject = "Test Email";
+            //    string body = "This is a test email sent from the ASP.NET MVC application.";
+            //    string to = "user.email"; // Update with the recipient's email address
 
-                GoogleAuthentication.SendEmail("Hotel HL", contentCustomer.ToString(), user.email);
-                Console.WriteLine("Email sent successfully.");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("$\"Failed to send email");
+            //    GoogleAuthentication.SendEmail("Hotel HL", contentCustomer.ToString(), email);
+            //    Console.WriteLine("Email sent successfully.");
+            //}
+            //catch (Exception ex)
+            //{
+            //    Console.WriteLine("$\"Failed to send email");
 
-                // Log the exception here
-            }
-            return RedirectToAction("Index");
-
-        }
-        public ActionResult PaymentFail()
-        {
-            return View();  
-        }
-        public ActionResult PaymentSuccess()
-        {
+            //    // Log the exception here
+            //}
             return View();
         }
         public ActionResult PaymentCallBack()
