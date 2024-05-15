@@ -8,7 +8,109 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<style>
+    .is-invalid {
+        border: 1px solid red !important;
+    }
+    input[type="date"]::placeholder {
+        color: red !important;
+    }
 
+    /* Thay đổi màu của biểu tượng lịch trình trên các trình duyệt WebKit (Chrome/Safari) */
+    input[type="date"]::-webkit-calendar-picker-indicator {
+        filter: invert(1); /* Đảo ngược màu sắc */
+    }
+    .reviews {
+        background: #000000;
+        /* display: none; */
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        background: rgba(0, 0, 0, 0.2);
+        z-index: 99999;
+        width: 100%;
+        display: flex;
+    }
+    button.btn.btn-primary {
+        margin-top: 29px;
+        margin-left: 11px;
+        color: #fff;
+        background-color: #dfa974;
+        border-color: #dfa974;
+        /* width: 6pc; */
+        height: 42px;
+    }
+    #benTrai {
+        width: 26%;
+        box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.3); /* Tạo viền nổi */
+        background-color: #f0f0f0; /* Màu nền của phần bên trái */
+    }
+
+    #reviews-close {
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        background: #333;
+        color: #fff;
+        text-align: center;
+        border-radius: 50%;
+        font-size: 28px;
+        line-height: 28px;
+        top: 30px;
+        cursor: pointer;
+        display: flex;
+    }
+
+    .reviews-open {
+        cursor: pointer;
+    }
+
+    .checkNgay {
+        width: 80px;
+        height: 38px;
+        border-radius: 6px;
+    }
+
+    form .check-date {
+        position: relative;
+        margin-bottom: 9px;
+        padding: 0 15px;
+    }
+
+        form .check-date input {
+            width: 100%;
+            height: 40px;
+            border: 1px solid #ebebeb;
+            border-radius: 2px;
+            font-size: 16px;
+            color: #19191a;
+            text-transform: uppercase;
+            font-weight: 500;
+            padding-left: 20px;
+            color: #dfa974;
+        }
+    .select-option {
+        position: relative;
+        margin-bottom: 9px;
+        padding: 0 15px;
+    }
+        form .check-date i {
+            color: #dfa974;
+            position: absolute;
+            right: 18px;
+            bottom: 17px;
+        }
+
+    .check-date label, .select-option label {
+        font-size: 14px;
+        color: #707079;
+        display: block;
+        margin-bottom: 10px;
+    }
+
+</style>
 <!-- Breadcrumb Section Begin -->
 <div class="breadcrumb-section">
     <div class="container">
@@ -17,8 +119,8 @@
                 <div class="breadcrumb-text">
                     <h2>Danh sách phòng </h2>
                     <div class="bt-option">
-                        <a href="@Url.Action("Index", "Home")">Trang chủ</a>
-                        <span>Phòng</span>
+                        <a style="color: #aaaab3; " href="@Url.Action("Index", "Home")">Trang chủ</a>
+                        <span style="color: #19191a;">Phòng</span>
                     </div>
                 </div>
             </div>
@@ -35,37 +137,17 @@
             <script>
                 $(document).ready(function () {
 
-                    function updateMinCheckOutDate() {
-                        const checkInDate = new Date($('#checkInDatePicker').val());
-                        $('#checkOutDatePicker').attr('min', checkInDate.toISOString().split('T')[0]);
-                    }
+                    document.getElementById('checkInDatePicker').addEventListener('change', function () {
+                        var checkInDate = new Date(this.value);
+                        var checkOutDatePicker = document.getElementById('checkOutDatePicker');
 
-                    // Đặt giá trị từ localStorage nếu có
-                    if (localStorage.getItem('check_in')) {
-                        $('#checkInDatePicker').val(localStorage.getItem('check_in'));
-                    }
-                    if (localStorage.getItem('check_out')) {
-                        $('#checkOutDatePicker').val(localStorage.getItem('check_out'));
-                    }
+                        // Set the min attribute of the check-out date picker to the selected check-in date
+                        checkOutDatePicker.min = this.value;
 
-                    $('#checkInDatePicker').on('change', function () {
-                        const checkInDate = new Date($(this).val());
-                        $('#checkOutDatePicker').attr('min', checkInDate.toISOString().split('T')[0]);
-
-                        // Xóa ngày đi nếu ngày đi nhỏ hơn ngày đến
-                        if ($('#checkOutDatePicker').val() && new Date($('#checkOutDatePicker').val()) < checkInDate) {
-                            $('#checkOutDatePicker').val('');
+                        // If the selected check-out date is earlier than the check-in date, clear the check-out date
+                        if (checkOutDatePicker.value && new Date(checkOutDatePicker.value) < checkInDate) {
+                            checkOutDatePicker.value = '';
                         }
-
-                        // Lưu giá trị ngày đến vào localStorage
-                        localStorage.setItem('check_in', $(this).val());
-                    });
-
-                    $('#checkOutDatePicker').on('change', function () {
-                        const checkOutDate = new Date($(this).val());
-
-                        // Lưu giá trị ngày đi vào localStorage
-                        localStorage.setItem('check_out', $(this).val());
                     });
                 $('#bookingForm').submit(function (event) {
                     event.preventDefault(); // Ngăn chặn hành động mặc định của form
@@ -177,13 +259,29 @@
                 <form id="bookingForm" method="" class="form-inline">
                     <div class="check-date">
                         <label for="date-in">Ngày đến:</label>
-                        <input type="date"  id="checkInDatePicker">
+                        <input type="date" id="checkInDatePicker" class="">
                     </div>
                     <div class="check-date">
                         <label for="date-out">Ngày đi:</label>
-                        <input type="date"  id="checkOutDatePicker">
+                        <input type="date" id="checkOutDatePicker" class="">
                     </div>
-                    <button type="submit" class="btn btn-primary" style="color: #fff; background-color: #dfa974; border-color: #dfa974;">Tìm kiếm</button>
+                    <div class="select-option" style="margin-bottom: 8px;">
+                        <label id="" for="guest">Người lớn:</label>
+                        <select id="guest">
+                            <option value="">1 người lớn</option>
+                            <option value="">2 người lớn</option>
+                            <option value="">3 người lớn</option>
+                        </select>
+                    </div>
+                    <div class="select-option" style="margin-bottom: 8px;">
+                        <label for="guest">Trẻ em:</label>
+                        <select id="guest">
+                            <option value="">1 trẻ em</option>
+                            <option value="">2 trẻ em</option>
+                            <option value="">3 trẻ em</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="margin-top: 14px; color: #fff; background-color: #dfa974; border-color: #dfa974;">Tìm kiếm</button>
                 </form>
             </div>
 
@@ -292,75 +390,5 @@
 <div id="room-reviews">
     
 </div>
-<style>
-    .reviews {
-        background: #000000;
-        /* display: none; */
-        position: fixed;
-        width: 100%;
-        height: 100%;
-        left: 0;
-        top: 0;
-        background: rgba(0, 0, 0, 0.2);
-        z-index: 99999;
-        width: 100%;
-        display: flex;
-    }
-    #benTrai {
-        width: 26%;
-        box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.3); /* Tạo viền nổi */
-        background-color: #f0f0f0; /* Màu nền của phần bên trái */
-    }
-    #reviews-close {
-        position: absolute;
-        width: 50px;
-        height: 50px;
-        background: #333;
-        color: #fff;
-        text-align: center;
-        border-radius: 50%;
-        font-size: 28px;
-        line-height: 28px;
-        top: 30px;
-        cursor: pointer;
-        display: flex;
-    }
-    .reviews-open{
-        cursor: pointer;
-    }
-    .checkNgay {
 
-        width: 80px;
-        height: 38px;
-        border-radius: 6px;
-
-    }
-    form .check-date {
-        position: relative;
-        margin-bottom: 15px;
-    }
-    form .check-date input {
-        width: 100%;
-        height: 50px;
-        border: 1px solid #ebebeb;
-        border-radius: 2px;
-        font-size: 16px;
-        color: #19191a;
-        text-transform: uppercase;
-        font-weight: 500;
-        padding-left: 20px;
-    }
-form .check-date i {
-        color: #dfa974;
-        position: absolute;
-        right: 18px;
-        bottom: 17px;
-    }
-    .check-date label {
-        font-size: 14px;
-        color: #707079;
-        display: block;
-        margin-bottom: 10px;
-    }
-</style>
 <div id="room-detail-container"> </div>

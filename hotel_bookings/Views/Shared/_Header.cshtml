@@ -5,6 +5,23 @@
 
 
 }
+<script>
+    // Lấy danh sách các thẻ <li>
+    var menuItems = document.querySelectorAll('.mainmenu ul li');
+
+    // Duyệt qua từng thẻ <li> và thêm sự kiện click cho chúng
+    menuItems.forEach(function (item) {
+        item.addEventListener('click', function () {
+            // Xóa class 'active' khỏi tất cả các thẻ <li>
+            menuItems.forEach(function (element) {
+                element.classList.remove('active');
+            });
+
+            // Thêm class 'active' cho thẻ <li> được click
+            this.classList.add('active');
+        });
+    });
+</script>
 <div id="preloder">
     <div class="loader"></div>
 </div>
@@ -58,10 +75,10 @@
                         <nav class="mainmenu">
                             <ul>
                                 <li class="active"><a href="@Url.Action("Index", "Home")">Trang chủ</a></li>
-                                <li><a href="@Url.Action("Index", "Room")">Phòng</a></li>
+                                <li class="" ><a href="@Url.Action("Index", "Room")">Phòng</a></li>
 
-                                <li><a href="@Url.Action("Index", "News")">Tin tức</a></li>
-                                <li><a href="@Url.Action("Index", "Contact")">Liên Hệ</a></li>
+                                <li class=""><a href="@Url.Action("Index", "News")">Tin tức</a></li>
+                                <li class=""><a href="@Url.Action("Index", "Contact")">Liên Hệ</a></li>
                             </ul>
                         </nav>
                     </div>

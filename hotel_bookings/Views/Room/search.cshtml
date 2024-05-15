@@ -81,7 +81,16 @@
                     <div style="flex: 1;" class="rating_room ">
                         <a class="reviews-open" data-room-id="@item.id">Đánh giá</a>
                     </div>
-                    <a style="cursor: pointer;" class="primary-btn bookingLink" data-room-id="@item.id">Đặt phòng</a>
+                    @if (item.quantity > 0)
+                    {
+
+                        <a style="cursor: pointer;" class="primary-btn bookingLink" data-room-id="@item.id">Đặt phòng</a>
+                    }
+                    else
+                    {
+                        <a style="cursor: pointer;" class="primary-btn bookingLink" data-room-id="@item.id">Hết phòng</a>
+
+                    }
                 </div>
             </div>
         </div>

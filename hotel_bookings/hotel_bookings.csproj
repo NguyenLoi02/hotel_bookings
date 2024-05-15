@@ -2852,6 +2852,9 @@
     <Content Include="Assets\img\hero\hero-2.jpg" />
     <Content Include="Assets\img\hero\hero-3.jpg" />
     <Content Include="Assets\img\logo.png" />
+    <Content Include="Assets\img\news\content01.jpg" />
+    <Content Include="Assets\img\news\content02.jpg" />
+    <Content Include="Assets\img\news\content03.jpg" />
     <Content Include="Assets\img\news\news01.jpg" />
     <Content Include="Assets\img\play.png" />
     <Content Include="Assets\img\room\avatar\avatar-1.jpg" />

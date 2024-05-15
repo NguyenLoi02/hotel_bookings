@@ -70,10 +70,10 @@ namespace hotel_bookings.Controllers
             return View(availableRooms.ToPagedList(pageNumber, pageSize));
         }
         [HttpPost]
-        public ActionResult search(int? page,DateTime check_in, DateTime check_out)
+        public ActionResult search(int? page,DateTime check_in, DateTime check_out, int adult = 1, int children = 1)
         {
           
-            var availableRooms = _roomServices.CheckRoom(check_in, check_out);
+            var availableRooms = _roomServices.CheckRoom(check_in, check_out, adult, children);
 
 
             // Số lượng mục trên mỗi trang

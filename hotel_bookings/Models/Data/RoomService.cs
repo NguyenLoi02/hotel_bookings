@@ -9,6 +9,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using System.Collections;
 
 namespace hotel_bookings.Models.Data
 {
@@ -120,16 +121,27 @@ namespace hotel_bookings.Models.Data
             }
         }
 
-        public IEnumerable<room> CheckRoom(DateTime check_in, DateTime check_out)
+        public IEnumerable<room> CheckRoom(DateTime check_in, DateTime check_out, int adult , int children)
         {
             var bookedRoomIds = _dbContext.booking_details
             .Where(b => !(b.check_in >= check_out || b.check_out <= check_in))
             .Select(b => b.id)
             .ToList();
 
+            var roomCount = bookedRoomIds.Count();
             var availableRooms = _dbContext.rooms
                 .Where(r => !bookedRoomIds.Contains(r.id) && r.quantity > 0)
                 .ToList();
+
+            var roomBooker = _dbContext.rooms
+                .Where(r => bookedRoomIds.Contains(r.id) && r.quantity > 0)
+                .ToList();
+            foreach(var item in roomBooker)
+            {
+                item.quantity = item.quantity - roomCount;
+            }
+            availableRooms.AddRange(roomBooker);
+            availableRooms = availableRooms.OrderBy(room => room.id).ToList();
             return availableRooms;
         }
 

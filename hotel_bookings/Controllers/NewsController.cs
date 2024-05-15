@@ -20,8 +20,8 @@ namespace hotel_bookings.Controllers
         }
         public ActionResult NewsDetail(int id)
         {
-            var detail = db.news.Find(id);
-            return View(detail);
+            var contents = db.contents.Where(x=>x.news_id == id).ToList();
+            return View(contents);
         }
     }
 }
