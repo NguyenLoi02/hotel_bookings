@@ -39,6 +39,25 @@ namespace hotel_bookings.Controllers
         // GET: Room
         public ActionResult Index(int? page)
         {
+            //string contentCustomer = System.IO.File.ReadAllText(Server.MapPath("~/Common/templateEmail.html"));
+            //contentCustomer = contentCustomer.Replace("{{MaBooking}}", "BK0001");
+            //contentCustomer = contentCustomer.Replace("{{TenPhong}}", "Room 1 style 1");
+            //contentCustomer = contentCustomer.Replace("{{TenKhachHang}}", "Lợi");
+            //try
+            //{
+            //    string subject = "Test Email";
+            //    string body = "This is a test email sent from the ASP.NET MVC application.";
+            //    string to = "user.email"; // Update with the recipient's email address
+
+            //    GoogleAuthentication.SendEmail("Hotel HL", contentCustomer.ToString(), "nguyenvanloihd88@gmail.com");
+            //    Console.WriteLine("Email sent successfully.");
+            //}
+            //catch (Exception ex)
+            //{
+            //    Console.WriteLine("$\"Failed to send email");
+
+            //    // Log the exception here
+            //}
             // Số lượng mục trên mỗi trang
             int pageSize = 6;
             var roomStyle = db.room_style.ToList();
@@ -48,34 +67,12 @@ namespace hotel_bookings.Controllers
             var room_list = _roomServices.GetAllRooms();
             return View(room_list.ToPagedList(pageNumber, pageSize));
         }
-        [HttpPost]
-        public ActionResult filter(int? page,int filterRoom)
-        {
-            // Số lượng mục trên mỗi trang
-            int pageSize = 6;
-            var roomStyle = db.room_style.ToList();
-
-            ViewBag.roomStyleList = roomStyle;
-
-            // Số trang hiện tại (nếu không có sẽ mặc định là 1)
-            int pageNumber = (page ?? 1);
-            var bookedRoomIds = db.room_style
-             .Where(b => b.id == filterRoom)
-             .Select(b => b.id)
-             .ToList();
-
-            var availableRooms = db.rooms
-                .Where(r => bookedRoomIds.Contains(r.room_style_id))
-                .ToList();
-            return View(availableRooms.ToPagedList(pageNumber, pageSize));
-        }
+       
         [HttpPost]
         public ActionResult search(int? page,DateTime check_in, DateTime check_out, int adult = 1, int children = 1)
         {
           
             var availableRooms = _roomServices.CheckRoom(check_in, check_out, adult, children);
-
-
             // Số lượng mục trên mỗi trang
             int pageSize = 6;
             // Số trang hiện tại (nếu không có sẽ mặc định là 1)
@@ -88,51 +85,49 @@ namespace hotel_bookings.Controllers
             Session["check_out"] = check_out.Date;
             ViewBag.CheckIn = check_in;
             ViewBag.CheckIn = check_out;
+            Session["availableRooms"] = availableRooms;
+
 
             return View(availableRooms.ToPagedList(pageNumber, pageSize));
         }
-        //[HttpGet]
-        //public ActionResult RoomFilter(int? page,int? room_style_id)
-        //{
 
-        //    var availableRooms = _roomServices.RoomFilter(room_style_id);
+        [HttpPost]
+        public ActionResult filter(int? page, int filterRoom)
+        {
+            // Số lượng mục trên mỗi trang
+            int pageSize = 6;
+            var roomStyle = db.room_style.ToList();
+
+            ViewBag.roomStyleList = roomStyle;
+
+            // Số trang hiện tại (nếu không có sẽ mặc định là 1)
+            int pageNumber = (page ?? 1);
+
+            var bookedRoomIds = db.room_style
+             .Where(b => b.id == filterRoom)
+             .Select(b => b.id)
+             .ToList();
+
+            
+            var availableRooms = (List<room>)Session["availableRooms"];
+            if(availableRooms != null && availableRooms.Count() > 0)
+            {
+                var availableRoomss = availableRooms
+                    .Where(r => bookedRoomIds.Contains(r.room_style_id))
+                    .ToList();
+                return View(availableRoomss.ToPagedList(pageNumber, pageSize));
+            }
+            
+            var availableRoomsss = db.rooms
+               .Where(r => bookedRoomIds.Contains(r.room_style_id))
+               .ToList();
+            return View(availableRoomsss.ToPagedList(pageNumber, pageSize));
 
 
-        //    // Số lượng mục trên mỗi trang
-        //    int pageSize = 6;
-        //    // Số trang hiện tại (nếu không có sẽ mặc định là 1)
-        //    int pageNumber = (page ?? 1);
-        //    System.Web.HttpContext.Current.Session.Timeout = 30;
-           
-
-        //    return View(availableRooms.ToPagedList(pageNumber, pageSize));
-        //}
+        }
+       
         [HttpGet]
-        //public ActionResult RoomDetail(int id)
-        //{
-
-        //    if (id == null || Session["check_in"] == null || Session["check_out"] == null)
-        //    {
-        //        return RedirectToAction("Index");
-        //    }
-        //    else
-        //    {
-        //        DateTime check_in = (DateTime)Session["check_in"];
-        //        ViewBag.CheckIn = check_in;
-        //        DateTime check_out = (DateTime)Session["check_out"];
-        //        ViewBag.CheckOut = check_out;
-        //        double days = (double)Session["day"];
-        //        ViewBag.Day = days;
-        //        var detail = db.rooms.Find(id);
-        //        Session["room_id"] = id;
-        //        Session["room_name"] = detail.name;
-        //        Session["room_price"] = detail.price;
-        //        Session["room_adult"] = detail.adult;
-        //        Session["room_children"] = detail.children;           
-        //        return View(detail);
-        //    }
-
-        //}
+       
         public ActionResult RoomDetails(int id)
         {
             var detail = db.rooms.Find(id);
@@ -296,24 +291,25 @@ namespace hotel_bookings.Controllers
             Session["email"] = user.email;
             Session["phonenum"] = user.phonenum;
             Session["trans_money"] = trans_money;
-            if (vnPay == true)
-            {
-                var vnPayModel = new VnPaymentRequestModel
-                {
-                    Amount = trans_money,
-                    CreatedDate = DateTime.Now,
-                    Description = $"{user.first_name} {user.phonenum}",
-                    FullName = user.first_name,
-                    OrderId = new Random().Next(1000, 100000),
-                };
+            
+            //if (vnPay == true)
+            //{
+            //    var vnPayModel = new VnPaymentRequestModel
+            //    {
+            //        Amount = trans_money,
+            //        CreatedDate = DateTime.Now,
+            //        Description = $"{user.first_name} {user.phonenum}",
+            //        FullName = user.first_name,
+            //        OrderId = new Random().Next(1000, 100000),
+            //    };
 
-                // Gọi phương thức CreatePaymentUrl của _vnPayService với HttpContextBase
-                var paymentUrl = _vnPayService.CreatePaymentUrl(vnPayModel);
+            //    // Gọi phương thức CreatePaymentUrl của _vnPayService với HttpContextBase
+            //    var paymentUrl = _vnPayService.CreatePaymentUrl(vnPayModel);
 
-                // Chuyển hướng người dùng đến URL thanh toán
-                return Redirect(paymentUrl);
-            }
-           
+            //    // Chuyển hướng người dùng đến URL thanh toán
+            //    return Redirect(paymentUrl);
+            //}
+
             return RedirectToAction("Index");
 
         }
@@ -337,8 +333,8 @@ namespace hotel_bookings.Controllers
             user.email = email;
             user.last_name = last_name;
             user.phonenum = phonenum;
-            //db.users.Add(user);
-            //db.SaveChanges();
+            db.users.Add(user);
+            db.SaveChanges();
             var user_id = user.id;
             string roomName = db.rooms.Where(r => r.id == room_id).Select(r => r.name).FirstOrDefault();
             string firstName = db.users.Where(r => r.id == user_id).Select(r => r.first_name).FirstOrDefault();
@@ -351,8 +347,8 @@ namespace hotel_bookings.Controllers
             bookingOrder.booking_status = 0;
             bookingOrder.book_day = currentDate;
             bookingOrder.trans_money = (int)trans_money;
-            //db.booking_order.Add(bookingOrder);
-            //db.SaveChanges();
+            db.booking_order.Add(bookingOrder);
+            db.SaveChanges();
 
             var selectedOptions = Session["SelectedOptions"] as int[];
             if (selectedOptions != null && selectedOptions.Length > 0)
@@ -368,8 +364,8 @@ namespace hotel_bookings.Controllers
                         order_service order_service = new order_service();
                         order_service.booking_order_id = bookingOrder.id;
                         order_service.service_id = optionId;
-                        //db.order_service.Add(order_service);
-                        //db.SaveChanges();
+                        db.order_service.Add(order_service);
+                        db.SaveChanges();
                     }
                 }
             }
@@ -381,28 +377,28 @@ namespace hotel_bookings.Controllers
             booking_details.room_id = (int)room_id;
             booking_details.check_in = check_in;
             booking_details.check_out = check_out;
-            //db.booking_details.Add(booking_details);
-            //db.SaveChanges();
-           
+            db.booking_details.Add(booking_details);
+            db.SaveChanges();
+
             string contentCustomer = System.IO.File.ReadAllText(Server.MapPath("~/Common/templateEmail.html"));
             contentCustomer = contentCustomer.Replace("{{MaBooking}}", Convert.ToString(booking_order_id));
             contentCustomer = contentCustomer.Replace("{{TenPhong}}", roomName);
             contentCustomer = contentCustomer.Replace("{{TenKhachHang}}", firstName);
-            //try
-            //{
-            //    string subject = "Test Email";
-            //    string body = "This is a test email sent from the ASP.NET MVC application.";
-            //    string to = "user.email"; // Update with the recipient's email address
+            try
+            {
+                string subject = "Test Email";
+                string body = "This is a test email sent from the ASP.NET MVC application.";
+                string to = "user.email"; // Update with the recipient's email address
 
-            //    GoogleAuthentication.SendEmail("Hotel HL", contentCustomer.ToString(), email);
-            //    Console.WriteLine("Email sent successfully.");
-            //}
-            //catch (Exception ex)
-            //{
-            //    Console.WriteLine("$\"Failed to send email");
+                GoogleAuthentication.SendEmail("Hotel HL", contentCustomer.ToString(), email);
+                Console.WriteLine("Email sent successfully.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("$\"Failed to send email");
 
-            //    // Log the exception here
-            //}
+                // Log the exception here
+            }
             return View();
         }
         public ActionResult PaymentCallBack()

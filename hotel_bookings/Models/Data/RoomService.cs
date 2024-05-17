@@ -123,24 +123,44 @@ namespace hotel_bookings.Models.Data
 
         public IEnumerable<room> CheckRoom(DateTime check_in, DateTime check_out, int adult , int children)
         {
-            var bookedRoomIds = _dbContext.booking_details
-            .Where(b => !(b.check_in >= check_out || b.check_out <= check_in))
-            .Select(b => b.id)
-            .ToList();
+            // Bước 1: Lấy danh sách ID phòng và số lần phòng đó được đặt trong khoảng thời gian
+            var bookedRoomsCount = _dbContext.booking_details
+                .Where(b => !(b.check_in >= check_out || b.check_out <= check_in))
+                .GroupBy(b => b.room_id)
+                .Select(g => new
+                {
+                    RoomId = g.Key,
+                    BookingCount = g.Count()
+                })
+                .ToList();
 
-            var roomCount = bookedRoomIds.Count();
+            // Bước 2: Lấy danh sách ID của các phòng đã đặt
+            var bookedRoomIds = bookedRoomsCount.Select(b => b.RoomId).ToList();
+
+            // Bước 3: Lấy danh sách các phòng có sẵn (không có trong danh sách ID của các phòng đã đặt)
             var availableRooms = _dbContext.rooms
                 .Where(r => !bookedRoomIds.Contains(r.id) && r.quantity > 0)
                 .ToList();
 
-            var roomBooker = _dbContext.rooms
-                .Where(r => bookedRoomIds.Contains(r.id) && r.quantity > 0)
-                .ToList();
-            foreach(var item in roomBooker)
+            // Bước 4: Cập nhật số lượng phòng dựa trên số lần đặt phòng
+            foreach (var bookedRoom in bookedRoomsCount)
             {
-                item.quantity = item.quantity - roomCount;
+                var room = _dbContext.rooms.SingleOrDefault(r => r.id == bookedRoom.RoomId);
+                if (room != null)
+                {
+                    room.quantity -= bookedRoom.BookingCount;
+                    if (room.quantity >= 0)
+                    {
+                        availableRooms.Add(room);
+                    }
+                }
             }
-            availableRooms.AddRange(roomBooker);
+
+            availableRooms = availableRooms
+             .Where(room => room.adult >= adult && room.children >= children)
+             .ToList();
+
+            // Bước 6: Sắp xếp danh sách phòng cuối cùng theo ID phòng
             availableRooms = availableRooms.OrderBy(room => room.id).ToList();
             return availableRooms;
         }

@@ -109,7 +109,49 @@
         display: block;
         margin-bottom: 10px;
     }
+    .breadcrumb-text .bt-option a:after {
+        position: absolute;
+        right: -13px;
+        top: 1px;
+        content: " >";
+        font-size: 18px;
+        font-family: "FontAwesome";
+        color: #aaaab3;
+    }
+    .successFormSearch {
+        display: none;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 99999;
+        justify-content: center;
+        color: #dfa974;
+    }
+    .custom-checkbox {
+        transform: scale(2.0); /* Chỉnh kích thước theo nhu cầu */
+        margin-top: 9px;
+    }
+        .custom-checkbox .form-check-input:checked {
+            background-color: red; /* Màu nền của checkbox khi được chọn */
+            border-color: red; /* Màu viền của checkbox khi được chọn */
+        }
 
+        /* Chọn màu cho biên ngoài của checkbox */
+        .custom-checkbox .form-check-input:focus {
+            box-shadow: 0 0 0 0.2rem rgba(255, 0, 0, 0.25); /* Màu viền khi checkbox được focus */
+        }
+
+        /* Chọn màu cho dấu tick khi checkbox được chọn */
+        .custom-checkbox .form-check-input:checked ~ .form-check-label::before {
+            background-color: blue; /* Màu của dấu tick khi checkbox được chọn */
+        }
+    .custom-label {
+        font-size: 20px !important;
+        color: #ffffff !important;
+        display: block !important;
+        margin-left: 14px !important;
+    }
 </style>
 <!-- Breadcrumb Section Begin -->
 <div class="breadcrumb-section">
@@ -155,7 +197,9 @@
                     // Lấy dữ liệu từ form
                     var formData = {
                         check_in: $('#checkInDatePicker').val(),
-                        check_out: $('#checkOutDatePicker').val()
+                        check_out: $('#checkOutDatePicker').val(),
+                        adult: $('#adult').val(),
+                        children: $('#children').val()
                     };
 
                     // Gửi yêu cầu Ajax
@@ -164,8 +208,15 @@
                         url: '@Url.Action("search", "Room")', // Thay thế Tên_Controller bằng tên thực tế của controller
                         data: formData,
                         success: function (response) {
+                            $('.successFormSearch').fadeIn(); // Sửa từ 'fadein()' thành 'fadeIn()'
+                            setTimeout(function () {
+                                $('.successFormSearch').fadeOut(); // Sửa từ 'fadeout()' thành 'fadeOut()'
+                            }, 700);
                             // Xử lý kết quả nếu cần
-                            $('#searchRoom').html(response);
+                            setTimeout(function () {
+                                $('#searchRoom').html(response);
+                            }, 700);
+                            
                         },
                         error: function (xhr, status, error) {
                             // Xử lý lỗi nếu có
@@ -189,7 +240,14 @@
                         data: formData,
                         success: function (response) {
                             // Xử lý kết quả nếu cần
-                            $('#searchRoom').html(response);
+                            $('.successFormSearch').fadeIn(); // Sửa từ 'fadein()' thành 'fadeIn()'
+                            setTimeout(function () {
+                                $('.successFormSearch').fadeOut(); // Sửa từ 'fadeout()' thành 'fadeOut()'
+                            }, 700);
+                           
+                            setTimeout(function () {
+                                $('#searchRoom').html(response);
+                            }, 700);
                         },
                         error: function (xhr, status, error) {
                             // Xử lý lỗi nếu có
@@ -267,18 +325,18 @@
                     </div>
                     <div class="select-option" style="margin-bottom: 8px;">
                         <label id="" for="guest">Người lớn:</label>
-                        <select id="guest">
-                            <option value="">1 người lớn</option>
-                            <option value="">2 người lớn</option>
-                            <option value="">3 người lớn</option>
+                        <select id="adult">
+                            <option value="1">1 người lớn</option>
+                            <option value="2">2 người lớn</option>
+                            <option value="3">3 người lớn</option>
                         </select>
                     </div>
                     <div class="select-option" style="margin-bottom: 8px;">
                         <label for="guest">Trẻ em:</label>
-                        <select id="guest">
-                            <option value="">1 trẻ em</option>
-                            <option value="">2 trẻ em</option>
-                            <option value="">3 trẻ em</option>
+                        <select id="children">
+                            <option value="1">1 trẻ em</option>
+                            <option value="2">2 trẻ em</option>
+                            <option value="3">3 trẻ em</option>
                         </select>
                     </div>
                     <button type="submit" class="btn btn-primary" style="margin-top: 14px; color: #fff; background-color: #dfa974; border-color: #dfa974;">Tìm kiếm</button>
@@ -349,36 +407,59 @@
     <div class="h-100 d-flex align-items-center justify-content-center">
         <div class="search-close-switch"><i class="icon_close"></i></div>
         <div class="room-booking">
-            <h3 style="color: aliceblue;">Tìm kiếm</h3>
+            <h3 style="color: aliceblue; text-align: center;">Tìm kiếm</h3>
             <form id="filter" method="post">
-                <div class="check-date">
-                    <label for="date-in">Chọn loại phòng:</label>
-                    <select class="form-control" id="filterRoom">
+                @*<div class="check-date">
+            <label for="date-in">Chọn loại phòng:</label>
+            <select class="form-control" id="filterRoom">
+                @foreach (var item in roomStyleList)
+                {
+                    <option value="@item.id">@item.name</option>
+
+                }
+
+            </select>
+        </div>*@
+
+                <div class="select-option">
+                    <label for="guest" style=" font-size: 21px; color: #dfa974; display: block; margin-bottom: 10px;">Kiểu phòng:</label>
+                    <select id="filterRoom" style="display: none;">
                         @foreach (var item in roomStyleList)
                         {
                             <option value="@item.id">@item.name</option>
 
                         }
-
                     </select>
                 </div>
-
-                @*<div class="select-option">
-                        <label for="guest">guests:</label>
-                        <select id="guest" style="display: none;">
-                            <option value="">3 adults</option>
-                            <option value="">4 adults</option>
-                            <option value="">5 adults</option>
-                        </select>
+                <div class="select-option">
+                    <label for="guest" style=" font-size: 21px; color: #dfa974; display: block; margin-bottom: 10px;">Công năng phòng:</label>
+                    <div class="form-check">
+                        <input class="form-check-input custom-checkbox" type="checkbox" value="" id="defaultCheck1">
+                        <label class=" custom-label" for="defaultCheck1">
+                            Option 1
+                        </label>
                     </div>
-                    <div class="select-option">
-                        <label for="room">room:</label>
-                        <select id="room" style="display: none;">
-                            <option value="">1 room</option>
-                            <option value="">1 room</option>
-                            <option value="">1 room</option>
-                        </select><div class="nice-select" tabindex="0"><span class="current">1 room</span><ul class="list"><li data-value="" class="option selected">1 room</li></ul></div>
-                    </div>*@
+                    <div class="form-check">
+                        <input class="form-check-input custom-checkbox" type="checkbox" value="" id="defaultCheck1">
+                        <label class=" custom-label" for="defaultCheck1">
+                            Option 1
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input custom-checkbox" type="checkbox" value="" id="defaultCheck1">
+                        <label class=" custom-label" for="defaultCheck1">
+                            Option 1
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input custom-checkbox" type="checkbox" value="" id="defaultCheck1">
+                        <label class="custom-label" for="defaultCheck1">
+                            Option 1
+                        </label>
+                    </div>
+                </div>
+               
+                
                 <button type="submit">tìm kiếm</button>
             </form>
 

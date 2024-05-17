@@ -4,7 +4,17 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+<style>
+    .breadcrumb-text .bt-option a:after {
+        position: absolute;
+        right: -13px;
+        top: 1px;
+        content: " >";
+        font-size: 18px;
+        font-family: "FontAwesome";
+        color: #aaaab3;
+    }
+</style>
 <!-- Breadcrumb Section Begin -->
 <div class="breadcrumb-section">
     <div class="container">
