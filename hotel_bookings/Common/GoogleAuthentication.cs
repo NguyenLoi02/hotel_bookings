@@ -69,30 +69,26 @@ namespace hotel_bookings.Common
             message.From.Add(new MailboxAddress("loi", "thanbaj9k@gmail.com"));
             message.To.Add(new MailboxAddress("", to));
             message.Subject = subject;
+
             var bodyBuilder = new BodyBuilder();
             bodyBuilder.HtmlBody = body;
 
-            // Thêm phần nội dung vào email
             message.Body = bodyBuilder.ToMessageBody();
 
-            var rawMessage = Base64UrlEncode(message.ToString());
-
-            var gmailMessage = new Message
-            {
-                Raw = rawMessage
-            };
-
-            service.Users.Messages.Send(gmailMessage, "me").Execute();
+            var rawMessage = CreateRawMessage(message);
+            service.Users.Messages.Send(rawMessage, "me").Execute();
         }
 
-        private static string Base64UrlEncode(string input)
+        private static Message CreateRawMessage(MimeMessage mimeMessage)
         {
-            var inputBytes = System.Text.Encoding.UTF8.GetBytes(input);
-            return Convert.ToBase64String(inputBytes)
-                .Replace('+', '-')
-                .Replace('/', '_')
-                .Replace("=", "");
+            using (var memory = new MemoryStream())
+            {
+                mimeMessage.WriteTo(memory);
+                var bytes = memory.ToArray();
+                var base64 = Convert.ToBase64String(bytes);
+                return new Message { Raw = base64 };
+            }
         }
     }
-}
 
+}

@@ -41,7 +41,7 @@ namespace hotel_bookings.Controllers
         // GET: Room
         public ActionResult Index(int? page)
         {
-            string contentCustomer = System.IO.File.ReadAllText(Server.MapPath("~/Common/templateEmail.html"));
+            string contentCustomer = System.IO.File.ReadAllText(Server.MapPath("~/Common/templateEmail.html"), Encoding.UTF8);
             contentCustomer = contentCustomer.Replace("{{MaBooking}}", "BK0001");
             contentCustomer = contentCustomer.Replace("{{TenPhong}}", "Room 1 style 1");
             contentCustomer = contentCustomer.Replace("{{TenKhachHang}}", "Lợi");
