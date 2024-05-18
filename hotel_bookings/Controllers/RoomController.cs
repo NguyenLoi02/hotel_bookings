@@ -22,6 +22,8 @@ using Google.Apis.Util.Store;
 using hotel_bookings.Common;
 using Newtonsoft.Json;
 using System.Globalization;
+using System.IO;
+using System.Text;
 namespace hotel_bookings.Controllers
 {
     public class RoomController : Controller
@@ -39,25 +41,25 @@ namespace hotel_bookings.Controllers
         // GET: Room
         public ActionResult Index(int? page)
         {
-            //string contentCustomer = System.IO.File.ReadAllText(Server.MapPath("~/Common/templateEmail.html"));
-            //contentCustomer = contentCustomer.Replace("{{MaBooking}}", "BK0001");
-            //contentCustomer = contentCustomer.Replace("{{TenPhong}}", "Room 1 style 1");
-            //contentCustomer = contentCustomer.Replace("{{TenKhachHang}}", "Lợi");
-            //try
-            //{
-            //    string subject = "Test Email";
-            //    string body = "This is a test email sent from the ASP.NET MVC application.";
-            //    string to = "user.email"; // Update with the recipient's email address
+            string contentCustomer = System.IO.File.ReadAllText(Server.MapPath("~/Common/templateEmail.html"));
+            contentCustomer = contentCustomer.Replace("{{MaBooking}}", "BK0001");
+            contentCustomer = contentCustomer.Replace("{{TenPhong}}", "Room 1 style 1");
+            contentCustomer = contentCustomer.Replace("{{TenKhachHang}}", "Lợi");
+            try
+            {
+                string subject = "Test Email";
+                string body = "This is a test email sent from the ASP.NET MVC application.";
+                string to = "user.email"; // Update with the recipient's email address
 
-            //    GoogleAuthentication.SendEmail("Hotel HL", contentCustomer.ToString(), "nguyenvanloihd88@gmail.com");
-            //    Console.WriteLine("Email sent successfully.");
-            //}
-            //catch (Exception ex)
-            //{
-            //    Console.WriteLine("$\"Failed to send email");
+                GoogleAuthentication.SendEmail("Hotel HL", contentCustomer.ToString(), "nguyenvanloihd88@gmail.com");
+                Console.WriteLine("Email sent successfully.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("$\"Failed to send email");
 
-            //    // Log the exception here
-            //}
+                // Log the exception here
+            }
             // Số lượng mục trên mỗi trang
             int pageSize = 6;
             var roomStyle = db.room_style.ToList();
