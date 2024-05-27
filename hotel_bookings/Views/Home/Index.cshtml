@@ -3,13 +3,76 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<style>
+    .scrolling-wrapper {
+        overflow-x: auto;
+        display: flex;
+        flex-wrap: nowrap;
+        scroll-behavior: smooth; /* Để cuộn mượt hơn */
+        position: relative;
+    }
 
+        .scrolling-wrapper::-webkit-scrollbar {
+            display: none; /* Ẩn thanh cuộn mặc định */
+        }
+
+    .scroll-button {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: rgba(0, 0, 0, 0.5);
+        color: white;
+        cursor: pointer;
+        z-index: 1000;
+        font-size: 34px;
+        padding: 15px;
+        margin: 0px 26px;
+        border-radius: 35px;
+    }
+
+    .scroll-button-left {
+        left: 0;
+    }
+
+    .scroll-button-right {
+        right: 0;
+    }
+    .hp-room-items .hp-room-item .hr-text {
+        position: absolute;
+        left: 45px;
+        right: 25px;
+        bottom: 89px;
+    }
+    a:hover {
+        color: #dfa974;
+    }
+</style>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const scrollWrapper = document.querySelector('.scrolling-wrapper');
+        const scrollAmount = scrollWrapper.clientWidth; // Cuộn đúng bằng chiều rộng của khung nhìn
+
+        document.querySelector('.scroll-button-left').addEventListener('click', function () {
+            scrollWrapper.scrollBy({
+                left: -scrollAmount,
+                behavior: 'smooth'
+            });
+        });
+
+        document.querySelector('.scroll-button-right').addEventListener('click', function () {
+            scrollWrapper.scrollBy({
+                left: scrollAmount,
+                behavior: 'smooth'
+            });
+        });
+    });
+</script>
 <section class="hero-section">
     <div class="container">
         <div class="row">
             <div class="col-lg-6">
                 <div class="hero-text">
-                    <h1>Sona <br /> Khách sạn sang trọng</h1>
+                    <h1>HL <br /> Khách sạn sang trọng</h1>
                     <p>
                         Dưới đây là trang web đặt phòng khách sạn tốt nhất, bao gồm các đề xuất về du lịch quốc tế và tìm phòng khách sạn giá rẻ
                     </p>
@@ -66,7 +129,7 @@
             <div class="col-lg-12">
                 <div class="section-title">
                     <span>CHÚNG TA LÀM GÌ</span>
-                    <h2>Khám phá dịch vụ của chúng tôi</h2>
+                    <h2>Dịch vụ của chúng tôi</h2>
                 </div>
             </div>
         </div>
@@ -74,61 +137,43 @@
             <div class="col-lg-4 col-sm-6">
                 <div class="service-item">
                     <i class="flaticon-036-parking"></i>
-                    <h4>Travel Plan</h4>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna.
-                    </p>
+                    <h4>Kế hoạch du lịch</h4>
+
                 </div>
             </div>
             <div class="col-lg-4 col-sm-6">
                 <div class="service-item">
                     <i class="flaticon-033-dinner"></i>
-                    <h4>Catering Service</h4>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna.
-                    </p>
+                    <h4>Dịch vụ ăn uống</h4>
+
                 </div>
             </div>
             <div class="col-lg-4 col-sm-6">
                 <div class="service-item">
                     <i class="flaticon-026-bed"></i>
-                    <h4>Babysitting</h4>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna.
-                    </p>
+                    <h4>Trông trẻ</h4>
+
                 </div>
             </div>
             <div class="col-lg-4 col-sm-6">
                 <div class="service-item">
                     <i class="flaticon-024-towel"></i>
-                    <h4>Laundry</h4>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna.
-                    </p>
+                    <h4>Giặt ủi</h4>
+
                 </div>
             </div>
             <div class="col-lg-4 col-sm-6">
                 <div class="service-item">
                     <i class="flaticon-044-clock-1"></i>
-                    <h4>Hire Driver</h4>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna.
-                    </p>
+                    <h4>Thuê tài xế</h4>
+
                 </div>
             </div>
             <div class="col-lg-4 col-sm-6">
                 <div class="service-item">
                     <i class="flaticon-012-cocktail"></i>
-                    <h4>Bar & Drink</h4>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna.
-                    </p>
+                    <h4>Quầy bar & đồ uống</h4>
+ 
                 </div>
             </div>
         </div>
@@ -138,92 +183,37 @@
 <!-- Home Room Section Begin -->
 <section class="hp-room-section">
     <div class="container-fluid">
-        <div class="hp-room-items">
-            <div class="row">
+        <div class="hp-room-items position-relative">
+            <div>
+                <button class="scroll-button scroll-button-left"><i class="arrow_left"></i></button>
+                <button class="scroll-button scroll-button-right"><i class="arrow_right"></i></button>
+            </div>
+            <div class="scrolling-wrapper row flex-row flex-nowrap position-relative">
+                
                 <div class="col-lg-3 col-md-6">
                     <div class="hp-room-item set-bg" data-setbg="../Assets/img/room/room-b1.jpg">
                         <div class="hr-text">
-                            <h3>Double Room</h3>
-                            <h2>199$<span>/Pernight</span></h2>
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td class="r-o">Size:</td>
-                                        <td>30 ft</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="r-o">Capacity:</td>
-                                        <td>Max persion 5</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="r-o">Bed:</td>
-                                        <td>King Beds</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="r-o">Services:</td>
-                                        <td>Wifi, Television, Bathroom,...</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <a href="#" class="primary-btn">More Details</a>
+                            <h3>Phòng hướng biển</h3>
+                            
+                            <a href="@Url.Action("Index", "RoomStyle")" class="primary-btn">Xem ngay</a>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <div class="hp-room-item set-bg" data-setbg="../Assets/img/room/room-b2.jpg">
                         <div class="hr-text">
-                            <h3>Premium King Room</h3>
-                            <h2>159$<span>/Pernight</span></h2>
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td class="r-o">Size:</td>
-                                        <td>30 ft</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="r-o">Capacity:</td>
-                                        <td>Max persion 5</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="r-o">Bed:</td>
-                                        <td>King Beds</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="r-o">Services:</td>
-                                        <td>Wifi, Television, Bathroom,...</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <a href="#" class="primary-btn">More Details</a>
+                            <h3>Phòng hướng đồi</h3>
+                            
+                            <a href="#" class="primary-btn">Xem ngay</a>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <div class="hp-room-item set-bg" data-setbg="../Assets/img/room/room-b3.jpg">
                         <div class="hr-text">
-                            <h3>Deluxe Room</h3>
-                            <h2>198$<span>/Pernight</span></h2>
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td class="r-o">Size:</td>
-                                        <td>30 ft</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="r-o">Capacity:</td>
-                                        <td>Max persion 5</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="r-o">Bed:</td>
-                                        <td>King Beds</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="r-o">Services:</td>
-                                        <td>Wifi, Television, Bathroom,...</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <a href="#" class="primary-btn">More Details</a>
+                            <h3>Phòng </h3>
+                            
+                            <a href="#" class="primary-btn">Xem ngay</a>
                         </div>
                     </div>
                 </div>
@@ -231,28 +221,34 @@
                     <div class="hp-room-item set-bg" data-setbg="../Assets/img/room/room-b4.jpg">
                         <div class="hr-text">
                             <h3>Family Room</h3>
-                            <h2>299$<span>/Pernight</span></h2>
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td class="r-o">Size:</td>
-                                        <td>30 ft</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="r-o">Capacity:</td>
-                                        <td>Max persion 5</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="r-o">Bed:</td>
-                                        <td>King Beds</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="r-o">Services:</td>
-                                        <td>Wifi, Television, Bathroom,...</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <a href="#" class="primary-btn">More Details</a>
+                            
+                            <a href="#" class="primary-btn">Xem ngay</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="hp-room-item set-bg" data-setbg="../Assets/img/room/room-b4.jpg">
+                        <div class="hr-text">
+                            <h3>Family Room</h3>
+                            
+                            <a href="#" class="primary-btn">Xem ngay</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="hp-room-item set-bg" data-setbg="../Assets/img/room/room-b4.jpg">
+                        <div class="hr-text">
+                            <h3>Family Room</h3>
+                            
+                            <a href="#" class="primary-btn">Xem ngay</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="hp-room-item set-bg" data-setbg="../Assets/img/room/room-b4.jpg">
+                        <div class="hr-text">
+                            <h3>Family Room</h3>
+                            
                         </div>
                     </div>
                 </div>
@@ -271,7 +267,7 @@
             <div class="col-lg-12">
                 <div class="section-title">
                     <span>Tin tức khách sạn</span>
-                    <h2>Blog & Sự kiện của chúng tôi</h2>
+                    <h2>Tin tức của chúng tôi</h2>
                 </div>
             </div>
         </div>

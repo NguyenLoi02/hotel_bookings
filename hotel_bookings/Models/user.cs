@@ -42,6 +42,9 @@ namespace hotel_bookings.Models
         public Nullable<int> gender { get; set; }
         public int RowNumber { get; set; }
 
+        public int Count { get; set; }
+
+
         public virtual ICollection<booking_order> booking_order { get; set; }
         public virtual ICollection<rating_view> rating_view { get; set; }
         public virtual ICollection<user_question> user_question { get; set; }

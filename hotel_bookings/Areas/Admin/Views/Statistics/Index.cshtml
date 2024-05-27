@@ -1,0 +1,122 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@model hotel_bookings.Models.StatisticsViewModel
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+
+
+
+<div class="row">
+
+    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
+        <div class="card">
+            <h5 class="card-header">Thống kê giới tính</h5>
+            <div class="card-body">
+                <div class="ct-chart-pie ct-golden-section"><canvas id="gender"></canvas></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
+        <div class="card">
+            <h5 class="card-header">Thống kê số phòng theo loại</h5>
+            <div class="card-body">
+                <div class="ct-chart-pie ct-golden-section"><canvas id="roomStyle"></canvas></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="row">
+    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+        <div class="card">
+            <h5 class="card-header">Thống kê doanh thu theo phòng</h5>
+            <div class="dropdown">
+                <button class="btn dropdown-toggle" type="button" id="monthDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Chọn tháng
+                </button>
+                <div class="dropdown-menu" aria-labelledby="monthDropdown">
+                    <a class="dropdown-item" href="#" data-month="1">Tháng 1</a>
+                    <a class="dropdown-item" href="#" data-month="2">Tháng 2</a>
+                    <a class="dropdown-item" href="#" data-month="3">Tháng 3</a>
+                    <a class="dropdown-item" href="#" data-month="4">Tháng 4</a>
+                    <a class="dropdown-item" href="#" data-month="5">Tháng 5</a>
+                    <a class="dropdown-item" href="#" data-month="6">Tháng 6</a>
+                    <a class="dropdown-item" href="#" data-month="7">Tháng 7</a>
+                    <a class="dropdown-item" href="#" data-month="8">Tháng 8</a>
+                    <a class="dropdown-item" href="#" data-month="9">Tháng 9</a>
+                    <a class="dropdown-item" href="#" data-month="10">Tháng 10</a>
+                    <a class="dropdown-item" href="#" data-month="11">Tháng 11</a>
+                    <a class="dropdown-item" href="#" data-month="12">Tháng 12</a>
+                    <!-- Thêm các tháng khác vào đây -->
+                </div>
+            </div>
+
+
+            <div class="card-body">
+                <div>
+                    <canvas id="morris_bar" width="400" height="200"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var gender = document.getElementById('gender').getContext('2d');
+    var genderStats = @Html.Raw(Json.Encode(Model.GenderStats));
+    var counts = genderStats.map(stat => stat.Count);
+     var chartData = {
+         labels: ['Nam', 'Nữ', 'Khác'],
+         datasets: [{
+             label: 'Số lượng',
+             data: counts,
+             backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+         }]
+     };
+    var genderChart = new Chart(gender, {
+         type: 'pie',
+         data: chartData,
+     });
+     //,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+
+    var room_style = document.getElementById('roomStyle').getContext('2d');
+    var room_styles = @Html.Raw(Json.Encode(Model.list_room_styles));
+    var nameStyle = room_styles.map(stat => stat.name);
+    var countStyle = room_styles.map(stat => stat.Count);
+    var chartData = {
+        labels: nameStyle,
+        datasets: [{
+            label: 'Số lượng',
+            data: countStyle,
+            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#FF6332', '#36A2ER', '#FFCEFD'],
+        }]
+    };
+    var genderChart = new Chart(room_style, {
+        type: 'pie',
+        data: chartData,
+    });
+    //,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+
+
+    var morris_bar = document.getElementById('morris_bar').getContext('2d');
+    var totals = @Html.Raw(Json.Encode(Model.totals));
+    var roomName = totals.map(stat => stat.name);
+    var allPrice = totals.map(stat => stat.Price);
+     var chartDatazz = {
+         labels: roomName,
+         datasets: [{
+         label: 'Doanh thu',
+         borderWidth:1,
+         data: allPrice,
+         //backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+     }]
+ };
+    var myChart = new Chart(morris_bar, {
+        type: 'bar',
+        data: chartDatazz,
+    });
+</script>

@@ -193,9 +193,11 @@
     <Compile Include="Areas\Admin\Controllers\NewsController.cs" />
     <Compile Include="Areas\Admin\Controllers\OrderRoomController.cs" />
     <Compile Include="Areas\Admin\Controllers\RoomController.cs" />
+    <Compile Include="Areas\Admin\Controllers\StatisticsController.cs" />
     <Compile Include="Common\GoogleAuthentication.cs" />
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
+    <Compile Include="Controllers\RoomStyleController.cs" />
     <Compile Include="Helpers\MySetting.cs" />
     <Compile Include="Helpers\VnPayLibrary.cs" />
     <Compile Include="Models\admin.cs">
@@ -277,6 +279,7 @@
     <Compile Include="Models\setting.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\StatisticsViewModel.cs" />
     <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -3137,6 +3140,7 @@
     <Content Include="Models\Model.edmx.diagram">
       <DependentUpon>Model.edmx</DependentUpon>
     </Content>
+    <Content Include="Areas\Admin\Views\Statistics\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -3178,6 +3182,7 @@
     <Content Include="Views\Room\RoomReview.cshtml" />
     <Content Include="Views\Room\PaymentFail.cshtml" />
     <Content Include="Views\Room\PaymentSuccess.cshtml" />
+    <Content Include="Views\RoomStyle\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

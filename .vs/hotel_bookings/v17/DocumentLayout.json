@@ -3,16 +3,16 @@
   "WorkspaceRootPath": "D:\\dotnet\\hotel_bookings\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{3FAD547C-1528-4339-AABE-90B53F59FE7D}|hotel_bookings\\hotel_bookings.csproj|d:\\dotnet\\hotel_bookings\\hotel_bookings\\controllers\\roomcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3FAD547C-1528-4339-AABE-90B53F59FE7D}|hotel_bookings\\hotel_bookings.csproj|solutionrelative:hotel_bookings\\controllers\\roomcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{3FAD547C-1528-4339-AABE-90B53F59FE7D}|hotel_bookings\\hotel_bookings.csproj|d:\\dotnet\\hotel_bookings\\hotel_bookings\\views\\roomstyle\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{3FAD547C-1528-4339-AABE-90B53F59FE7D}|hotel_bookings\\hotel_bookings.csproj|solutionrelative:hotel_bookings\\views\\roomstyle\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3FAD547C-1528-4339-AABE-90B53F59FE7D}|hotel_bookings\\hotel_bookings.csproj|d:\\dotnet\\hotel_bookings\\hotel_bookings\\common\\templateemail.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{3FAD547C-1528-4339-AABE-90B53F59FE7D}|hotel_bookings\\hotel_bookings.csproj|solutionrelative:hotel_bookings\\common\\templateemail.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{3FAD547C-1528-4339-AABE-90B53F59FE7D}|hotel_bookings\\hotel_bookings.csproj|d:\\dotnet\\hotel_bookings\\hotel_bookings\\controllers\\roomstylecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3FAD547C-1528-4339-AABE-90B53F59FE7D}|hotel_bookings\\hotel_bookings.csproj|solutionrelative:hotel_bookings\\controllers\\roomstylecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3FAD547C-1528-4339-AABE-90B53F59FE7D}|hotel_bookings\\hotel_bookings.csproj|d:\\dotnet\\hotel_bookings\\hotel_bookings\\common\\googleauthentication.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3FAD547C-1528-4339-AABE-90B53F59FE7D}|hotel_bookings\\hotel_bookings.csproj|solutionrelative:hotel_bookings\\common\\googleauthentication.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{3FAD547C-1528-4339-AABE-90B53F59FE7D}|hotel_bookings\\hotel_bookings.csproj|d:\\dotnet\\hotel_bookings\\hotel_bookings\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{3FAD547C-1528-4339-AABE-90B53F59FE7D}|hotel_bookings\\hotel_bookings.csproj|solutionrelative:hotel_bookings\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,7 +22,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Bookmark",
@@ -38,41 +38,41 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "RoomController.cs",
-              "DocumentMoniker": "D:\\dotnet\\hotel_bookings\\hotel_bookings\\Controllers\\RoomController.cs",
-              "RelativeDocumentMoniker": "hotel_bookings\\Controllers\\RoomController.cs",
-              "ToolTip": "D:\\dotnet\\hotel_bookings\\hotel_bookings\\Controllers\\RoomController.cs",
-              "RelativeToolTip": "hotel_bookings\\Controllers\\RoomController.cs",
-              "ViewState": "AQIAACMAAAAAAAAAAAAAAEEAAAAuAAAA",
+              "DocumentIndex": 1,
+              "Title": "RoomStyleController.cs",
+              "DocumentMoniker": "D:\\dotnet\\hotel_bookings\\hotel_bookings\\Controllers\\RoomStyleController.cs",
+              "RelativeDocumentMoniker": "hotel_bookings\\Controllers\\RoomStyleController.cs",
+              "ToolTip": "D:\\dotnet\\hotel_bookings\\hotel_bookings\\Controllers\\RoomStyleController.cs",
+              "RelativeToolTip": "hotel_bookings\\Controllers\\RoomStyleController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAARAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-18T15:07:12.222Z",
+              "WhenOpened": "2024-05-27T18:48:22.211Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "templateEmail.html",
-              "DocumentMoniker": "D:\\dotnet\\hotel_bookings\\hotel_bookings\\Common\\templateEmail.html",
-              "RelativeDocumentMoniker": "hotel_bookings\\Common\\templateEmail.html",
-              "ToolTip": "D:\\dotnet\\hotel_bookings\\hotel_bookings\\Common\\templateEmail.html",
-              "RelativeToolTip": "hotel_bookings\\Common\\templateEmail.html",
-              "ViewState": "AQIAAB4AAAAAAAAAAAAAADAAAAB2AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
-              "WhenOpened": "2024-05-18T14:52:27Z",
+              "DocumentIndex": 0,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\dotnet\\hotel_bookings\\hotel_bookings\\Views\\RoomStyle\\Index.cshtml",
+              "RelativeDocumentMoniker": "hotel_bookings\\Views\\RoomStyle\\Index.cshtml",
+              "ToolTip": "D:\\dotnet\\hotel_bookings\\hotel_bookings\\Views\\RoomStyle\\Index.cshtml",
+              "RelativeToolTip": "hotel_bookings\\Views\\RoomStyle\\Index.cshtml",
+              "ViewState": "AQIAAH4AAAAAAAAAAAAqwI4AAABBAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-05-27T18:48:48.53Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "GoogleAuthentication.cs",
-              "DocumentMoniker": "D:\\dotnet\\hotel_bookings\\hotel_bookings\\Common\\GoogleAuthentication.cs",
-              "RelativeDocumentMoniker": "hotel_bookings\\Common\\GoogleAuthentication.cs",
-              "ToolTip": "D:\\dotnet\\hotel_bookings\\hotel_bookings\\Common\\GoogleAuthentication.cs",
-              "RelativeToolTip": "hotel_bookings\\Common\\GoogleAuthentication.cs",
-              "ViewState": "AQIAAD4AAAAAAAAAAAApwFEAAAAvAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-18T14:42:34.15Z",
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\dotnet\\hotel_bookings\\hotel_bookings\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "hotel_bookings\\Views\\Home\\Index.cshtml",
+              "ToolTip": "D:\\dotnet\\hotel_bookings\\hotel_bookings\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "hotel_bookings\\Views\\Home\\Index.cshtml",
+              "ViewState": "AQIAAK4AAAAAAAAAAAAAAMUAAAA3AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-05-27T16:53:57.021Z",
               "EditorCaption": ""
             }
           ]
