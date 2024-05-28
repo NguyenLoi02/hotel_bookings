@@ -19,7 +19,6 @@ namespace hotel_bookings.Models
             this.booking_details = new HashSet<booking_details>();
             this.order_service = new HashSet<order_service>();
         }
-        public int RowNumber { get; set; }
 
         public int id { get; set; }
         public int user_id { get; set; }
@@ -31,7 +30,6 @@ namespace hotel_bookings.Models
         public Nullable<int> arrival { get; set; }
 
         public virtual ICollection<booking_details> booking_details { get; set; }
-        public virtual user user { get; set; }
         public virtual ICollection<order_service> order_service { get; set; }
 
     }
