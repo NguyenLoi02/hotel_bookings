@@ -1,4 +1,5 @@
-﻿
+﻿@model hotel_bookings.Models.RoomStyleAndNewModel
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -37,12 +38,14 @@
     .scroll-button-right {
         right: 0;
     }
+
     .hp-room-items .hp-room-item .hr-text {
         position: absolute;
         left: 45px;
         right: 25px;
         bottom: 89px;
     }
+
     a:hover {
         color: #dfa974;
     }
@@ -120,7 +123,6 @@
 </section>
 <!-- Hero Section End -->
 <!-- About Us Section Begin -->
-
 <!-- About Us Section End -->
 <!-- Services Section End -->
 <section class="services-section spad">
@@ -173,7 +175,7 @@
                 <div class="service-item">
                     <i class="flaticon-012-cocktail"></i>
                     <h4>Quầy bar & đồ uống</h4>
- 
+
                 </div>
             </div>
         </div>
@@ -189,76 +191,28 @@
                 <button class="scroll-button scroll-button-right"><i class="arrow_right"></i></button>
             </div>
             <div class="scrolling-wrapper row flex-row flex-nowrap position-relative">
-                
-                <div class="col-lg-3 col-md-6">
-                    <div class="hp-room-item set-bg" data-setbg="../Assets/img/room/room-b1.jpg">
-                        <div class="hr-text">
-                            <h3>Phòng hướng biển</h3>
-                            
-                            <a href="@Url.Action("Index", "RoomStyle")" class="primary-btn">Xem ngay</a>
+                @if (Model.room_styles != null && Model.room_styles.Any())
+                {
+                    foreach (var item in Model.room_styles)
+                    {
+                        <div class="col-lg-3 col-md-6">
+                            <div class="hp-room-item set-bg" data-setbg="../Assets/img/room/room-1.jpg">
+                                <div class="hr-text">
+                                    <h3>@item.name</h3>
+
+                                    <a href="@Url.Action("Index", "RoomStyle")" class="primary-btn">Xem ngay</a>
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                    }
+
+                }
                 </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="hp-room-item set-bg" data-setbg="../Assets/img/room/room-b2.jpg">
-                        <div class="hr-text">
-                            <h3>Phòng hướng đồi</h3>
-                            
-                            <a href="#" class="primary-btn">Xem ngay</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="hp-room-item set-bg" data-setbg="../Assets/img/room/room-b3.jpg">
-                        <div class="hr-text">
-                            <h3>Phòng </h3>
-                            
-                            <a href="#" class="primary-btn">Xem ngay</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="hp-room-item set-bg" data-setbg="../Assets/img/room/room-b4.jpg">
-                        <div class="hr-text">
-                            <h3>Family Room</h3>
-                            
-                            <a href="#" class="primary-btn">Xem ngay</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="hp-room-item set-bg" data-setbg="../Assets/img/room/room-b4.jpg">
-                        <div class="hr-text">
-                            <h3>Family Room</h3>
-                            
-                            <a href="#" class="primary-btn">Xem ngay</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="hp-room-item set-bg" data-setbg="../Assets/img/room/room-b4.jpg">
-                        <div class="hr-text">
-                            <h3>Family Room</h3>
-                            
-                            <a href="#" class="primary-btn">Xem ngay</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="hp-room-item set-bg" data-setbg="../Assets/img/room/room-b4.jpg">
-                        <div class="hr-text">
-                            <h3>Family Room</h3>
-                            
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </section>
 <!-- Home Room Section End -->
 <!-- Testimonial Section Begin -->
-
 <!-- Testimonial Section End -->
 <!-- Blog Section Begin -->
 <section class="blog-section spad">
@@ -272,52 +226,25 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-4">
-                <div class="blog-item set-bg" data-setbg="../Assets/img/blog/blog-1.jpg">
-                    <div class="bi-text">
-                        <span class="b-tag">Travel Trip</span>
-                        <h4><a href="#">Tremblant In Canada</a></h4>
-                        <div class="b-time"><i class="icon_clock_alt"></i> 15th April, 2019</div>
+            @if (Model.news != null && Model.news.Any())
+            {
+                foreach (var item in Model.news)
+                {
+                    <div class="col-lg-4">
+                        <div class="blog-item set-bg" data-setbg="../Assets/img/news/@item.image">
+                            <div class="bi-text">
+                                <span class="b-tag">Tin mới</span>
+                                <h4><a href="#">@item.title</a></h4>
+                                <div class="b-time"><i class="icon_clock_alt"></i>@item.date_news</div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="blog-item set-bg" data-setbg="../Assets/img/blog/blog-2.jpg">
-                    <div class="bi-text">
-                        <span class="b-tag">Camping</span>
-                        <h4><a href="#">Choosing A Static Caravan</a></h4>
-                        <div class="b-time"><i class="icon_clock_alt"></i> 15th April, 2019</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="blog-item set-bg" data-setbg="../Assets/img/blog/blog-3.jpg">
-                    <div class="bi-text">
-                        <span class="b-tag">Event</span>
-                        <h4><a href="#">Copper Canyon</a></h4>
-                        <div class="b-time"><i class="icon_clock_alt"></i> 21th April, 2019</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-8">
-                <div class="blog-item small-size set-bg" data-setbg="../Assets/img/blog/blog-wide.jpg">
-                    <div class="bi-text">
-                        <span class="b-tag">Event</span>
-                        <h4><a href="#">Trip To Iqaluit In Nunavut A Canadian Arctic City</a></h4>
-                        <div class="b-time"><i class="icon_clock_alt"></i> 08th April, 2019</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="blog-item small-size set-bg" data-setbg="../Assets/img/blog/blog-10.jpg">
-                    <div class="bi-text">
-                        <span class="b-tag">Travel</span>
-                        <h4><a href="#">Traveling To Barcelona</a></h4>
-                        <div class="b-time"><i class="icon_clock_alt"></i> 12th April, 2019</div>
-                    </div>
-                </div>
-            </div>
+
+
+                }
+            }
         </div>
+
     </div>
 </section>
 
