@@ -1,4 +1,6 @@
-﻿@{
+﻿@model hotel_bookings.Models.RoomStyleAndRoomModel
+
+@{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -35,22 +37,37 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8">
-                <div class="room-details-item">
-                    <img style="width: 100%; margin-bottom: 35px;" src="../Assets/img/room/room-1.jpg" alt="">
-                    <div class="rd-text">
-                        <div class="rd-title">
-                            <h3 style="margin-bottom: 18px;">Phòng hướng biển</h3>
+                @foreach (var item in Model.room_styles)
+                {
+                    <div class="room-details-item">
+                        <img style="width: 100%; margin-bottom: 35px;" src="~/Assets/img/room/@item.avatar" alt="">
+                        <div class="row">
+                            @foreach (var item2 in Model.room_img)
+                            {
+                                <div class="col-lg-4">
+                                    <img style="width: 100%; margin-bottom: 35px;" src="~/Assets/img/room_img/@item2.image" alt="">
+                                </div>
+                            }
+
 
                         </div>
 
-                        <p class="f-para">
-                            Với diện tích 38m², phòng Deluxe Twin là sự lựa chọn lý tưởng cho các cặp đôi, gia đình nhỏ hoặc du khách đi công tác. Phòng được thiết kế hiện đại với 2 giường đơn sang trọng, tích hợp đầy đủ tiện nghi để mang lại trải nghiệm lưu trú thoải mái. Với tầm nhìn hướng ra vườn và vị trí đắc địa ngay tại Bãi Cháy, phòng Deluxe Twin hứa hẹn mang đến không gian nghỉ ngơi lý tưởng cho du khách.
-                        </p>
+                            <div class="rd-text">
+                                <div class="rd-title">
+                                    <h3 style="margin-bottom: 18px;">@item.name</h3>
+
+                                </div>
+
+                                <p class="f-para">
+                                    @item.description
+                                </p>
+                            </div>
+                        </div>
+                        }
+
+
+
                     </div>
-                </div>
-
-
-            </div>
             <div class="col-lg-4">
                 <div class="room-booking">
                     <h3>Tìm kiếm phòng</h3>
@@ -88,101 +105,42 @@
             </div>
         </div>
         <div class="row " id="searchRoom">
-            <div class="col-lg-4 col-md-6">
-                <div class="room-item">
-                    <img src="../Assets/img/room/room-1.jpg" alt="" class="room-item" data-room-id="id">
-                    <div class="ri-text">
-                        <h4 class="room-details">Phòng đơn hướng biển</h4>
-                        <h3>2500000 đ<span>  /Đêm</span></h3>
-                        <table>
-                            <tbody>
-                                <tr>
-                                    <td class="r-o">Diện tích:</td>
-                                    <td>area m2</td>
-                                </tr>
-                                <tr>
-                                    <td class="r-o">Số người:</td>
-                                    <td>2</td>
-                                </tr>
-                                <tr>
-                                    <td class="r-o">Phòng chống:</td>
-                                    <td>2</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <div style="display: flex;">
-                            <div style="flex: 1;" class="rating_room ">
-                                <a class="reviews-open" data-room-id="id">Đánh giá</a>
+            @foreach (var item in Model.rooms)
+            {
+                <div class="col-lg-4 col-md-6">
+                    <div class="room-item">
+                        <img src="~/Assets/img/room/@item.avatar" alt="" class="room-item" data-room-id="@item.id">
+                        <div class="ri-text">
+                            <h4 class="room-details">@item.name</h4>
+                            <h3>@item.price đ<span>  /Đêm</span></h3>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="r-o">Diện tích:</td>
+                                        <td>@item.area m2</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="r-o">Số người:</td>
+                                        <td>@(item.adult + item.children)</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="r-o">Phòng chống:</td>
+                                        <td>@item.quantity</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div style="display: flex;">
+                                <div style="flex: 1;" class="rating_room ">
+                                    <a class="reviews-open" data-room-id="@item.id">Đánh giá</a>
+                                </div>
+                                <a style="cursor: pointer;" class="primary-btn bookingLink" data-room-id="@item.id">Đặt phòng</a>
                             </div>
-                            <a style="cursor: pointer;" class="primary-btn bookingLink" data-room-id="id">Đặt phòng</a>
-                        </div>
 
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="room-item">
-                    <img src="../Assets/img/room/room-1.jpg" alt="" class="room-item" data-room-id="id">
-                    <div class="ri-text">
-                        <h4 class="room-details">Phòng đôi hướng biển</h4>
-                        <h3>2500000 đ<span>  /Đêm</span></h3>
-                        <table>
-                            <tbody>
-                                <tr>
-                                    <td class="r-o">Diện tích:</td>
-                                    <td>area m2</td>
-                                </tr>
-                                <tr>
-                                    <td class="r-o">Số người:</td>
-                                    <td>2</td>
-                                </tr>
-                                <tr>
-                                    <td class="r-o">Phòng chống:</td>
-                                    <td>2</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <div style="display: flex;">
-                            <div style="flex: 1;" class="rating_room ">
-                                <a class="reviews-open" data-room-id="id">Đánh giá</a>
-                            </div>
-                            <a style="cursor: pointer;" class="primary-btn bookingLink" data-room-id="id">Đặt phòng</a>
-                        </div>
+            }
 
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="room-item">
-                    <img src="../Assets/img/room/room-1.jpg" alt="" class="room-item" data-room-id="id">
-                    <div class="ri-text">
-                        <h4 class="room-details">Phòng gia đình hướng biển</h4>
-                        <h3>2500000 đ<span>  /Đêm</span></h3>
-                        <table>
-                            <tbody>
-                                <tr>
-                                    <td class="r-o">Diện tích:</td>
-                                    <td>area m2</td>
-                                </tr>
-                                <tr>
-                                    <td class="r-o">Số người:</td>
-                                    <td>2</td>
-                                </tr>
-                                <tr>
-                                    <td class="r-o">Phòng chống:</td>
-                                    <td>2</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <div style="display: flex;">
-                            <div style="flex: 1;" class="rating_room ">
-                                <a class="reviews-open" data-room-id="id">Đánh giá</a>
-                            </div>
-                            <a style="cursor: pointer;" class="primary-btn bookingLink" data-room-id="id">Đặt phòng</a>
-                        </div>
 
-                    </div>
-                </div>
-            </div>
         </div>
 </section>

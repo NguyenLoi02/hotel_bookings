@@ -17,6 +17,7 @@ namespace hotel_bookings.Models
         public int service_id { get; set; }
         public int booking_order_id { get; set; }
         public string note { get; set; }
+        public Nullable<int> order_count { get; set; }
     
         public virtual booking_order booking_order { get; set; }
         public virtual service service { get; set; }

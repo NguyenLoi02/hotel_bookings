@@ -259,10 +259,14 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\RoomStyleAndNewModel.cs" />
+    <Compile Include="Models\RoomStyleAndRoomModel.cs" />
     <Compile Include="Models\room_feature.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\room_images.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\room_sale.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\room_style.cs">
@@ -277,9 +281,6 @@
     <Compile Include="Models\RoleViewModel.cs" />
     <Compile Include="Models\SearchViewModel.cs" />
     <Compile Include="Models\Service\IVnPayService.cs" />
-    <Compile Include="Models\setting.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\StatisticsViewModel.cs" />
     <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>Model.tt</DependentUpon>
@@ -2864,23 +2865,28 @@
     <Content Include="Assets\img\play.png" />
     <Content Include="Assets\img\room\avatar\avatar-1.jpg" />
     <Content Include="Assets\img\room\avatar\avatar-2.jpg" />
-    <Content Include="Assets\img\room\room-1.jpg" />
+    <Content Include="Assets\img\room\room-9.jpg" />
     <Content Include="Assets\img\room\room-10.jpg" />
     <Content Include="Assets\img\room\room-11.jpg" />
     <Content Include="Assets\img\room\room-12.jpg" />
     <Content Include="Assets\img\room\room-2.jpg" />
-    <Content Include="Assets\img\room\room-3.jpg" />
+    <Content Include="Assets\img\room\room-6.jpg" />
     <Content Include="Assets\img\room\room-4.jpg" />
     <Content Include="Assets\img\room\room-5.jpg" />
-    <Content Include="Assets\img\room\room-6.jpg" />
+    <Content Include="Assets\img\room\room-3.jpg" />
     <Content Include="Assets\img\room\room-7.jpg" />
     <Content Include="Assets\img\room\room-8.jpg" />
-    <Content Include="Assets\img\room\room-9.jpg" />
-    <Content Include="Assets\img\room\room-b1.jpg" />
-    <Content Include="Assets\img\room\room-b2.jpg" />
-    <Content Include="Assets\img\room\room-b3.jpg" />
-    <Content Include="Assets\img\room\room-b4.jpg" />
+    <Content Include="Assets\img\room\room-1.jpg" />
     <Content Include="Assets\img\room\room-details.jpg" />
+    <Content Include="Assets\img\room_img\room_img01.jpg" />
+    <Content Include="Assets\img\room_img\room_img02.jpg" />
+    <Content Include="Assets\img\room_img\room_img03.jpg" />
+    <Content Include="Assets\img\room_img\room_img04.jpg" />
+    <Content Include="Assets\img\room_img\room_img05.jpg" />
+    <Content Include="Assets\img\room_img\room_img06.jpg" />
+    <Content Include="Assets\img\room_img\room_img07.jpg" />
+    <Content Include="Assets\img\room_img\room_img08.jpg" />
+    <Content Include="Assets\img\room_img\room_img09.jpg" />
     <Content Include="Assets\img\services\s-icon-1.png" />
     <Content Include="Assets\img\services\service-1.jpg" />
     <Content Include="Assets\img\services\service-2.jpg" />
@@ -3141,6 +3147,7 @@
     <Content Include="Areas\Admin\Views\News\AddNews.cshtml" />
     <Content Include="Areas\Admin\Views\News\UpdateNews.cshtml" />
     <Content Include="Areas\Admin\Views\Account\role.cshtml" />
+    <Content Include="Areas\Admin\Views\Statistics\Index.cshtml" />
     <EntityDeploy Include="Models\Model.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model.Designer.cs</LastGenOutput>
@@ -3148,7 +3155,6 @@
     <Content Include="Models\Model.edmx.diagram">
       <DependentUpon>Model.edmx</DependentUpon>
     </Content>
-    <Content Include="Areas\Admin\Views\Statistics\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

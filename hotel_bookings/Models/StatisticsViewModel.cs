@@ -10,6 +10,8 @@ namespace hotel_bookings.Models
         public List<GenderStat> GenderStats { get; set; }
         public List<list_room_style> list_room_styles { get; set; }
         public List<total> totals { get; set; }
+        public List<totalMonths> totalMonths { get; set; }
+
     }
     public class GenderStat
     {
@@ -25,6 +27,11 @@ namespace hotel_bookings.Models
     public class total
     {
         public string name { get; set; }
+        public int Price { get; set; }
+    }
+    public class totalMonths
+    {
+        public string Month { get; set; }
         public int Price { get; set; }
     }
 }

@@ -40,9 +40,9 @@ namespace hotel_bookings.Models
         public DbSet<room> rooms { get; set; }
         public DbSet<room_feature> room_feature { get; set; }
         public DbSet<room_images> room_images { get; set; }
+        public DbSet<room_sale> room_sale { get; set; }
         public DbSet<room_style> room_style { get; set; }
         public DbSet<service> services { get; set; }
-        public DbSet<setting> settings { get; set; }
         public DbSet<sysdiagram> sysdiagrams { get; set; }
         public DbSet<user> users { get; set; }
         public DbSet<user_question> user_question { get; set; }

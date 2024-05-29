@@ -11,7 +11,7 @@ namespace hotel_bookings.Models
 {
     using System;
     using System.Collections.Generic;
-
+    
     public partial class booking_order
     {
         public booking_order()
@@ -19,7 +19,7 @@ namespace hotel_bookings.Models
             this.booking_details = new HashSet<booking_details>();
             this.order_service = new HashSet<order_service>();
         }
-
+        public int RowNumber { get; set; }
         public int id { get; set; }
         public int user_id { get; set; }
         public Nullable<double> trans_money { get; set; }
@@ -28,9 +28,8 @@ namespace hotel_bookings.Models
         public Nullable<System.DateTime> book_day { get; set; }
         public Nullable<int> booking_status { get; set; }
         public Nullable<int> arrival { get; set; }
-
+    
         public virtual ICollection<booking_details> booking_details { get; set; }
         public virtual ICollection<order_service> order_service { get; set; }
-
     }
 }

@@ -12,11 +12,13 @@ namespace hotel_bookings.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class setting
+    public partial class room_sale
     {
         public int id { get; set; }
-        public string title { get; set; }
-        public string about { get; set; }
-        public Nullable<int> shutdownn { get; set; }
+        public int room_id { get; set; }
+        public Nullable<System.DateTime> start_day { get; set; }
+        public Nullable<System.DateTime> end_day { get; set; }
+    
+        public virtual room room { get; set; }
     }
 }

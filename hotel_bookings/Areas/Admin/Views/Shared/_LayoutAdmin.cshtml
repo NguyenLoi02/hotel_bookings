@@ -200,57 +200,54 @@
                             </li>
 
                             <li class="nav-item ">
-                                <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-1" aria-controls="submenu-1"><i class="fa fa-fw fa-user-circle"></i>Quản lý đặt phòng <span class="badge badge-success">6</span></a>
+                                <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-1" aria-controls="submenu-1"><i class="fa-solid fa-money-check"></i>Quản lý đặt phòng <span class="badge badge-success">6</span></a>
                                 <div id="submenu-1" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
 
                                         <li class="nav-item">
-                                            <a class="nav-link" href="@Url.Action("booking", "OrderRoom")" id="show_booking_room">Quản lý phòng mới đặt</a>
+                                            <a class="nav-link" href="@Url.Action("booking", "OrderRoom")" id="show_booking_room"><i class="fa-solid fa-table-list"></i> Quản lý phòng mới đặt</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="@Url.Action("booked", "OrderRoom")" id="show_booked_room">Quản lý phòng đã đặt</a>
+                                            <a class="nav-link" href="@Url.Action("booked", "OrderRoom")" id="show_booked_room"><i class="fa-solid fa-list-check"></i> Quản lý phòng đã đặt</a>
                                         </li>
 
                                     </ul>
                                 </div>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="@Url.Action("Index", "Room")"><i class="fa fa-fw fa-user-circle"></i> Quản lý phòng</a>
+                                <a class="nav-link" href="@Url.Action("Index", "Room")"><i class="fa-solid fa-clipboard-list"></i> Quản lý phòng</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="@Url.Action("Index", "Room")"><i class="fa fa-fw fa-user-circle"></i> Quản lý đánh giá phòng</a>
+                                <a class="nav-link" href="@Url.Action("Index", "Room")"><i class="fa-regular fa-pen-to-square"></i> Quản lý đánh giá phòng</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="@Url.Action("Index", "News")"><i class="fa fa-fw fa-user-circle"></i> Quản lý tin tức</a>
+                                <a class="nav-link" href="@Url.Action("Index", "News")"><i class="fa-regular fa-newspaper"></i> Quản lý tin tức</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="@Url.Action("Index", "Customer")"><i class="fa fa-fw fa-user-circle"></i> Quản lý người dùng</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href=""><i class="fa fa-fw fa-user-circle"></i> Quản lý công năng phòng</a>
+                                <a class="nav-link" href=""><i class="fa-regular fa-chart-bar"></i> Quản lý công năng phòng</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href=""><i class="fa fa-fw fa-user-circle"></i> Quản lý vấn đề khách hàng</a>
+                                <a class="nav-link" href=""><i class="fa-regular fa-envelope"></i> Quản lý vấn đề khách hàng</a>
                             </li>
                             @if (User.IsInRole("admin"))
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link" href="@Url.Action("Index", "Account")"><i class="fa fa-fw fa-user-circle"></i> Quản lý tài khoản</a>
+                                    <a class="nav-link" href="@Url.Action("Index", "Account")"><i class="fa-solid fa-receipt"></i> Quản lý tài khoản</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="@Url.Action("Role", "Account")"><i class="fa fa-fw fa-user-circle"></i> Quản lý quyền</a>
+                                    <a class="nav-link" href="@Url.Action("Role", "Account")"><i class="fa-solid fa-paperclip"></i> Quản lý quyền</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="@Url.Action("Index", "Statistics")"><i class="fa fa-fw fa-user-circle"></i> Thống kê</a>
+                                    <a class="nav-link" href="@Url.Action("Index", "Statistics")"><i class="fa-solid fa-chart-line"></i> Thống kê</a>
                                 </li>
 
                             }
-                            <li class="nav-item">
+                            @*li class="nav-item">
                                 <a class="nav-link" href=""><i class="fa fa-fw fa-user-circle"></i> Cài đặt</a>
-                            </li>
-                            @*<li class="nav-item active">
-            <a class="nav-link" href="">Quản lý tài khoản</a>
-        </li>*@
+                            </li>*@
 
 
                         </ul>

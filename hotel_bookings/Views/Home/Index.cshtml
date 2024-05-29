@@ -196,11 +196,11 @@
                     foreach (var item in Model.room_styles)
                     {
                         <div class="col-lg-3 col-md-6">
-                            <div class="hp-room-item set-bg" data-setbg="../Assets/img/room/room-1.jpg">
+                            <div class="hp-room-item set-bg" data-setbg="../Assets/img/room/@item.avatar">
                                 <div class="hr-text">
-                                    <h3>@item.name</h3>
+                                    <h3 style="font-size: 46px;">@item.name</h3>
 
-                                    <a href="@Url.Action("Index", "RoomStyle")" class="primary-btn">Xem ngay</a>
+                                    <a href="@Url.Action("Index", "RoomStyle" ,new { id = item.id })" class="primary-btn" style=" font-size: 25px;">Xem ngay</a>
                                 </div>
                             </div>
                         </div>
@@ -234,7 +234,7 @@
                         <div class="blog-item set-bg" data-setbg="../Assets/img/news/@item.image">
                             <div class="bi-text">
                                 <span class="b-tag">Tin mới</span>
-                                <h4><a href="#">@item.title</a></h4>
+                                <h4><a href="@Url.Action("NewsDetail", "News" ,new { id = item.id })">@item.title</a></h4>
                                 <div class="b-time"><i class="icon_clock_alt"></i>@item.date_news</div>
                             </div>
                         </div>

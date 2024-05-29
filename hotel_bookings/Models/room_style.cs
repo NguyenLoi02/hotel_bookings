@@ -22,6 +22,7 @@ namespace hotel_bookings.Models
         public int id { get; set; }
         public string name { get; set; }
         public string description { get; set; }
+        public string avatar { get; set; }
     
         public virtual ICollection<room> rooms { get; set; }
     }

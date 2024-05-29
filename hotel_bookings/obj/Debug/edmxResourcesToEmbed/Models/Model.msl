@@ -103,6 +103,7 @@
           <ScalarProperty Name="service_id" ColumnName="service_id" />
           <ScalarProperty Name="booking_order_id" ColumnName="booking_order_id" />
           <ScalarProperty Name="note" ColumnName="note" />
+          <ScalarProperty Name="order_count" ColumnName="order_count" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -162,12 +163,23 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="room_sale">
+      <EntityTypeMapping TypeName="HotelBookingModel.room_sale">
+        <MappingFragment StoreEntitySet="room_sale">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="room_id" ColumnName="room_id" />
+          <ScalarProperty Name="start_day" ColumnName="start_day" />
+          <ScalarProperty Name="end_day" ColumnName="end_day" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="room_style">
       <EntityTypeMapping TypeName="HotelBookingModel.room_style">
         <MappingFragment StoreEntitySet="room_style">
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="name" ColumnName="name" />
           <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="avatar" ColumnName="avatar" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -179,16 +191,6 @@
           <ScalarProperty Name="price" ColumnName="price" />
           <ScalarProperty Name="image" ColumnName="image" />
           <ScalarProperty Name="description" ColumnName="description" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="settings">
-      <EntityTypeMapping TypeName="HotelBookingModel.setting">
-        <MappingFragment StoreEntitySet="setting">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="title" ColumnName="title" />
-          <ScalarProperty Name="about" ColumnName="about" />
-          <ScalarProperty Name="shutdownn" ColumnName="shutdownn" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

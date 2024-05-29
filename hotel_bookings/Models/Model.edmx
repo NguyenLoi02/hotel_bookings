@@ -101,14 +101,15 @@
           <Property Name="service_id" Type="int" Nullable="false" />
           <Property Name="booking_order_id" Type="int" Nullable="false" />
           <Property Name="note" Type="nvarchar" MaxLength="50" />
+          <Property Name="order_count" Type="int" />
         </EntityType>
         <EntityType Name="rating_view">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="room_id" Type="int" />
-          <Property Name="user_id" Type="int" />
+          <Property Name="room_id" Type="int" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
           <Property Name="review" Type="nvarchar(max)" />
           <Property Name="rating" Type="int" />
           <Property Name="review_day" Type="date" />
@@ -154,6 +155,15 @@
           <Property Name="room_id" Type="int" Nullable="false" />
           <Property Name="image" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="room_sale">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="room_id" Type="int" Nullable="false" />
+          <Property Name="start_day" Type="date" />
+          <Property Name="end_day" Type="date" />
+        </EntityType>
         <EntityType Name="room_style">
           <Key>
             <PropertyRef Name="id" />
@@ -161,6 +171,7 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="name" Type="nvarchar" MaxLength="200" />
           <Property Name="description" Type="nvarchar(max)" />
+          <Property Name="avatar" Type="nchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="service">
           <Key>
@@ -171,15 +182,6 @@
           <Property Name="price" Type="int" />
           <Property Name="image" Type="nvarchar" MaxLength="50" />
           <Property Name="description" Type="nvarchar(max)" />
-        </EntityType>
-        <EntityType Name="setting">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="title" Type="nvarchar" MaxLength="200" />
-          <Property Name="about" Type="nvarchar" MaxLength="200" />
-          <Property Name="shutdownn" Type="int" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -318,7 +320,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_rating_view_room">
-          <End Role="room" Type="Self.room" Multiplicity="0..1">
+          <End Role="room" Type="Self.room" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="rating_view" Type="Self.rating_view" Multiplicity="*" />
@@ -332,7 +334,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_rating_view_user">
-          <End Role="user" Type="Self.user" Multiplicity="0..1">
+          <End Role="user" Type="Self.user" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="rating_view" Type="Self.rating_view" Multiplicity="*" />
@@ -401,6 +403,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_room_sale_room">
+          <End Role="room" Type="Self.room" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="room_sale" Type="Self.room_sale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="room">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="room_sale">
+              <PropertyRef Name="room_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="HotelBookingModelStoreContainer">
           <EntitySet Name="admin" EntityType="Self.admin" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="admin_role" EntityType="Self.admin_role" Schema="dbo" store:Type="Tables" />
@@ -417,9 +433,9 @@
           <EntitySet Name="room" EntityType="Self.room" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="room_feature" EntityType="Self.room_feature" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="room_images" EntityType="Self.room_images" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="room_sale" EntityType="Self.room_sale" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="room_style" EntityType="Self.room_style" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="service" EntityType="Self.service" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="setting" EntityType="Self.setting" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="user" EntityType="Self.user" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="user_question" EntityType="Self.user_question" Schema="dbo" store:Type="Tables" />
@@ -474,6 +490,10 @@
           <AssociationSet Name="FK_room_room_style" Association="Self.FK_room_room_style">
             <End Role="room_style" EntitySet="room_style" />
             <End Role="room" EntitySet="room" />
+          </AssociationSet>
+          <AssociationSet Name="FK_room_sale_room" Association="Self.FK_room_sale_room">
+            <End Role="room" EntitySet="room" />
+            <End Role="room_sale" EntitySet="room_sale" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -587,6 +607,7 @@
           <Property Name="service_id" Type="Int32" Nullable="false" />
           <Property Name="booking_order_id" Type="Int32" Nullable="false" />
           <Property Name="note" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="order_count" Type="Int32" />
           <NavigationProperty Name="booking_order" Relationship="Self.FK_order_service_booking_order" FromRole="order_service" ToRole="booking_order" />
           <NavigationProperty Name="service" Relationship="Self.FK_order_service_service" FromRole="order_service" ToRole="service" />
         </EntityType>
@@ -595,8 +616,8 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="room_id" Type="Int32" />
-          <Property Name="user_id" Type="Int32" />
+          <Property Name="room_id" Type="Int32" Nullable="false" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
           <Property Name="review" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="rating" Type="Int32" />
           <Property Name="review_day" Type="DateTime" Precision="0" />
@@ -632,6 +653,7 @@
           <NavigationProperty Name="room_feature" Relationship="Self.FK_room_feature_room" FromRole="room" ToRole="room_feature" />
           <NavigationProperty Name="room_images" Relationship="Self.FK_room_images_room" FromRole="room" ToRole="room_images" />
           <NavigationProperty Name="room_style" Relationship="Self.FK_room_room_style" FromRole="room" ToRole="room_style" />
+          <NavigationProperty Name="room_sale" Relationship="Self.FK_room_sale_room" FromRole="room" ToRole="room_sale" />
         </EntityType>
         <EntityType Name="room_feature">
           <Key>
@@ -653,6 +675,16 @@
           <Property Name="image" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="room" Relationship="Self.FK_room_images_room" FromRole="room_images" ToRole="room" />
         </EntityType>
+        <EntityType Name="room_sale">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="room_id" Type="Int32" Nullable="false" />
+          <Property Name="start_day" Type="DateTime" Precision="0" />
+          <Property Name="end_day" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="room" Relationship="Self.FK_room_sale_room" FromRole="room_sale" ToRole="room" />
+        </EntityType>
         <EntityType Name="room_style">
           <Key>
             <PropertyRef Name="id" />
@@ -660,6 +692,7 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="avatar" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="rooms" Relationship="Self.FK_room_room_style" FromRole="room_style" ToRole="room" />
         </EntityType>
         <EntityType Name="service">
@@ -672,15 +705,6 @@
           <Property Name="image" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="order_service" Relationship="Self.FK_order_service_service" FromRole="service" ToRole="order_service" />
-        </EntityType>
-        <EntityType Name="setting">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="title" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="about" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="shutdownn" Type="Int32" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -834,7 +858,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_rating_view_room">
-          <End Role="room" Type="Self.room" Multiplicity="0..1">
+          <End Role="room" Type="Self.room" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="rating_view" Type="Self.rating_view" Multiplicity="*" />
@@ -848,7 +872,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_rating_view_user">
-          <End Role="user" Type="Self.user" Multiplicity="0..1">
+          <End Role="user" Type="Self.user" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="rating_view" Type="Self.rating_view" Multiplicity="*" />
@@ -903,6 +927,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_room_sale_room">
+          <End Role="room" Type="Self.room" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="room_sale" Type="Self.room_sale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="room">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="room_sale">
+              <PropertyRef Name="room_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="HotelBookingEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="admins" EntityType="Self.admin" />
           <EntitySet Name="admin_role" EntityType="Self.admin_role" />
@@ -919,9 +957,9 @@
           <EntitySet Name="rooms" EntityType="Self.room" />
           <EntitySet Name="room_feature" EntityType="Self.room_feature" />
           <EntitySet Name="room_images" EntityType="Self.room_images" />
+          <EntitySet Name="room_sale" EntityType="Self.room_sale" />
           <EntitySet Name="room_style" EntityType="Self.room_style" />
           <EntitySet Name="services" EntityType="Self.service" />
-          <EntitySet Name="settings" EntityType="Self.setting" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="users" EntityType="Self.user" />
           <EntitySet Name="user_question" EntityType="Self.user_question" />
@@ -976,6 +1014,10 @@
           <AssociationSet Name="FK_room_room_style" Association="Self.FK_room_room_style">
             <End Role="room_style" EntitySet="room_style" />
             <End Role="room" EntitySet="rooms" />
+          </AssociationSet>
+          <AssociationSet Name="FK_room_sale_room" Association="Self.FK_room_sale_room">
+            <End Role="room" EntitySet="rooms" />
+            <End Role="room_sale" EntitySet="room_sale" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -1086,6 +1128,7 @@
                 <ScalarProperty Name="service_id" ColumnName="service_id" />
                 <ScalarProperty Name="booking_order_id" ColumnName="booking_order_id" />
                 <ScalarProperty Name="note" ColumnName="note" />
+                <ScalarProperty Name="order_count" ColumnName="order_count" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1145,12 +1188,23 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="room_sale">
+            <EntityTypeMapping TypeName="HotelBookingModel.room_sale">
+              <MappingFragment StoreEntitySet="room_sale">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="room_id" ColumnName="room_id" />
+                <ScalarProperty Name="start_day" ColumnName="start_day" />
+                <ScalarProperty Name="end_day" ColumnName="end_day" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="room_style">
             <EntityTypeMapping TypeName="HotelBookingModel.room_style">
               <MappingFragment StoreEntitySet="room_style">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="avatar" ColumnName="avatar" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1162,16 +1216,6 @@
                 <ScalarProperty Name="price" ColumnName="price" />
                 <ScalarProperty Name="image" ColumnName="image" />
                 <ScalarProperty Name="description" ColumnName="description" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="settings">
-            <EntityTypeMapping TypeName="HotelBookingModel.setting">
-              <MappingFragment StoreEntitySet="setting">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="title" ColumnName="title" />
-                <ScalarProperty Name="about" ColumnName="about" />
-                <ScalarProperty Name="shutdownn" ColumnName="shutdownn" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
