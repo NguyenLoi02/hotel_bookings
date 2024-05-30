@@ -39,7 +39,7 @@
             @foreach (var item in Model)
             {
                 <div class="col-lg-4 col-md-6">
-                    <div class="blog-item set-bg" data-setbg="../Assets/img/news/news01.jpg">
+                    <div class="blog-item set-bg" data-setbg="../Assets/img/news/@item.image">
                         <div class="bi-text">
                             <span class="b-tag">Chuyến đi du lịch</span>
                             <h4><a href="@Url.Action("NewsDetail", "News" ,new { id = item.id })">@item.title</a></h4>

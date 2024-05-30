@@ -79,11 +79,11 @@
                             <td>@item.quantity</td>
                             @if (item.status == 0)
                             {
-                                <td><a href="#" class="btn btn-rounded btn-success" style=" font-size: 14px;">Busy</a></td>
+                                <td><a href="#" class="btn btn-rounded btn-success" style=" font-size: 14px;">Trống</a></td>
                             }
                             @if (item.status == 1)
                             {
-                                <td><a href="#" class="btn btn-rounded btn-danger" style=" font-size: 14px;">Busy</a></td>
+                                <td><a href="#" class="btn btn-rounded btn-danger" style=" font-size: 14px;">Bận</a></td>
                             }
                             <td>
                                 <a href="@Url.Action("DeleteRoom", "Room",new { id = item.id })"><i class="fa-regular fa-trash-can"></i></a>

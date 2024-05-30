@@ -14,7 +14,8 @@ namespace hotel_bookings.Areas.Admin.Controllers
     {
         private HotelBookingEntities db = new HotelBookingEntities();
 
-        // GET: Admin/Statistics
+        // GET: Admin/Statistics\
+        [HttpGet]
         public ActionResult Index()
         {
             var users = db.users.ToList();
@@ -59,7 +60,7 @@ namespace hotel_bookings.Areas.Admin.Controllers
 
 
 
-            int month = 5 /* Giá trị tháng bạn muốn lọc, ví dụ: 5 cho tháng 5 */;
+            int month = 1;
             var totals = db.rooms
                 .GroupJoin(db.booking_details,
                     room => room.id,
@@ -137,7 +138,38 @@ namespace hotel_bookings.Areas.Admin.Controllers
 
             return View(viewModel);
         }
-
+        [HttpPost]
+        public ActionResult searchMonth(int month)
+        {
+            var totals = db.rooms
+               .GroupJoin(db.booking_details,
+                   room => room.id,
+                   bookingDetail => bookingDetail.room_id,
+                   (room, bookingDetails) => new { Room = room, BookingDetails = bookingDetails })
+               .SelectMany(
+                   x => x.BookingDetails.DefaultIfEmpty(),
+                   (x, bookingDetail) => new { x.Room, BookingDetail = bookingDetail })
+               .GroupJoin(db.booking_order,
+                   x => x.BookingDetail.booking_order_id,
+                   bookingOrder => bookingOrder.id,
+                   (x, bookingOrders) => new { x.Room, x.BookingDetail, BookingOrders = bookingOrders })
+               .SelectMany(
+                   x => x.BookingOrders.DefaultIfEmpty(),
+                   (x, bookingOrder) => new { x.Room, x.BookingDetail, BookingOrder = bookingOrder })
+               .Where(x => x.BookingOrder != null && x.BookingOrder.book_day != null && x.BookingOrder.book_day.Value.Month == month || x.BookingOrder == null)
+               .GroupBy(x => x.Room.name)
+               .Select(g => new total
+               {
+                   name = g.Key,
+                   Price = g.Sum(x => x.BookingDetail != null ? x.BookingDetail.price ?? 0 : 0)
+               })
+               .ToList();
+            var viewModel = new StatisticsViewModel
+            {
+                totals = totals
+            };
+            return View(viewModel);  
+        }
         public class MonthComparer : IComparer<string>
         {
             public int Compare(string x, string y)

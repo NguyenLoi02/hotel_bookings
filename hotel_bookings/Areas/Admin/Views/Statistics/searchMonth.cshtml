@@ -1,0 +1,20 @@
+﻿<script>
+       var morris_bar = document.getElementById('morris_bar').getContext('2d');
+   var totals = @Html.Raw(Json.Encode(Model.totals));
+   var roomName = totals.map(stat => stat.name);
+   var allPrice = totals.map(stat => stat.Price);
+    var chartDatazz = {
+        labels: roomName,
+        datasets: [{
+        label: 'Doanh thu',
+        borderWidth:1,
+        data: allPrice,
+        //backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+    }]
+};
+   var myChart = new Chart(morris_bar, {
+       type: 'bar',
+       data: chartDatazz,
+   });
+</script>
+<canvas id="morris_bar" width="400" height="200"></canvas>

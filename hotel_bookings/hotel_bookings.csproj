@@ -2861,6 +2861,9 @@
     <Content Include="Assets\img\news\content02.jpg" />
     <Content Include="Assets\img\news\content03.jpg" />
     <Content Include="Assets\img\news\content04.jpg" />
+    <Content Include="Assets\img\news\content05.jpg" />
+    <Content Include="Assets\img\news\content06.jpg" />
+    <Content Include="Assets\img\news\content07.jpg" />
     <Content Include="Assets\img\news\news01.jpg" />
     <Content Include="Assets\img\play.png" />
     <Content Include="Assets\img\room\avatar\avatar-1.jpg" />
@@ -2876,8 +2879,19 @@
     <Content Include="Assets\img\room\room-3.jpg" />
     <Content Include="Assets\img\room\room-7.jpg" />
     <Content Include="Assets\img\room\room-8.jpg" />
-    <Content Include="Assets\img\room\room-1.jpg" />
     <Content Include="Assets\img\room\room-details.jpg" />
+    <Content Include="Assets\img\room_img\room-1.jpg" />
+    <Content Include="Assets\img\room_img\room-10.jpg" />
+    <Content Include="Assets\img\room_img\room-11.jpg" />
+    <Content Include="Assets\img\room_img\room-12.jpg" />
+    <Content Include="Assets\img\room_img\room-2.jpg" />
+    <Content Include="Assets\img\room_img\room-3.jpg" />
+    <Content Include="Assets\img\room_img\room-4.jpg" />
+    <Content Include="Assets\img\room_img\room-5.jpg" />
+    <Content Include="Assets\img\room_img\room-6.jpg" />
+    <Content Include="Assets\img\room_img\room-7.jpg" />
+    <Content Include="Assets\img\room_img\room-8.jpg" />
+    <Content Include="Assets\img\room_img\room-9.jpg" />
     <Content Include="Assets\img\room_img\room_img01.jpg" />
     <Content Include="Assets\img\room_img\room_img02.jpg" />
     <Content Include="Assets\img\room_img\room_img03.jpg" />
@@ -3155,6 +3169,7 @@
     <Content Include="Models\Model.edmx.diagram">
       <DependentUpon>Model.edmx</DependentUpon>
     </Content>
+    <Content Include="Areas\Admin\Views\Statistics\searchMonth.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

@@ -10,7 +10,29 @@
 
 
 
+<script>
+    $(document).ready(function () {
+        $('.dropdown-item').on('click', function (event) {
+            event.preventDefault();
+            var selectedMonth = $(this).data('month');
+            console.log('Tháng được chọn:', selectedMonth);
 
+            $.ajax({
+                url: '@Url.Action("searchMonth", "Statistics")',  // Thay bằng URL của controller của bạn
+                method: 'POST',
+                data: { month: selectedMonth },
+                success: function (response) {
+                    $('#canvas').html(response);
+                    
+                },
+                error: function (xhr, status, error) {
+                    console.error('Có lỗi xảy ra:', error);
+                    // Xử lý lỗi ở đây
+                }
+            });
+        });
+    });
+</script>
 
 <div class="row">
     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
@@ -42,7 +64,7 @@
 
 
             <div class="card-body">
-                <div>
+                <div id="canvas">
                     <canvas id="morris_bar" width="400" height="200"></canvas>
                 </div>
             </div>

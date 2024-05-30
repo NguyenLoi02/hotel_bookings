@@ -68,6 +68,7 @@ namespace hotel_bookings.Models.Data
 
             try
             {
+               room.status = 0;
                 _dbContext.rooms.Add(room);
                 _dbContext.SaveChanges();
             }
@@ -90,27 +91,36 @@ namespace hotel_bookings.Models.Data
         }
         public void UpdateRoom(room room)
         {
-            if (!string.IsNullOrEmpty(room.avatar))
+            // Kiểm tra nếu có tệp ảnh mới được tải lên
+            if (room.ImageUpload != null && room.ImageUpload.ContentLength > 0)
             {
-                string oldImagePath = Path.Combine(HttpContext.Current.Server.MapPath("~/Assets/images/"), room.avatar);
-                if (File.Exists(oldImagePath))
+                // Xóa ảnh cũ nếu tồn tại
+                if (!string.IsNullOrEmpty(room.avatar))
                 {
-                    File.Delete(oldImagePath);
+                    string oldImagePath = Path.Combine(HttpContext.Current.Server.MapPath("~/Assets/images/"), room.avatar);
+                    if (File.Exists(oldImagePath))
+                    {
+                        File.Delete(oldImagePath);
+                    }
                 }
+
+                // Thiết lập tên mới cho hình ảnh
+                string filename = Path.GetFileNameWithoutExtension(room.ImageUpload.FileName);
+                string extension = Path.GetExtension(room.ImageUpload.FileName);
+                filename = filename + extension;
+                room.avatar = filename;
+
+                // Lưu tập tin hình ảnh mới
+                string newImagePath = Path.Combine(HttpContext.Current.Server.MapPath("~/Assets/img/room/"), filename);
+                room.ImageUpload.SaveAs(newImagePath);
             }
 
-            // Set the new image filename
-            string filename = Path.GetFileNameWithoutExtension(room.ImageUpload.FileName);
-            string extension = Path.GetExtension(room.ImageUpload.FileName);
-            filename = filename + extension;
-            room.avatar = filename;
 
-            // Save the new image file
-            filename = Path.Combine(HttpContext.Current.Server.MapPath("~/Assets/img/room/"), filename);
-            room.ImageUpload.SaveAs(filename);
+            // Cập nhật thông tin phòng trong cơ sở dữ liệu
             _dbContext.Entry(room).State = EntityState.Modified;
             _dbContext.SaveChanges();
         }
+
         public void DeleteRoom(int id)
         {
             var roomToDelete = _dbContext.rooms.Find(id);
@@ -123,7 +133,7 @@ namespace hotel_bookings.Models.Data
 
         public IEnumerable<room> CheckRoom(DateTime check_in, DateTime check_out, int adult , int children)
         {
-            // Bước 1: Lấy danh sách ID phòng và số lần phòng đó được đặt trong khoảng thời gian
+            // Lấy danh sách ID phòng và số lần phòng đó được đặt trong khoảng thời gian
             var bookedRoomsCount = _dbContext.booking_details
                 .Where(b => !(b.check_in >= check_out || b.check_out <= check_in))
                 .GroupBy(b => b.room_id)
@@ -134,15 +144,15 @@ namespace hotel_bookings.Models.Data
                 })
                 .ToList();
 
-            // Bước 2: Lấy danh sách ID của các phòng đã đặt
+            // Lấy danh sách ID của các phòng đã đặt từ bookedRoomsCount
             var bookedRoomIds = bookedRoomsCount.Select(b => b.RoomId).ToList();
 
-            // Bước 3: Lấy danh sách các phòng có sẵn (không có trong danh sách ID của các phòng đã đặt)
+            // Lấy danh sách các phòng có sẵn (các phòng càn lại trong danh sách phòng)
             var availableRooms = _dbContext.rooms
                 .Where(r => !bookedRoomIds.Contains(r.id) && r.quantity > 0)
                 .ToList();
 
-            // Bước 4: Cập nhật số lượng phòng dựa trên số lần đặt phòng
+            // tìm kiếm phòng đã đặt dựa trên ID phòng đã đặt và Cập nhật số lượng phòng dựa trên số lần đặt phòng
             foreach (var bookedRoom in bookedRoomsCount)
             {
                 var room = _dbContext.rooms.SingleOrDefault(r => r.id == bookedRoom.RoomId);
@@ -155,12 +165,12 @@ namespace hotel_bookings.Models.Data
                     }
                 }
             }
-
+            // kiểm tra số người lớn và trẻ em dựa trên biến adult, children
             availableRooms = availableRooms
              .Where(room => room.adult >= adult && room.children >= children)
              .ToList();
 
-            // Bước 6: Sắp xếp danh sách phòng cuối cùng theo ID phòng
+            //Sắp xếp danh sách phòng theo ID phòng
             availableRooms = availableRooms.OrderBy(room => room.id).ToList();
             return availableRooms;
         }

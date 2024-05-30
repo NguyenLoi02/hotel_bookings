@@ -15,48 +15,38 @@
             <div class="col-lg-10 offset-lg-1">
                 <div class="blog-details-text">
 
-                    <div class="bd-pic">
+                    @*<div class="bd-pic">
                         <img src="~/Assets/img/news/news01.jpg" />
 
-                    </div>
-                    <div class="bd-pic">
+                    </div>*@
+                    @*<div class="bd-pic">*@
 
-                        @foreach (var item in Model)
+                        @*@foreach (var item in Model)
                         {
 
                             <div class="bp-item">
-                                <img src="~/Assets/img/news/@item.image" />
+                                <img style="width: 100%;" src="~/Assets/img/news/@item.image" />
                             </div>
-                        }
+                        }*@
 
-                    </div>
-                    <div class="bd-more-text">
-                        @foreach (var item in Model)
-                        {<div class="bm-item">
-                                <h4>@item.title</h4>
-                                <p>
-                                    @item.detail
-                                </p>
-                            </div>
-                        }
-
-
-                    </div>
-                    <div class="tag-share">
-                        <div class="tags">
-                            <a href="#">Travel Trip</a>
-                            <a href="#">Camping</a>
-                            <a href="#">Event</a>
+                    @*</div>*@
+                <div style="margin-top: 50px;" class="bd-more-text">
+                    @foreach (var item in Model)
+                    {
+                        <div class="bp-item">
+                            <img style="width: 100%;" src="~/Assets/img/news/@item.image" />
                         </div>
-                        <div class="social-share">
-                            <span>Share:</span>
-                            <a href="#"><i class="fa fa-facebook"></i></a>
-                            <a href="#"><i class="fa fa-twitter"></i></a>
-                            <a href="#"><i class="fa fa-tripadvisor"></i></a>
-                            <a href="#"><i class="fa fa-instagram"></i></a>
-                            <a href="#"><i class="fa fa-youtube-play"></i></a>
+                        <div class="bm-item">
+                            <h4>@item.title</h4>
+                            <p>
+                                @item.detail
+                            </p>
                         </div>
-                    </div>
+                    }
+
+
+                </div>
+                   
 
                 </div>
             </div>

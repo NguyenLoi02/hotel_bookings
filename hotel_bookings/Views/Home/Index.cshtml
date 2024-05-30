@@ -81,38 +81,7 @@
                     </p>
                 </div>
             </div>
-            <div class="col-xl-4 col-lg-5 offset-xl-2 offset-lg-1">
-                <div class="booking-form">
-                    <h3>Đặt phòng ngay</h3>
-                    <form action="#">
-                        <div class="check-date">
-                            <label for="date-in">Ngày đến:</label>
-                            <input type="text" class="date-input" id="date-in">
-                            <i class="icon_calendar"></i>
-                        </div>
-                        <div class="check-date">
-                            <label for="date-out">Ngày đi:</label>
-                            <input type="text" class="date-input" id="date-out">
-                            <i class="icon_calendar"></i>
-                        </div>
-                        <div class="select-option">
-                            <label for="guest">Người lớn:</label>
-                            <select id="guest">
-                                <option value="">2 </option>
-                                <option value="">3 </option>
-                            </select>
-                        </div>
-                        <div class="select-option">
-                            <label for="room">Trẻ em:</label>
-                            <select id="room">
-                                <option value="">1 </option>
-                                <option value="">2 </option>
-                            </select>
-                        </div>
-                        <button type="submit">Tìm kiếm</button>
-                    </form>
-                </div>
-            </div>
+            
         </div>
     </div>
     <div class="hero-slider owl-carousel">
@@ -183,6 +152,14 @@
 </section>
 <!-- Services Section End -->
 <!-- Home Room Section Begin -->
+<div class="row">
+    <div class="col-lg-12">
+        <div class="section-title">
+            <span>lOẠI PHÒNG CỦA KHÁCH SẠN</span>
+            <h2>Loại phòng của chúng tôi</h2>
+        </div>
+    </div>
+</div>
 <section class="hp-room-section">
     <div class="container-fluid">
         <div class="hp-room-items position-relative">
@@ -196,7 +173,7 @@
                     foreach (var item in Model.room_styles)
                     {
                         <div class="col-lg-3 col-md-6">
-                            <div class="hp-room-item set-bg" data-setbg="../Assets/img/room/@item.avatar">
+                            <div class="hp-room-item set-bg" data-setbg="../Assets/img/room_img/@item.avatar">
                                 <div class="hr-text">
                                     <h3 style="font-size: 46px;">@item.name</h3>
 
@@ -233,7 +210,7 @@
                     <div class="col-lg-4">
                         <div class="blog-item set-bg" data-setbg="../Assets/img/news/@item.image">
                             <div class="bi-text">
-                                <span class="b-tag">Tin mới</span>
+                                <span class="b-tag">Tin tức</span>
                                 <h4><a href="@Url.Action("NewsDetail", "News" ,new { id = item.id })">@item.title</a></h4>
                                 <div class="b-time"><i class="icon_clock_alt"></i>@item.date_news</div>
                             </div>
