@@ -37,12 +37,13 @@ namespace hotel_bookings.Models
         public string avatar { get; set; }
         public Nullable<int> quantity { get; set; }
         public Nullable<int> status { get; set; }
+    
         public virtual ICollection<booking_details> booking_details { get; set; }
         public virtual ICollection<rating_view> rating_view { get; set; }
         public virtual ICollection<room_feature> room_feature { get; set; }
         public virtual ICollection<room_images> room_images { get; set; }
-        public virtual ICollection<room_sale> room_sale { get; set; }
         public virtual room_style room_style { get; set; }
+        public virtual ICollection<room_sale> room_sale { get; set; }
         [NotMapped]
         public HttpPostedFileBase ImageUpload { get; set; }
     }

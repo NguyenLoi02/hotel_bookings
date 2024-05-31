@@ -272,6 +272,9 @@
     <Compile Include="Models\room_style.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sale.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\service.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -3162,6 +3165,7 @@
     <Content Include="Areas\Admin\Views\News\UpdateNews.cshtml" />
     <Content Include="Areas\Admin\Views\Account\role.cshtml" />
     <Content Include="Areas\Admin\Views\Statistics\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Statistics\searchMonth.cshtml" />
     <EntityDeploy Include="Models\Model.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model.Designer.cs</LastGenOutput>
@@ -3169,7 +3173,6 @@
     <Content Include="Models\Model.edmx.diagram">
       <DependentUpon>Model.edmx</DependentUpon>
     </Content>
-    <Content Include="Areas\Admin\Views\Statistics\searchMonth.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

@@ -42,6 +42,7 @@ namespace hotel_bookings.Models
         public DbSet<room_images> room_images { get; set; }
         public DbSet<room_sale> room_sale { get; set; }
         public DbSet<room_style> room_style { get; set; }
+        public DbSet<sale> sales { get; set; }
         public DbSet<service> services { get; set; }
         public DbSet<sysdiagram> sysdiagrams { get; set; }
         public DbSet<user> users { get; set; }

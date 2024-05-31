@@ -12,14 +12,16 @@ namespace hotel_bookings.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class room_sale
+    public partial class sale
     {
-        public int sale_id { get; set; }
-        public int room_id { get; set; }
-        public Nullable<System.DateTime> start_day { get; set; }
-        public Nullable<System.DateTime> end_day { get; set; }
+        public sale()
+        {
+            this.room_sale = new HashSet<room_sale>();
+        }
     
-        public virtual room room { get; set; }
-        public virtual sale sale { get; set; }
+        public int id { get; set; }
+        public Nullable<int> percents { get; set; }
+    
+        public virtual ICollection<room_sale> room_sale { get; set; }
     }
 }

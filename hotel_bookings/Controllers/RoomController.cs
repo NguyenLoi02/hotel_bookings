@@ -341,7 +341,7 @@ namespace hotel_bookings.Controllers
             string roomName = db.rooms.Where(r => r.id == room_id).Select(r => r.name).FirstOrDefault();
             string firstName = db.users.Where(r => r.id == user_id).Select(r => r.first_name).FirstOrDefault();
             DateTime currentDate = DateTime.Now;
-
+            int room_price = (int)Session["room_price"];
 
 
             booking_order bookingOrder = new booking_order();
@@ -382,10 +382,49 @@ namespace hotel_bookings.Controllers
             db.booking_details.Add(booking_details);
             db.SaveChanges();
 
-            string contentCustomer = System.IO.File.ReadAllText(Server.MapPath("~/Common/templateEmail.html"));
+
+            
+                string contentCustomer = System.IO.File.ReadAllText(Server.MapPath("~/Common/templateEmail.html"));
             contentCustomer = contentCustomer.Replace("{{MaBooking}}", Convert.ToString(booking_order_id));
             contentCustomer = contentCustomer.Replace("{{TenPhong}}", roomName);
             contentCustomer = contentCustomer.Replace("{{TenKhachHang}}", firstName);
+            contentCustomer = contentCustomer.Replace("{{ngayDat}}", currentDate.ToString("dd/MM/yyyy"));
+            contentCustomer = contentCustomer.Replace("{{giaPhong}}", room_price.ToString());
+            contentCustomer = contentCustomer.Replace("{{thanhTien}}", trans_money.ToString());
+            contentCustomer = contentCustomer.Replace("{{soDienThoai}}", phonenum);
+            contentCustomer = contentCustomer.Replace("{{email}}", email);
+            string htmlTemplate = @"
+                 <tr>
+                   <th scope=""row"" colspan=""2""
+                       style=""font-family: 'Times New Roman'; color: #636363; border: 1px solid #e5e5e5; vertical-align: middle; padding: 12px; text-align: left; border-top-width: 4px"">
+                          {{tenDichVu}}
+                  </th>
+                <td style=""font-family: 'Times New Roman'; color: #636363; border: 1px solid #e5e5e5; vertical-align: middle; padding: 12px; text-align: left; border-top-width: 4px"">
+                <span>{{giaTien}}&nbsp;<span>₫</span></span>
+                </td>
+               </tr>
+                              ";
+            string dichVuThem = "";
+            if (selectedOptions != null && selectedOptions.Length > 0)
+            {
+                foreach (var optionId in selectedOptions)
+                {
+                    // Thực hiện truy vấn vào cơ sở dữ liệu sử dụng optionId
+                    var item = db.services.FirstOrDefault(items => items.id == optionId);
+                    // Kiểm tra xem phần tử có tồn tại
+                    if (item != null)
+                    {
+
+                        string row = htmlTemplate
+                        .Replace("{{tenDichVu}}", item.name)
+                        .Replace("{{giaTien}}", item.price.ToString());
+                        dichVuThem += row;
+                    }
+                }
+                contentCustomer = contentCustomer.Replace("{{dichVuThem}}", dichVuThem);
+            }else
+                contentCustomer = contentCustomer.Replace("{{dichVuThem}}", "");
+
             try
             {
                 string subject = "Test Email";

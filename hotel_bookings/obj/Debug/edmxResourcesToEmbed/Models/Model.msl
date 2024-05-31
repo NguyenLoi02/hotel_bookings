@@ -166,7 +166,7 @@
     <EntitySetMapping Name="room_sale">
       <EntityTypeMapping TypeName="HotelBookingModel.room_sale">
         <MappingFragment StoreEntitySet="room_sale">
-          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="sale_id" ColumnName="sale_id" />
           <ScalarProperty Name="room_id" ColumnName="room_id" />
           <ScalarProperty Name="start_day" ColumnName="start_day" />
           <ScalarProperty Name="end_day" ColumnName="end_day" />
@@ -180,6 +180,14 @@
           <ScalarProperty Name="name" ColumnName="name" />
           <ScalarProperty Name="description" ColumnName="description" />
           <ScalarProperty Name="avatar" ColumnName="avatar" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sales">
+      <EntityTypeMapping TypeName="HotelBookingModel.sale">
+        <MappingFragment StoreEntitySet="sale">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="percents" ColumnName="percents" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

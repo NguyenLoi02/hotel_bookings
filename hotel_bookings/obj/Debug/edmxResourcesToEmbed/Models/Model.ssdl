@@ -152,9 +152,10 @@
   </EntityType>
   <EntityType Name="room_sale">
     <Key>
-      <PropertyRef Name="id" />
+      <PropertyRef Name="sale_id" />
+      <PropertyRef Name="room_id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="sale_id" Type="int" Nullable="false" />
     <Property Name="room_id" Type="int" Nullable="false" />
     <Property Name="start_day" Type="date" />
     <Property Name="end_day" Type="date" />
@@ -167,6 +168,13 @@
     <Property Name="name" Type="nvarchar" MaxLength="200" />
     <Property Name="description" Type="nvarchar(max)" />
     <Property Name="avatar" Type="nchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="sale">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="percents" Type="int" />
   </EntityType>
   <EntityType Name="service">
     <Key>
@@ -398,7 +406,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_room_sale_room">
+  <Association Name="FK_room_sale_room1">
     <End Role="room" Type="Self.room" Multiplicity="1">
       <OnDelete Action="Cascade" />
     </End>
@@ -409,6 +417,20 @@
       </Principal>
       <Dependent Role="room_sale">
         <PropertyRef Name="room_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_room_sale_sale">
+    <End Role="sale" Type="Self.sale" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="room_sale" Type="Self.room_sale" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="sale">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="room_sale">
+        <PropertyRef Name="sale_id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -430,6 +452,7 @@
     <EntitySet Name="room_images" EntityType="Self.room_images" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="room_sale" EntityType="Self.room_sale" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="room_style" EntityType="Self.room_style" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sale" EntityType="Self.sale" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="service" EntityType="Self.service" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="user" EntityType="Self.user" Schema="dbo" store:Type="Tables" />
@@ -486,8 +509,12 @@
       <End Role="room_style" EntitySet="room_style" />
       <End Role="room" EntitySet="room" />
     </AssociationSet>
-    <AssociationSet Name="FK_room_sale_room" Association="Self.FK_room_sale_room">
+    <AssociationSet Name="FK_room_sale_room1" Association="Self.FK_room_sale_room1">
       <End Role="room" EntitySet="room" />
+      <End Role="room_sale" EntitySet="room_sale" />
+    </AssociationSet>
+    <AssociationSet Name="FK_room_sale_sale" Association="Self.FK_room_sale_sale">
+      <End Role="sale" EntitySet="sale" />
       <End Role="room_sale" EntitySet="room_sale" />
     </AssociationSet>
   </EntityContainer>

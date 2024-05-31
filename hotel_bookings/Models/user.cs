@@ -44,7 +44,7 @@ namespace hotel_bookings.Models
     
         public int Count { get; set; }
 
-
+    
         public virtual ICollection<booking_order> booking_order { get; set; }
         public virtual ICollection<rating_view> rating_view { get; set; }
         public virtual ICollection<user_question> user_question { get; set; }
