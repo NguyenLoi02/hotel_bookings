@@ -1,0 +1,117 @@
+﻿@model List<hotel_bookings.Models.room>
+@using PagedList.Mvc
+<script>
+    $('.bookingLink').click(function(event) {
+    event.preventDefault(); // Ngăn chặn hành động mặc định của thẻ <a>
+
+    var roomId = $(this).data('room-id'); // Lấy id từ thuộc tính data-room-id của thẻ <a>
+
+    var checkInDate = $('#checkInDatePicker').val();
+    var checkOutDate = $('#checkOutDatePicker').val();
+
+    if (!checkInDate || !checkOutDate) {
+        // Ngày đến hoặc ngày đi chưa được nhập
+        $('#checkInDatePicker').addClass('is-invalid');
+        $('#checkOutDatePicker').addClass('is-invalid');
+    } else {
+        // Ngày đến và ngày đi đã được nhập
+        $('#checkInDatePicker').removeClass('is-invalid');
+        $('#checkOutDatePicker').removeClass('is-invalid');
+
+        // Tạo URL sử dụng Url.Action và chuyển hướng đến đó
+        var url = '@Url.Action("RoomService", "Room")' + '?id=' + roomId;
+        window.location.href = url;
+        }
+
+    });
+    $(document).ready(function() {
+    $('.room-item').click(function() {
+        var roomId = $(this).data('room-id');
+        $.ajax({
+            url: '@Url.Action("RoomDetails", "Room")',
+            type: 'GET',
+            data: { id: roomId },
+            success: function(result) {
+                $('#room-detail-container').fadeOut(0).delay(200).html(result).fadeIn(200);
+            }
+        });
+    });
+        $(document).ready(function () {
+            $('.reviews-open').click(function () {
+                var roomId = $(this).data('room-id');
+                var url = '/Room/RoomReview?id=' + roomId;
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    data: { id: roomId },
+                    success: function (result) {
+                        $('#room-reviews').fadeOut(0).delay(200).html(result).fadeIn(200);
+                    }
+                });
+            });
+
+        });
+});
+</script>
+@if (Model != null && Model.Count() > 0)
+{
+    foreach (var item in Model)
+    {
+        <div class="col-lg-4 col-md-6">
+            <div class="room-item">
+                <img src="~/Assets/img/room_img/@item.avatar" alt="" class="room-item" data-room-id="@item.id">
+                <div class="ri-text">
+                    <h4 class="room-details">@item.name</h4>
+                    <h3>@item.price đ<span>  /Đêm</span></h3>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td class="r-o">Diện tích:</td>
+                                <td>@item.area m2</td>
+                            </tr>
+                            <tr>
+                                <td class="r-o">Số người:</td>
+                                <td>@(item.adult + item.children)</td>
+                            </tr>
+                            <tr>
+                                <td class="r-o">Phòng chống:</td>
+                                <td>@item.quantity</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div style="display: flex;">
+                        <div style="flex: 1;" class="rating_room ">
+                            <a class="reviews-open" data-room-id="@item.id">Đánh giá</a>
+                        </div>
+                        @if (item.quantity > 0)
+                        {
+
+                            <a style="cursor: pointer;" class="primary-btn bookingLink" data-room-id="@item.id">Đặt phòng</a>
+                        }
+                        else
+                        {
+                            <a class="primary-btn" style=" color: #e5ba90;">Hết phòng</a>
+
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+
+
+}
+else
+{
+    <div class="container" style="margin-top: 50px;">
+        <div class="row">
+
+            <div class="col-lg-12" style="text-align: center;">
+                <p style="font-size: 28px; color: #dfa974;">Không còn phòng trống !</p>
+            </div>
+        </div>
+    </div>
+}
+
+

@@ -12,7 +12,7 @@ namespace hotel_bookings.Models.Service
     {
         IEnumerable<room> GetAllRooms();
         IEnumerable<room> SearchRooms(string a);
-        IEnumerable<room> CheckRoom(DateTime check_in, DateTime check_out,int adult,int children);
+        IEnumerable<room> CheckRoom(DateTime check_in, DateTime check_out,int adult,int children, int? roomStyleId);
         IEnumerable<room> RoomFilter(int? room_style_id);
 
         void AddRoom(room room);

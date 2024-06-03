@@ -131,7 +131,7 @@ namespace hotel_bookings.Models.Data
             }
         }
 
-        public IEnumerable<room> CheckRoom(DateTime check_in, DateTime check_out, int adult , int children)
+        public IEnumerable<room> CheckRoom(DateTime check_in, DateTime check_out, int adult , int children,int? roomStyleId)
         {
             // Lấy danh sách ID phòng và số lần phòng đó được đặt trong khoảng thời gian
             var bookedRoomsCount = _dbContext.booking_details
@@ -147,8 +147,34 @@ namespace hotel_bookings.Models.Data
             // Lấy danh sách ID của các phòng đã đặt từ bookedRoomsCount
             var bookedRoomIds = bookedRoomsCount.Select(b => b.RoomId).ToList();
 
-            // Lấy danh sách các phòng có sẵn (các phòng càn lại trong danh sách phòng)
-            var availableRooms = _dbContext.rooms
+            // Lấy danh sách ID phòng được sale trong thời gian tìm kiếm
+            var query = (from rs in _dbContext.room_sale
+                        join s in _dbContext.sales on rs.sale_id equals s.id
+                        where rs.start_day <=check_in && rs.end_day >= check_out
+                        select new
+                        {
+                            RoomId = rs.room_id,
+                            Percent = s.percents
+                        }).ToList();
+            var roomSaleIds = query.Select(b => b.RoomId).ToList();
+            // Lấy danh sách các phòng chưa sale(các phòng càn lại trong danh sách phòng)
+            var room_sales = _dbContext.rooms
+                .Where(r => !roomSaleIds.Contains(r.id))
+                .ToList();
+
+            // tìm kiếm phòng đã đặt dựa trên ID phòng đã đặt và Cập nhật giá phòng 
+            foreach (var roomSale in query)
+            {
+                var room = _dbContext.rooms.SingleOrDefault(r => r.id == roomSale.RoomId);
+                if (room != null)
+                {
+                    room.price = room.price * roomSale.Percent / 100;
+                    room_sales.Add(room);
+                }
+            }
+            room_sales = room_sales.OrderBy(room => room.id).ToList();
+            // Lấy danh sách các phòng có sẵn (các phòng càn lại trong danh sách phòng sau khi đã check sale)
+            var availableRooms = room_sales
                 .Where(r => !bookedRoomIds.Contains(r.id) && r.quantity > 0)
                 .ToList();
 
@@ -169,7 +195,12 @@ namespace hotel_bookings.Models.Data
             availableRooms = availableRooms
              .Where(room => room.adult >= adult && room.children >= children)
              .ToList();
-
+            if (roomStyleId.HasValue)
+            {
+                var availableRoom = availableRooms.Where(r => r.room_style_id == roomStyleId).ToList();
+                availableRoom = availableRoom.OrderBy(room => room.id).ToList();
+                return availableRoom;
+            }
             //Sắp xếp danh sách phòng theo ID phòng
             availableRooms = availableRooms.OrderBy(room => room.id).ToList();
             return availableRooms;

@@ -3215,6 +3215,7 @@
     <Content Include="Views\Room\PaymentFail.cshtml" />
     <Content Include="Views\Room\PaymentSuccess.cshtml" />
     <Content Include="Views\RoomStyle\Index.cshtml" />
+    <Content Include="Views\RoomStyle\search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

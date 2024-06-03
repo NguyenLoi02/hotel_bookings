@@ -118,16 +118,6 @@
         font-family: "FontAwesome";
         color: #aaaab3;
     }
-    .successFormSearch {
-        display: none;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        z-index: 99999;
-        justify-content: center;
-        color: #dfa974;
-    }
     .custom-checkbox {
         transform: scale(2.0); /* Chỉnh kích thước theo nhu cầu */
         margin-top: 9px;
@@ -151,6 +141,23 @@
         color: #ffffff !important;
         display: block !important;
         margin-left: 14px !important;
+    }
+    .successForm {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 99999;
+        justify-content: center;
+        color: #dfa974;
+    }
+
+    .spinner-border {
+        width: 5rem;
+        height: 5rem;
+        border: .50em solid currentColor;
+        border-right-color: transparent;
     }
 </style>
 <!-- Breadcrumb Section Begin -->
@@ -208,14 +215,14 @@
                         url: '@Url.Action("search", "Room")', // Thay thế Tên_Controller bằng tên thực tế của controller
                         data: formData,
                         success: function (response) {
-                            $('.successFormSearch').fadeIn(); // Sửa từ 'fadein()' thành 'fadeIn()'
+                            $('.successForm').fadeIn(); // Sửa từ 'fadein()' thành 'fadeIn()'
                             setTimeout(function () {
-                                $('.successFormSearch').fadeOut(); // Sửa từ 'fadeout()' thành 'fadeOut()'
-                            }, 700);
+                                $('.successForm').fadeOut(); // Sửa từ 'fadeout()' thành 'fadeOut()'
+                            }, 900);
                             // Xử lý kết quả nếu cần
                             setTimeout(function () {
                                 $('#searchRoom').html(response);
-                            }, 700);
+                            }, 900);
                             
                         },
                         error: function (xhr, status, error) {
@@ -240,14 +247,14 @@
                         data: formData,
                         success: function (response) {
                             // Xử lý kết quả nếu cần
-                            $('.successFormSearch').fadeIn(); // Sửa từ 'fadein()' thành 'fadeIn()'
+                            $('.successForm').fadeIn(); // Sửa từ 'fadein()' thành 'fadeIn()'
                             setTimeout(function () {
-                                $('.successFormSearch').fadeOut(); // Sửa từ 'fadeout()' thành 'fadeOut()'
-                            }, 700);
+                                $('.successForm').fadeOut(); // Sửa từ 'fadeout()' thành 'fadeOut()'
+                            }, 900);
                            
                             setTimeout(function () {
                                 $('#searchRoom').html(response);
-                            }, 700);
+                            }, 900);
                         },
                         error: function (xhr, status, error) {
                             // Xử lý lỗi nếu có
@@ -339,7 +346,7 @@
                             <option value="3">3 trẻ em</option>
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-primary" style="margin-top: 14px; color: #fff; background-color: #dfa974; border-color: #dfa974;">Tìm kiếm</button>
+                    <button type="submit" class="btn btn-primary" style="margin-top: 23px; color: #fff; background-color: #dfa974; border-color: #dfa974;">Tìm kiếm</button>
                 </form>
             </div>
 
@@ -473,3 +480,10 @@
 </div>
 
 <div id="room-detail-container"> </div>
+<div class="successForm ">
+    <div class="h-100 d-flex align-items-center justify-content-center">
+        <div class="spinner-border custom-size" role="status">
+            <span class="visually-hidden"></span>
+        </div>
+    </div>
+</div>

@@ -74,7 +74,7 @@ namespace hotel_bookings.Controllers
         public ActionResult search(int? page,DateTime check_in, DateTime check_out, int adult = 1, int children = 1)
         {
           
-            var availableRooms = _roomServices.CheckRoom(check_in, check_out, adult, children);
+            var availableRooms = _roomServices.CheckRoom(check_in, check_out, adult, children, null);
             // Số lượng mục trên mỗi trang
             int pageSize = 6;
             // Số trang hiện tại (nếu không có sẽ mặc định là 1)
@@ -427,10 +427,7 @@ namespace hotel_bookings.Controllers
 
             try
             {
-                string subject = "Test Email";
-                string body = "This is a test email sent from the ASP.NET MVC application.";
-                string to = "user.email"; // Update with the recipient's email address
-
+               
                 GoogleAuthentication.SendEmail("Hotel HL", contentCustomer.ToString(), email);
                 Console.WriteLine("Email sent successfully.");
             }

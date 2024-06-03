@@ -4,7 +4,46 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<style>
+    .successForm {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 99999;
+        justify-content: center;
+        color: #dfa974;
+    }
 
+    .spinner-border {
+        width: 5rem;
+        height: 5rem;
+        border: .50em solid currentColor;
+        border-right-color: transparent;
+    }
+    /*    .successForm2 {
+        display: flex;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 99999;
+        justify-content: center;
+        color: #dfa974;
+    }*/
+    button#submitButton {
+        float: right;
+    }
+
+    .custom-size {
+        width: 5rem; /* Điều chỉnh chiều rộng */
+        height: 5rem; /* Điều chỉnh chiều cao */
+    }
+
+    /* CSS code with keyframes */
+
+</style>
 <section class="contact-section spad">
     <div class="container">
         <div class="row">
@@ -116,36 +155,5 @@
        </div>
     </div>
 </div>*@
-<style>
-    .successForm {
-        display: none;
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        z-index: 99999;
-        justify-content: center;
-        color: #dfa974;
-    }
-/*    .successForm2 {
-        display: flex;
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        z-index: 99999;
-        justify-content: center;
-        color: #dfa974;
-    }*/
-    button#submitButton {
-        float: right;
-    }
-    .custom-size {
-        width: 3rem; /* Điều chỉnh chiều rộng */
-        height: 3rem; /* Điều chỉnh chiều cao */
-    }
 
-    /* CSS code with keyframes */
-
-</style>
 
