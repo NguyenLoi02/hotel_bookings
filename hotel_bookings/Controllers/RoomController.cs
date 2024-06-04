@@ -64,6 +64,8 @@ namespace hotel_bookings.Controllers
             int pageSize = 6;
             var roomStyle = db.room_style.ToList();
             ViewBag.roomStyleList = roomStyle;
+            var roomFeatures = db.features.Take(4).ToList();
+            ViewBag.roomFeatureList = roomFeatures;
             // Số trang hiện tại (nếu không có sẽ mặc định là 1)
             int pageNumber = (page ?? 1);
             var room_list = _roomServices.GetAllRooms();
@@ -94,8 +96,11 @@ namespace hotel_bookings.Controllers
         }
 
         [HttpPost]
-        public ActionResult filter(int? page, int filterRoom)
+        public ActionResult filter(int? page, int? filterRoom, List<int> selectedFeatures, int? priceFrom, int ? priceTo)
         {
+
+            var ddd = selectedFeatures;
+
             // Số lượng mục trên mỗi trang
             int pageSize = 6;
             var roomStyle = db.room_style.ToList();
@@ -112,17 +117,46 @@ namespace hotel_bookings.Controllers
 
             
             var availableRooms = (List<room>)Session["availableRooms"];
-            if(availableRooms != null && availableRooms.Count() > 0)
-            {
-                var availableRoomss = availableRooms
-                    .Where(r => bookedRoomIds.Contains(r.room_style_id))
-                    .ToList();
-                return View(availableRoomss.ToPagedList(pageNumber, pageSize));
-            }
             
+                if (availableRooms != null && availableRooms.Count() > 0)
+                {
+                    if (bookedRoomIds != null && bookedRoomIds.Count > 0)
+                    {
+                        var availableRoomss = availableRooms
+                            .Where(r => bookedRoomIds.Contains(r.room_style_id))
+                            .ToList();
+                        if (priceFrom != null && priceTo != null)
+                        {
+                            var availableRoomssss = availableRoomss
+                                .Where(r => r.price >= priceFrom && r.price <= priceTo)
+                                .ToList();
+                            return View(availableRoomssss.ToPagedList(pageNumber, pageSize));
+                        }
+                    
+
+                    }
+                    if (priceFrom != null && priceTo != null)
+                    {
+                        var availableRoomssss = availableRooms
+                            .Where(r => r.price >= priceFrom && r.price <= priceTo)
+                            .ToList();
+                        return View(availableRoomssss.ToPagedList(pageNumber, pageSize));
+                    }
+                return View(availableRooms.ToPagedList(pageNumber, pageSize));
+            }
+           
+
+
             var availableRoomsss = db.rooms
                .Where(r => bookedRoomIds.Contains(r.room_style_id))
                .ToList();
+            if (priceFrom != null && priceTo != null)
+            {
+                var availableRoomss = availableRoomsss
+                    .Where(r => r.price >= priceFrom && r.price <= priceTo)
+                    .ToList();
+                return View(availableRoomss.ToPagedList(pageNumber, pageSize));
+            }
             return View(availableRoomsss.ToPagedList(pageNumber, pageSize));
 
 
@@ -184,13 +218,14 @@ namespace hotel_bookings.Controllers
         }
         public ActionResult RoomService(int id)
         {
-            
+            var availableRooms = (List<room>)Session["availableRooms"];
             var service = db.services.ToList();
             if (Session["check_in"] == null || Session["check_out"] == null)
             {
                 return RedirectToAction("Index");
             }
-            var detail = db.rooms.Find(id);
+            var detail = availableRooms
+                    .Where(r => r.id == id).FirstOrDefault();
             Session["room_id"] = id;
             Session["room_name"] = detail.name;
             Session["room_price"] = detail.price;

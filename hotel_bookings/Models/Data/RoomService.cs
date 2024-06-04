@@ -206,18 +206,18 @@ namespace hotel_bookings.Models.Data
             return availableRooms;
         }
 
-        public IEnumerable<room> RoomFilter(int? room_style_id)
-        {
+        //public IEnumerable<room> RoomFilter(int? room_style_id)
+        //{
 
-            var bookedRoomIds = _dbContext.room_style
-            .Where(b => b.id== room_style_id)
-            .Select(b => b.id)
-            .ToList();
+        //    var bookedRoomIds = _dbContext.room_style
+        //    .Where(b => b.id== room_style_id)
+        //    .Select(b => b.id)
+        //    .ToList();
 
-            var availableRooms = _dbContext.rooms
-                .Where(r => !bookedRoomIds.Contains(r.id))
-                .ToList();
-            return availableRooms;
-        }
+        //    var availableRooms = _dbContext.rooms
+        //        .Where(r => !bookedRoomIds.Contains(r.id))
+        //        .ToList();
+        //    return availableRooms;
+        //}
     }
 }
