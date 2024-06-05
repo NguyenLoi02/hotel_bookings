@@ -18,6 +18,20 @@ namespace hotel_bookings.Models
         public List<service> services {  get; set; }
         public int RowNumber { get; set; }
 
+        public int booking_order_id { get; set; }
+        public string user_name { get; set; }
+        public string phone { get; set; }
+        public string room_name { get; set; }
+        public int room_price { get; set; }
+        public string service_name { get; set; }
+        public int service_price { get; set; }
+        public int service_count { get; set; }
+        public string check_in { get; set; }
+        public string check_out { get; set; }
+        public string book_date { get; set; }
+
+
+
 
     }
 }

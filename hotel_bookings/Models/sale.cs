@@ -21,6 +21,7 @@ namespace hotel_bookings.Models
     
         public int id { get; set; }
         public Nullable<int> percents { get; set; }
+        public string name { get; set; }
     
         public virtual ICollection<room_sale> room_sale { get; set; }
     }

@@ -5,17 +5,17 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="cf3ff53e30e04958b32297551bb03ba7" Name="Diagram1">
-        <EntityTypeShape EntityType="HotelBookingModel.admin" Width="1.5" PointX="7.75" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="HotelBookingModel.admin" Width="1.5" PointX="6.75" PointY="3.875" IsExpanded="true" />
         <EntityTypeShape EntityType="HotelBookingModel.admin_role" Width="1.5" PointX="10" PointY="5.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="HotelBookingModel.booking_details" Width="1.5" PointX="5.25" PointY="9" IsExpanded="true" />
-        <EntityTypeShape EntityType="HotelBookingModel.booking_order" Width="1.5" PointX="3" PointY="14" IsExpanded="true" />
+        <EntityTypeShape EntityType="HotelBookingModel.booking_details" Width="1.5" PointX="4.875" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="HotelBookingModel.booking_order" Width="1.5" PointX="5.625" PointY="7.625" IsExpanded="true" />
         <EntityTypeShape EntityType="HotelBookingModel.carousel" Width="1.5" PointX="0.75" PointY="2.375" IsExpanded="true" />
         <EntityTypeShape EntityType="HotelBookingModel.contact_details" Width="1.5" PointX="8.75" PointY="2.375" IsExpanded="true" />
         <EntityTypeShape EntityType="HotelBookingModel.content" Width="1.5" PointX="13" PointY="8.625" IsExpanded="true" />
         <EntityTypeShape EntityType="HotelBookingModel.feature" Width="1.5" PointX="3" PointY="5.5" IsExpanded="true" />
         <EntityTypeShape EntityType="HotelBookingModel.news" Width="1.5" PointX="10.75" PointY="8.625" IsExpanded="true" />
         <EntityTypeShape EntityType="HotelBookingModel.order_service" Width="1.5" PointX="5.25" PointY="16.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="HotelBookingModel.rating_view" Width="1.5" PointX="8.25" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="HotelBookingModel.rating_view" Width="1.5" PointX="8.75" PointY="9.75" IsExpanded="true" />
         <EntityTypeShape EntityType="HotelBookingModel.role" Width="1.5" PointX="7.75" PointY="12.75" IsExpanded="true" />
         <EntityTypeShape EntityType="HotelBookingModel.room" Width="1.5" PointX="3" PointY="8.25" IsExpanded="true" />
         <EntityTypeShape EntityType="HotelBookingModel.room_feature" Width="1.5" PointX="5.25" PointY="5.375" IsExpanded="true" />
@@ -25,7 +25,7 @@
         <EntityTypeShape EntityType="HotelBookingModel.sale" Width="1.5" PointX="3" PointY="18.625" IsExpanded="true" />
         <EntityTypeShape EntityType="HotelBookingModel.service" Width="1.5" PointX="3" PointY="22.375" IsExpanded="true" />
         <EntityTypeShape EntityType="HotelBookingModel.sysdiagram" Width="1.5" PointX="2.75" PointY="2.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="HotelBookingModel.user" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HotelBookingModel.user" Width="1.5" PointX="8.375" PointY="5.625" IsExpanded="true" />
         <EntityTypeShape EntityType="HotelBookingModel.user_question" Width="1.5" PointX="10.75" PointY="2.375" IsExpanded="true" />
         <AssociationConnector Association="HotelBookingModel.FK_admin_role_admin" ManuallyRouted="false" />
         <AssociationConnector Association="HotelBookingModel.FK_admin_role_role" ManuallyRouted="false" />
@@ -42,6 +42,7 @@
         <AssociationConnector Association="HotelBookingModel.FK_room_room_style" ManuallyRouted="false" />
         <AssociationConnector Association="HotelBookingModel.FK_room_sale_room1" ManuallyRouted="false" />
         <AssociationConnector Association="HotelBookingModel.FK_room_sale_sale" ManuallyRouted="false" />
+        <AssociationConnector Association="HotelBookingModel.FK_booking_order_user" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

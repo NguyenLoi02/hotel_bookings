@@ -48,6 +48,7 @@
     <Property Name="arrival" Type="Int32" />
     <NavigationProperty Name="booking_details" Relationship="Self.FK_booking_details_booking_order" FromRole="booking_order" ToRole="booking_details" />
     <NavigationProperty Name="order_service" Relationship="Self.FK_order_service_booking_order" FromRole="booking_order" ToRole="order_service" />
+    <NavigationProperty Name="user" Relationship="HotelBookingModel.FK_booking_order_user" FromRole="booking_order" ToRole="user" />
   </EntityType>
   <EntityType Name="carousel">
     <Key>
@@ -203,6 +204,7 @@
     <Property Name="id" Type="Int32" Nullable="false" />
     <Property Name="percents" Type="Int32" />
     <NavigationProperty Name="room_sale" Relationship="Self.FK_room_sale_sale" FromRole="sale" ToRole="room_sale" />
+    <Property Name="name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="service">
     <Key>
@@ -241,6 +243,7 @@
     <Property Name="date_sign" Type="DateTime" Precision="0" />
     <Property Name="gender" Type="Int32" />
     <NavigationProperty Name="rating_view" Relationship="Self.FK_rating_view_user" FromRole="user" ToRole="rating_view" />
+    <NavigationProperty Name="booking_order" Relationship="HotelBookingModel.FK_booking_order_user" FromRole="user" ToRole="booking_order" />
   </EntityType>
   <EntityType Name="user_question">
     <Key>
@@ -547,5 +550,23 @@
       <End Role="sale" EntitySet="sales" />
       <End Role="room_sale" EntitySet="room_sale" />
     </AssociationSet>
+    <AssociationSet Name="FK_booking_order_user" Association="HotelBookingModel.FK_booking_order_user">
+      <End Role="user" EntitySet="users" />
+      <End Role="booking_order" EntitySet="booking_order" />
+    </AssociationSet>
   </EntityContainer>
+  <Association Name="FK_booking_order_user">
+    <End Type="HotelBookingModel.user" Role="user" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="HotelBookingModel.booking_order" Role="booking_order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="booking_order">
+        <PropertyRef Name="user_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

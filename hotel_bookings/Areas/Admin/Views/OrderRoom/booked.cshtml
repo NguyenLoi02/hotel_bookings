@@ -1,4 +1,4 @@
-﻿@model hotel_bookings.Models.BookingViewModel
+﻿@model IEnumerable< hotel_bookings.Models.BookingViewModel >
 @{
     ViewBag.Title = "booked";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
@@ -6,11 +6,20 @@
 
 <div class="container">
     <div class="card">
-        <div class="#" style="display: inline-flex;justify-content: flex-end;">
-            <div style="display: inline-flex; " id="custom-search" class="top-search-bar">
-                <button class="btn btn-outline-dark" type="submit"><i style="font-size: 20px; padding: 6px;" class="fa-solid fa-magnifying-glass"></i></button>
+        <div class="container">
+            <div class="row">
+                <div id="custom-search" class="col-sm-6">
+                    <form class="row" method="post" style="margin-left: 0px; padding: 0 6px;">
 
-                <input class="form-control" type="text" placeholder="Search..">
+
+                        <div style="display: inline-flex; " id="custom-search" class="top-search-bar">
+                            <input class="form-control" type="text" name="phonenum" placeholder="Nhập số điện thoại">
+                            <button class="btn btn-outline-dark" type="submit"><i style="font-size: 20px; padding: 6px;" class="fa-solid fa-magnifying-glass"></i></button>
+
+
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
         <div class="card-body">
@@ -27,57 +36,49 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @for (int i = 0; i < Model.booking_orders.Count; i++)
+                    @foreach (var item in Model)
                     {
-                        if (Model.booking_orders[i].booking_status == 1)
-                        {
-                            <tr>
-                                <td>
-                                    <div class="fst">
-                                        <div><span class="badge badge-primary">Mã đặt phòng: @Model.booking_orders[i].id</span></div>
-                                        <div><span>Tên: </span>@Model.users[i].first_name</div>
-                                        <div><span>Số điện thoại: </span>@Model.users[i].phonenum</div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="fst">
-                                        <div><span>Tên phòng: </span>@Model.rooms[i].name</div>
-                                        <div><span>Giá phòng: </span>@Model.rooms[i].price</div>
-                                        <div><span>Số lượng đặt: </span>@Model.booking_details[i].room_number</div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="fst">
-                                        @if (Model.order_services.Count > i && Model.booking_orders.Count > i && Model.order_services[i].booking_order_id == Model.booking_orders[i].id)
-                                        {
-                                            <span>Dịch vụ:</span>
-                                            foreach (var serviceId in Model.order_services.Where(os => os.booking_order_id == Model.booking_orders[i].id).Select(os => os.service_id))
-                                            {
-                                                var serviceName = Model.services.FirstOrDefault(s => s.id == serviceId)?.name;
-                                                <span>@serviceName</span>
-                                            }
-                                        }
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="fst">
-                                        <div><span>Ngày đến: </span>@Model.booking_details[i].check_in</div>
-                                        <div><span>Ngày đi: </span>@Model.booking_details[i].check_out</div>
-                                        <div><span>Ngày đặt: </span> @Model.booking_orders[i].book_day</div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="fst">
-                                        <div><a href="#" class="btn btn-rounded btn-danger" style=" font-size: 14px;">Bận</a></div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <i style="font-size: 20px; " class="fa-solid fa-file-export"></i>
-                                    <i style="font-size: 20px; margin-left: 4px;" class="fa-solid fa-check-to-slot"></i>
-                                </td>
-                            </tr>
-                        }
+                        <tr>
+                            <td>
+                                <div class="fst">
+                                    <div><span class="badge badge-primary">Mã đặt phòng: @item.booking_order_id</span></div>
+                                    <div><span>Tên: </span>@item.user_name</div>
+                                    <div><span>Số điện thoại: </span>@item.phone</div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="fst">
+                                    <div><span>Tên phòng: </span>@item.room_name</div>
+                                    <div><span>Giá phòng: </span>@item.room_price</div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="fst" >
+                                    <div><span>Dịch vụ: </span>@item.service_name</div>
+                                    <div><span>Giá: </span>@item.service_price</div>
+                                    <div><span>Số lượng: </span></div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="fst">
+                                    <div><span>Ngày đến: </span>@item.check_in</div>
+                                    <div><span>Ngày đi: </span>@item.check_out</div>
+                                    <div><span>Ngày đặt: </span> @item.book_date</div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="fst">
+                                    <div><a href="#" class="btn btn-rounded btn-danger" style=" font-size: 14px;">Bận</a></div>
+                                </div>
+                            </td>
+                            <td>
+                                <a href="@Url.Action("GenerateInvoicePdf", "OrderRoom",new { bookingOrderId =@item.booking_order_id })"><i style="font-size: 20px; " class="fa-solid fa-file-export"></i></a>
+                                
+                                <a href="@Url.Action("DeleteBooked", "OrderRoom",new { bookingOrderId =@item.booking_order_id })"><i style="font-size: 20px; margin-left: 4px;" class="fa-solid fa-check-to-slot"></i></a>
+                            </td>
+                        </tr>
                     }
+                    
                 </tbody>
             </table>
         </div>

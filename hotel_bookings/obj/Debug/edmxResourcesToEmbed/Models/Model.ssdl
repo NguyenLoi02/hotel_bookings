@@ -175,6 +175,7 @@
     </Key>
     <Property Name="id" Type="int" Nullable="false" />
     <Property Name="percents" Type="int" />
+    <Property Name="name" Type="nvarchar" MaxLength="200" />
   </EntityType>
   <EntityType Name="service">
     <Key>
@@ -277,6 +278,20 @@
       </Principal>
       <Dependent Role="booking_details">
         <PropertyRef Name="room_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_booking_order_user">
+    <End Role="user" Type="Self.user" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="booking_order" Type="Self.booking_order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="booking_order">
+        <PropertyRef Name="user_id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -472,6 +487,10 @@
     <AssociationSet Name="FK_booking_details_room" Association="Self.FK_booking_details_room">
       <End Role="room" EntitySet="room" />
       <End Role="booking_details" EntitySet="booking_details" />
+    </AssociationSet>
+    <AssociationSet Name="FK_booking_order_user" Association="Self.FK_booking_order_user">
+      <End Role="user" EntitySet="user" />
+      <End Role="booking_order" EntitySet="booking_order" />
     </AssociationSet>
     <AssociationSet Name="FK_content_news" Association="Self.FK_content_news">
       <End Role="news" EntitySet="news" />

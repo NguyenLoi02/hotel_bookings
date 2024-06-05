@@ -407,13 +407,13 @@ namespace hotel_bookings.Controllers
                 }
             }
             Session["servicePrice"] = null;
-
             var booking_order_id = bookingOrder.id;
             booking_details booking_details = new booking_details();
             booking_details.booking_order_id = booking_order_id;
             booking_details.room_id = (int)room_id;
             booking_details.check_in = check_in;
             booking_details.check_out = check_out;
+            booking_details.price = room_price;
             db.booking_details.Add(booking_details);
             db.SaveChanges();
 

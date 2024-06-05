@@ -125,3 +125,6 @@ D:\dotnet\hotel_bookings\hotel_bookings\bin\System.Runtime.CompilerServices.Unsa
 D:\dotnet\hotel_bookings\hotel_bookings\bin\Google.Apis.Auth.Mvc.dll
 D:\dotnet\hotel_bookings\hotel_bookings\bin\Google.Apis.Auth.Mvc.pdb
 D:\dotnet\hotel_bookings\hotel_bookings\bin\Google.Apis.Auth.Mvc.xml
+D:\dotnet\hotel_bookings\hotel_bookings\bin\BouncyCastle.Crypto.dll
+D:\dotnet\hotel_bookings\hotel_bookings\bin\itextsharp.dll
+D:\dotnet\hotel_bookings\hotel_bookings\bin\itextsharp.xml

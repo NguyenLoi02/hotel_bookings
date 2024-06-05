@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="HotelBookingModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="HotelBookingModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="admin">
           <Key>
             <PropertyRef Name="id" />
@@ -180,6 +180,7 @@
           </Key>
           <Property Name="id" Type="int" Nullable="false" />
           <Property Name="percents" Type="int" />
+          <Property Name="name" Type="nvarchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="service">
           <Key>
@@ -282,6 +283,20 @@
             </Principal>
             <Dependent Role="booking_details">
               <PropertyRef Name="room_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_booking_order_user">
+          <End Role="user" Type="Self.user" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="booking_order" Type="Self.booking_order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="booking_order">
+              <PropertyRef Name="user_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -478,6 +493,10 @@
             <End Role="room" EntitySet="room" />
             <End Role="booking_details" EntitySet="booking_details" />
           </AssociationSet>
+          <AssociationSet Name="FK_booking_order_user" Association="Self.FK_booking_order_user">
+            <End Role="user" EntitySet="user" />
+            <End Role="booking_order" EntitySet="booking_order" />
+          </AssociationSet>
           <AssociationSet Name="FK_content_news" Association="Self.FK_content_news">
             <End Role="news" EntitySet="news" />
             <End Role="content" EntitySet="content" />
@@ -523,8 +542,7 @@
             <End Role="room_sale" EntitySet="room_sale" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="HotelBookingModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -576,6 +594,7 @@
           <Property Name="arrival" Type="Int32" />
           <NavigationProperty Name="booking_details" Relationship="Self.FK_booking_details_booking_order" FromRole="booking_order" ToRole="booking_details" />
           <NavigationProperty Name="order_service" Relationship="Self.FK_order_service_booking_order" FromRole="booking_order" ToRole="order_service" />
+          <NavigationProperty Name="user" Relationship="HotelBookingModel.FK_booking_order_user" FromRole="booking_order" ToRole="user" />
         </EntityType>
         <EntityType Name="carousel">
           <Key>
@@ -731,6 +750,7 @@
           <Property Name="id" Type="Int32" Nullable="false" />
           <Property Name="percents" Type="Int32" />
           <NavigationProperty Name="room_sale" Relationship="Self.FK_room_sale_sale" FromRole="sale" ToRole="room_sale" />
+          <Property Name="name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="service">
           <Key>
@@ -769,6 +789,7 @@
           <Property Name="date_sign" Type="DateTime" Precision="0" />
           <Property Name="gender" Type="Int32" />
           <NavigationProperty Name="rating_view" Relationship="Self.FK_rating_view_user" FromRole="user" ToRole="rating_view" />
+          <NavigationProperty Name="booking_order" Relationship="HotelBookingModel.FK_booking_order_user" FromRole="user" ToRole="booking_order" />
         </EntityType>
         <EntityType Name="user_question">
           <Key>
@@ -1075,7 +1096,25 @@
             <End Role="sale" EntitySet="sales" />
             <End Role="room_sale" EntitySet="room_sale" />
           </AssociationSet>
+          <AssociationSet Name="FK_booking_order_user" Association="HotelBookingModel.FK_booking_order_user">
+            <End Role="user" EntitySet="users" />
+            <End Role="booking_order" EntitySet="booking_order" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="FK_booking_order_user">
+          <End Type="HotelBookingModel.user" Role="user" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="HotelBookingModel.booking_order" Role="booking_order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="booking_order">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1267,6 +1306,7 @@
           <EntitySetMapping Name="sales">
             <EntityTypeMapping TypeName="HotelBookingModel.sale">
               <MappingFragment StoreEntitySet="sale">
+                <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="percents" ColumnName="percents" />
               </MappingFragment>

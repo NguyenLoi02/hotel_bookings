@@ -186,6 +186,7 @@
     <EntitySetMapping Name="sales">
       <EntityTypeMapping TypeName="HotelBookingModel.sale">
         <MappingFragment StoreEntitySet="sale">
+          <ScalarProperty Name="name" ColumnName="name" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="percents" ColumnName="percents" />
         </MappingFragment>

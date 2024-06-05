@@ -30,9 +30,10 @@ namespace hotel_bookings.Models
         public Nullable<int> arrival { get; set; }
         public Nullable<int> room_number { get; set; }
         public int RowNumber { get; set; }
-
+    
 
         public virtual ICollection<booking_details> booking_details { get; set; }
         public virtual ICollection<order_service> order_service { get; set; }
+        public virtual user user { get; set; }
     }
 }
