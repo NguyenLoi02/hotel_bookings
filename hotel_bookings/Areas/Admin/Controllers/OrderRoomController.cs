@@ -297,7 +297,7 @@ namespace hotel_bookings.Areas.Admin.Controllers
                              bd.check_out,
                              bo.book_day
                          };
-            var viewModels = querys.Select(item => new BookingViewModel
+            var viewModels = querys.AsEnumerable().Select(item => new BookingViewModel
             {
                 booking_order_id = item.id, // Sử dụng tên thuộc tính tương ứng với kiểu ẩn danh
                 user_name = item.first_name, // Tương tự, sử dụng tên thuộc tính tương ứng
@@ -310,7 +310,7 @@ namespace hotel_bookings.Areas.Admin.Controllers
                 check_out = item.check_out.HasValue ? item.check_out.Value.ToString("dd-MM-yyyy") : "N/A", // Tương tự, sử dụng tên thuộc tính tương ứng
                 book_date = item.book_day.HasValue ? item.book_day.Value.ToString("dd-MM-yyyy") : "N/A" // Tương tự, sử dụng tên thuộc tính tương ứng
             });
-            
+            var firstViewModel = viewModels.FirstOrDefault();
             using (MemoryStream ms = new MemoryStream())
             {
                 Document document = new Document();
@@ -322,7 +322,7 @@ namespace hotel_bookings.Areas.Admin.Controllers
                 document.Add(new Paragraph(" ")); // Thêm khoảng trống
 
                 // Thêm thông tin hóa đơn
-                document.Add(new Paragraph($"Số hóa đơn: "));
+                document.Add(new Paragraph($"Số hóa đơn: {firstViewModel.user_name}"));
                 //document.Add(new Paragraph($"Tên khách hàng: {invoice.CustomerName}"));
                 //document.Add(new Paragraph($"Số phòng: {invoice.RoomNumber}"));
                 //document.Add(new Paragraph($"Ngày nhận phòng: {invoice.CheckInDate.ToString("dd/MM/yyyy")}"));
