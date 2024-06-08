@@ -128,3 +128,13 @@ D:\dotnet\hotel_bookings\hotel_bookings\bin\Google.Apis.Auth.Mvc.xml
 D:\dotnet\hotel_bookings\hotel_bookings\bin\BouncyCastle.Crypto.dll
 D:\dotnet\hotel_bookings\hotel_bookings\bin\itextsharp.dll
 D:\dotnet\hotel_bookings\hotel_bookings\bin\itextsharp.xml
+D:\dotnet\hotel_bookings\hotel_bookings\bin\Rotativa.dll
+D:\dotnet\hotel_bookings\hotel_bookings\bin\Select.HtmlToPdf.dll
+D:\dotnet\hotel_bookings\hotel_bookings\bin\Select.HtmlToPdf.xml
+D:\dotnet\hotel_bookings\hotel_bookings\bin\Select.Html.dep
+D:\dotnet\hotel_bookings\hotel_bookings\bin\DinkToPdf.dll
+D:\dotnet\hotel_bookings\hotel_bookings\bin\System.Diagnostics.DiagnosticSource.dll
+D:\dotnet\hotel_bookings\hotel_bookings\bin\System.Reflection.TypeExtensions.dll
+D:\dotnet\hotel_bookings\hotel_bookings\bin\DinkToPdf.pdb
+D:\dotnet\hotel_bookings\hotel_bookings\bin\DinkToPdf.xml
+D:\dotnet\hotel_bookings\hotel_bookings\bin\System.Diagnostics.DiagnosticSource.xml

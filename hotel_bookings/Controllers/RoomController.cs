@@ -24,6 +24,7 @@ using Newtonsoft.Json;
 using System.Globalization;
 using System.IO;
 using System.Text;
+using System.Web.Services.Description;
 namespace hotel_bookings.Controllers
 {
     public class RoomController : Controller
@@ -249,12 +250,13 @@ namespace hotel_bookings.Controllers
             return View(service);
         }
         [HttpPost]
-        public ActionResult RoomService(int[] selectedOption)
+        public ActionResult RoomService(List<SelectedData> selectedItems)
         {
-            if (selectedOption != null && selectedOption.Count()>0)
+
+            if (selectedItems != null && selectedItems.Count() > 0)
             {
                 // Lưu mảng selectedOptions vào Session
-                Session["SelectedOptions"] = selectedOption;
+                Session["SelectedOptions"] = selectedItems;
             }
             return RedirectToAction("RoomOrder");
         }
@@ -266,26 +268,34 @@ namespace hotel_bookings.Controllers
             {
                 return RedirectToAction("Index");
             }
-            var selectedOptions = Session["SelectedOptions"] as int[];
-            var itemList = new List<service>();
+            var selectedOptions = Session["SelectedOptions"] as List<SelectedData>;
+            var itemList = new List<SelectedData>();
             var servicePrice = 0;
-            if (selectedOptions == null || selectedOptions.Length == 0)
+            if (selectedOptions == null)
             {
                 ViewBag.servicePrice = 0;
             }
-            if (selectedOptions != null && selectedOptions.Length > 0)
+            if (selectedOptions != null)
             {
                 // Lặp qua từng phần tử trong mảng selectedOptions
                 foreach (var optionId in selectedOptions)
                 {
                     // Thực hiện truy vấn vào cơ sở dữ liệu sử dụng optionId
-                    var item = db.services.FirstOrDefault(items => items.id == optionId);
-                    servicePrice += (int)item.price;
+                    var item = db.services.FirstOrDefault(items => items.id == optionId.ItemId);
+                    servicePrice += (int)item.price*optionId.Quantity;
                     // Kiểm tra xem phần tử có tồn tại
                     if (item != null)
                     {
-                        // Thêm đối tượng vào danh sách itemList
-                        itemList.Add(item);
+                        var selectedData = new SelectedData
+                        {
+                            Services = item, // Chú ý: Đây có thể không chính xác, phụ thuộc vào cấu trúc của lớp SelectedData
+                            ItemId = optionId.ItemId,
+                            Quantity = optionId.Quantity
+                        };
+
+                        // Thêm đối tượng SelectedData vào danh sách itemList
+                        itemList.Add(selectedData);
+
                     }
                     ViewBag.servicePrice = servicePrice;
                 }

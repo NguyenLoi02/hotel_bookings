@@ -10,6 +10,7 @@ using iTextSharp.text.pdf;
 using iTextSharp.text;
 using System.IO;
 using static iTextSharp.text.pdf.AcroFields;
+using Rotativa;
 
 namespace hotel_bookings.Areas.Admin.Controllers
 {
@@ -311,31 +312,18 @@ namespace hotel_bookings.Areas.Admin.Controllers
                 book_date = item.book_day.HasValue ? item.book_day.Value.ToString("dd-MM-yyyy") : "N/A" // Tương tự, sử dụng tên thuộc tính tương ứng
             });
             var firstViewModel = viewModels.FirstOrDefault();
-            using (MemoryStream ms = new MemoryStream())
+
+
+            
+
+            return new ViewAsPdf("~/Areas/Admin/Views/Shared/Invoice.html", firstViewModel)
             {
-                Document document = new Document();
-                PdfWriter writer = PdfWriter.GetInstance(document, ms);
-                document.Open();
+                FileName = "Invoice.pdf",
+                PageSize = Rotativa.Options.Size.A4,
+                PageOrientation = Rotativa.Options.Orientation.Portrait
+            };
 
-                // Thêm tiêu đề
-                document.Add(new Paragraph("Hóa Đơn Đặt Phòng", FontFactory.GetFont("Arial", 20, Font.BOLD)));
-                document.Add(new Paragraph(" ")); // Thêm khoảng trống
-
-                // Thêm thông tin hóa đơn
-                document.Add(new Paragraph($"Số hóa đơn: {firstViewModel.user_name}"));
-                //document.Add(new Paragraph($"Tên khách hàng: {invoice.CustomerName}"));
-                //document.Add(new Paragraph($"Số phòng: {invoice.RoomNumber}"));
-                //document.Add(new Paragraph($"Ngày nhận phòng: {invoice.CheckInDate.ToString("dd/MM/yyyy")}"));
-                //document.Add(new Paragraph($"Ngày trả phòng: {invoice.CheckOutDate.ToString("dd/MM/yyyy")}"));
-                //document.Add(new Paragraph($"Tổng số tiền: {invoice.TotalAmount.ToString("N0")} VND"));
-                //document.Add(new Paragraph(" ")); // Thêm khoảng trống
-
-                // Đóng tài liệu
-                document.Close();
-
-                // Trả về file PDF
-                return File(ms.ToArray(), "application/pdf", "BookingInvoice.pdf");
-            }
         }
+        
     }
 }

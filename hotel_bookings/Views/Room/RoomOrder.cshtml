@@ -1,4 +1,4 @@
-﻿@model List<hotel_bookings.Models.service>
+﻿@model List<hotel_bookings.Models.SelectedData>
 
 @{
     DateTime? check_in = ViewBag.CheckIn;
@@ -181,8 +181,8 @@
                                             <ul style="padding: 0 0 0 20px; list-style-type: disc;">
                                                 <li>
                                                     <div style="font-weight: 400; font-size: 12px; line-height: 140%; display: flex; align-items: center; justify-content: space-between; color: #353c46;">
-                                                        <span style="width: 70%;">@item.name</span>
-                                                        <span style="width: 30%; text-align: right; font-weight: 500;"><span>@item.price đ</span></span>
+                                                        <span style="width: 70%;">@item.Services.name</span>
+                                                        <span style="width: 30%; text-align: right; font-weight: 500;"><span>@(item.Services.price*item.Quantity)đ</span></span>
                                                     </div>
                                                 </li>
                                             </ul>
