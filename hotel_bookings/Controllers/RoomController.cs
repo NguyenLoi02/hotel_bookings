@@ -233,9 +233,9 @@ namespace hotel_bookings.Controllers
             Session["room_adult"] = detail.adult;
             Session["room_children"] = detail.children;
             DateTime check_in = (DateTime)Session["check_in"];
-            ViewBag.CheckIn = check_in;
+            ViewBag.CheckIn = check_in.ToString("dd-MM-yyyy");
             DateTime check_out = (DateTime)Session["check_out"];
-            ViewBag.CheckOut = check_out;
+            ViewBag.CheckOut = check_out.ToString("dd-MM-yyyy");
             double days = (double)Session["day"];
             ViewBag.Day = days;
             string room_name = (string)Session["room_name"];
@@ -263,7 +263,19 @@ namespace hotel_bookings.Controllers
         [HttpGet]
         public ActionResult RoomOrder()
         {
-           
+            if (Session["email"] != null && Session["first_name"]!= null && Session["last_name"] != null)
+            {
+                ViewBag.email = Session["emails"];
+                ViewBag.first_name = Session["first_names"];
+                ViewBag.last_name = Session["last_names"];
+
+            }
+            else
+            {
+                ViewBag.email = "";
+                ViewBag.first_name = "";
+                ViewBag.last_name = "";
+            }
             if (Session["check_in"] == null || Session["check_out"] == null)
             {
                 return RedirectToAction("Index");
@@ -311,9 +323,9 @@ namespace hotel_bookings.Controllers
             }
 
             DateTime check_in = (DateTime)Session["check_in"];
-            ViewBag.CheckIn = check_in;
+            ViewBag.CheckIn = check_in.ToString("dd-MM-yyyy");
             DateTime check_out = (DateTime)Session["check_out"];
-            ViewBag.CheckOut = check_out;
+            ViewBag.CheckOut = check_out.ToString("dd-MM-yyyy");
             double days = (double)Session["day"];
             ViewBag.Day = days;
             string room_name = (string)Session["room_name"];
@@ -397,20 +409,23 @@ namespace hotel_bookings.Controllers
             db.booking_order.Add(bookingOrder);
             db.SaveChanges();
 
-            var selectedOptions = Session["SelectedOptions"] as int[];
-            if (selectedOptions != null && selectedOptions.Length > 0)
+            //var selectedOptions = Session["SelectedOptions"] as int[];
+            var selectedOptions = Session["SelectedOptions"] as List<SelectedData>;
+
+            if (selectedOptions != null)
             {
                 // Lặp qua từng phần tử trong mảng selectedOptions
-                foreach (var optionId in selectedOptions)
+                foreach (var option in selectedOptions)
                 {
                     // Thực hiện truy vấn vào cơ sở dữ liệu sử dụng optionId
-                    var item = db.services.FirstOrDefault(items => items.id == optionId);
+                    var item = db.services.FirstOrDefault(items => items.id == option.ItemId);
                     // Kiểm tra xem phần tử có tồn tại
                     if (item != null)
                     {
                         order_service order_service = new order_service();
                         order_service.booking_order_id = bookingOrder.id;
-                        order_service.service_id = optionId;
+                        order_service.service_id = option.ItemId;
+                        order_service.order_count = option.Quantity;
                         db.order_service.Add(order_service);
                         db.SaveChanges();
                     }
@@ -450,19 +465,19 @@ namespace hotel_bookings.Controllers
                </tr>
                               ";
             string dichVuThem = "";
-            if (selectedOptions != null && selectedOptions.Length > 0)
+            if (selectedOptions != null)
             {
-                foreach (var optionId in selectedOptions)
+                foreach (var option in selectedOptions)
                 {
                     // Thực hiện truy vấn vào cơ sở dữ liệu sử dụng optionId
-                    var item = db.services.FirstOrDefault(items => items.id == optionId);
+                    var item = db.services.FirstOrDefault(items => items.id == option.ItemId);
                     // Kiểm tra xem phần tử có tồn tại
                     if (item != null)
                     {
 
                         string row = htmlTemplate
                         .Replace("{{tenDichVu}}", item.name)
-                        .Replace("{{giaTien}}", item.price.ToString());
+                        .Replace("{{giaTien}}", (item.price* option.Quantity).ToString());
                         dichVuThem += row;
                     }
                 }
@@ -482,7 +497,8 @@ namespace hotel_bookings.Controllers
 
                 // Log the exception here
             }
-            return View();
+            
+            return View(bookingOrder.id);
         }
         public ActionResult PaymentCallBack()
         {

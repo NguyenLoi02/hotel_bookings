@@ -2,8 +2,9 @@
 
 
 @{
-    DateTime? check_in = ViewBag.CheckIn;
-    DateTime? check_out = ViewBag.CheckOut;
+
+     string check_in = ViewBag.CheckIn;
+    string check_out = ViewBag.CheckOut;
     double day = ViewBag.Day;
     string room_name = ViewBag.room_name;
     int room_price = ViewBag.room_price;
@@ -248,18 +249,18 @@ $(document).ready(function () {
                             <div>
                                 <div style="border-bottom: 2px solid #c8c8c8;">
                                     <div>
-                                        <p style="margin-bottom: 0;">Chỉnh sửa</p>
+                                        <p style="margin-bottom: 0; color: #000000;">Thời gian đặt phòng</p>
                                     </div>
                                     <div>
-                                        <p style="margin-bottom: 0;">@check_in - @check_out</p>
+                                        <p style="margin-bottom: 0;">Thời gian: Từ: @check_in - đến:  @check_out</p>
                                     </div>
-                                    <p>02 Đêm</p>
+                                    <p>Số đêm lưu trú: @day Đêm</p>
                                 </div>
                                 <div style="margin-top: 10px; border-bottom: 2px solid #c8c8c8;">
                                     <p style="margin-bottom: 0; color: #000000;">Phòng:</p>
                                     <div class="row">
-                                        <p class="col-sm-8" style="margin-bottom: 0; padding-right: 20px;">@room_name</p>
-                                        <p class="col-sm-4" style="margin-bottom: 0;"><span><span>@(room_price * day) đ</span></span></p>
+                                        <p class="col-sm-7" style="margin-bottom: 0; padding-right: 20px;">@room_name</p>
+                                        <p class="col-sm-5" style="margin-bottom: 0;"><span style="float: right;">@(room_price * day) đ</span></p>
                                     </div>
                                     <div>
                                         <p style="margin-bottom: 0;">@room_adult Người lớn</p>

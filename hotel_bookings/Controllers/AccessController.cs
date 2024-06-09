@@ -30,6 +30,9 @@ namespace hotel_bookings.Controllers
                 {
                     FormsAuthentication.SetAuthCookie(u.email, false);
                     Session["user"] = u.email.ToString();
+                    Session["emails"] = Account.email.ToString();
+                    Session["first_names"] = Account.first_name;
+                    Session["last_names"] = Account.last_name;
                     if (Account != null)
                     {
 
@@ -38,7 +41,8 @@ namespace hotel_bookings.Controllers
                     }
                     else
                     {
-                        return RedirectToAction("Login", "Access");
+                        //return RedirectToAction("Login", "Access");
+                        ModelState.AddModelError("", "Email hoặc mật khẩu không đúng.");
                     }
                 }
             }
@@ -48,7 +52,10 @@ namespace hotel_bookings.Controllers
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
-            Session.Clear();
+            Session.Remove("user");
+            Session.Remove("email");
+            Session.Remove("first_name");
+            Session.Remove("last_name");
             return RedirectToAction("Index", "Home");
         }
 
@@ -60,8 +67,8 @@ namespace hotel_bookings.Controllers
 
         public ActionResult Register(user user)
         {
-
-           
+            DateTime currentDate = DateTime.Now;
+            user.date_sign = currentDate;
             db.users.Add(user);
             db.SaveChanges();
             return RedirectToAction("Login", "Access");

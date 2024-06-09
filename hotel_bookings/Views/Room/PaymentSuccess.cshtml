@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@model int
+<!DOCTYPE html>
 <html lang="zxx">
 
 <head>
@@ -117,7 +118,7 @@
                         <p class="display-4" style=" font-size: 2.5rem; font-weight: 300; line-height: 1.2; padding: 22px 0px;">Đặt phòng thành công!</p>
                         <p class="lead">Chúc bạn có một trải nghiệm tuyệt vời.</p>
                         <hr class="my-4">
-                        <p class="mb-0">Mã đặt phòng của bạn là: <strong>#123456789</strong></p>
+                        <p class="mb-0">Mã đặt phòng của bạn là: <strong>@Model</strong></p>
                         <p>Chúng tôi đã gửi một email xác nhận đến địa chỉ email của bạn.</p>
                         <a href="@Url.Action("Index", "Home")" style="background-color: #dfa974; border-color: aliceblue; " class="btn btn-primary mt-3">Về trang chủ</a>
                     </div>

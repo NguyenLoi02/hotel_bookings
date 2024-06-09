@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Login V18</title>
+    <title>Đăng nhập</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="~/Assets/access/vendor/bootstrap/css/bootstrap-grid.css" rel="stylesheet" />
@@ -33,71 +33,72 @@
 </head>
 <body style="background-color: #666666;">
 
-    <div class="limiter">
-        <div class="container-login100">
-            <div class="wrap-login100">
-                <div class="limiter-icon">
-                    <a href=""><i class="fa-solid fa-arrow-left"></i></a>
-                </div>
-                <form class="login100-form validate-form" action="" method="post">
-                    <span class="login100-form-title p-b-43">
-                        Đăng nhập
-                    </span>
+    <div class="limiter" style="position: fixed">
 
-
-                    <div class="wrap-input100 validate-input" data-validate="Vui lòng nhập email (Ví dụ: ex@abc.xyz)">
-                        <input class="input100" type="email" name="email" id="email">
-                        <span class="focus-input100"></span>
-                        <span class="label-input100">Email</span>
-                    </div>
-
-
-                    <div class="wrap-input100 validate-input" data-validate="Vui lòng nhập mật khẩu">
-                        <input class="input100" type="password"name="password" id="password">
-                        <span class="focus-input100"></span>
-                        <span class="label-input100">Mật khẩu</span>
-                    </div>
-
-                    <div class="flex-sb-m w-full p-t-3 p-b-32">
-                        <div class="contact100-form-checkbox">
-                            <input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
-                            <label class="label-checkbox100" for="ckb1">
-                                Nhớ mật khẩu
-                            </label>
-                        </div>
-
-                        <div>
-                            <a href="#" class="txt1">
-                                Quên mật khẩu ?
-                            </a>
-                        </div>
-                    </div>
-
-
-                    <div class="container-login100-form-btn">
-                        <button class="login100-form-btn" type="submit">
-                            Đăng nhập
-                        </button>
-                    </div>
-
-                    <div class="text-center p-t-46 p-b-20">
-                        <span class="dk">
-                            Bạn chưa có tài khoản ? <a href="@Url.Action("Register", "Access")">Đăng ký</a>
-                        </span>
-                    </div>
-
-                    
-                </form>
-
-                <div class="login100-more" style="background-image: url('../Assets/access/images/avtlogin.jpg');">
-                </div>
+        <div class="row">
+            <div class="col-sm-8 login100-more" style="background-image: url('../Assets/access/images/login.jpg');">
             </div>
+            <form class="col-sm-4 login100-form validate-form" action="" method="post">
+                <div class="limiter-icon" style=" position: absolute; top: 10px; right: 40px;">
+                    <a style="font-size: 40px;" href="@Url.Action("Index", "Home")"><i class="fa-solid fa-arrow-left"></i></a>
+                </div>
+                <span style="font-family: system-ui;" class="login100-form-title p-b-43">
+                    Đăng nhập
+                </span>
+
+
+                <div class="wrap-input100 validate-input" data-validate="Vui lòng nhập email (Ví dụ: ex@abc.xyz)">
+                    <input class="input100" type="email" name="email" id="email">
+                    <span class="focus-input100"></span>
+                    <span class="label-input100">Email</span>
+                </div>
+
+
+                <div class="wrap-input100 validate-input" data-validate="Vui lòng nhập mật khẩu">
+                    <input class="input100" type="password" name="password" id="password">
+                    <span class="focus-input100"></span>
+                    <span class="label-input100">Mật khẩu</span>
+                </div>
+
+                <div class="flex-sb-m w-full p-t-3 p-b-32">
+                    <div class="contact100-form-checkbox">
+                        <input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
+                        <label class="label-checkbox100" for="ckb1">
+                            Nhớ mật khẩu
+                        </label>
+                    </div>
+
+                    <div>
+                        <a href="#" class="txt1">
+                            Quên mật khẩu ?
+                        </a>
+                    </div>
+                </div>
+
+
+                <div class="container-login100-form-btn">
+                    <button class="login100-form-btn" type="submit">
+                        Đăng nhập
+                    </button>
+                </div>
+
+                <div class="text-center p-t-46 p-b-20">
+                    <span class="dk">
+                        Bạn chưa có tài khoản ? <a href="@Url.Action("Register", "Access")">Đăng ký</a>
+                    </span>
+                </div>
+
+
+            </form>
         </div>
+
+        @*<div>
+                <img src="~/Assets/access/images/login.jpg" />
+            </div>*@
     </div>
 
 
-
-
+   
 
     <!--===============================================================================================-->
     <script src="~/Assets/access/vendor/jquery/jquery-3.2.1.min.js"></script>

@@ -466,6 +466,7 @@
     <Content Include="Assets\access\images\avtlogin.jpg" />
     <Content Include="Assets\access\images\bg-01.jpg" />
     <Content Include="Assets\access\images\icons\favicon.ico" />
+    <Content Include="Assets\access\images\login.jpg" />
     <Content Include="Assets\access\js\main.js" />
     <Content Include="Assets\access\vendor\animate\animate.css" />
     <Content Include="Assets\access\vendor\animsition\css\animsition.css" />

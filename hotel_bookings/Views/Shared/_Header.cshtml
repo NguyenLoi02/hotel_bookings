@@ -39,7 +39,6 @@
         animation: loader 1s linear infinite;
         -webkit-animation: loader 1s linear infinite;
     }
-    
 </style>
 <div id="preloder">
     <div class="loader"></div>
@@ -48,7 +47,7 @@
     <div class="top-nav">
         <div class="container">
             <div class="row">
-                
+
                 <div class="col-lg-12">
                     <div class="tn-right">
                         <div class="top-social">
@@ -93,8 +92,9 @@
                     <div class="nav-menu">
                         <nav class="mainmenu">
                             <ul>
-                                <li class="active"><a href="@Url.Action("Index", "Home")">Trang chủ</a></li>
-                                <li class="" ><a href="@Url.Action("Index", "Room")">Phòng</a></li>
+                                <li class=""><a href="@Url.Action("Index", "Home")">Trang chủ</a></li>
+                                @*active*@
+                                <li class=""><a href="@Url.Action("Index", "Room")">Phòng</a></li>
 
                                 <li class=""><a href="@Url.Action("Index", "News")">Tin tức</a></li>
                                 <li class=""><a href="@Url.Action("Index", "Contact")">Liên Hệ</a></li>
@@ -106,3 +106,7 @@
         </div>
     </div>
 </header>
+
+
+
+

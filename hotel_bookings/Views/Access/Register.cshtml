@@ -1,7 +1,8 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Login V18</title>
+    <title>Đăng ký</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="~/Assets/access/vendor/bootstrap/css/bootstrap-grid.css" rel="stylesheet" />
@@ -32,72 +33,71 @@
 </head>
 <body style="background-color: #666666;">
 
-    <div class="limiter">
-        <div class="container-login100">
-            <div class="wrap-login100">
-                <div class="limiter-icon">
-                    <a href="#"><i class="fa-solid fa-arrow-left"></i></a>
-                </div>
-                <form class="login100-form validate-form" action="" method="post">
-                    <span class="login100-form-title p-b-43">
-                        Đăng ký
-                    </span>
+    <div class="limiter" style="position: fixed">
 
-
-                    <div class="wrap-input100 validate-input" data-validate="Vui lòng nhập email (Ví dụ: ex@abc.xyz)">
-                        <input class="input100" type="Email" name="email">
-                        <span class="focus-input100"></span>
-                        <span class="label-input100">Email</span>
-
-                    </div>
-
-
-                    <div class="wrap-input100 validate-input" data-validate="Vui lòng nhập họ đệm ">
-                        <input class="input100" type="text" name="last_name">
-                        <span class="focus-input100"></span>
-                        <span class="label-input100">Họ đệm</span>
-
-                    </div>
-
-                    <div class="wrap-input100 validate-input" data-validate="Vui lòng nhập tên">
-                        <input class="input100" type="text" name="first_name">
-                        <span class="focus-input100"></span>
-                        <span class="label-input100">Tên</span>
-
-                    </div>
-
-                    <div class="wrap-input100 validate-input" data-validate="Vui lòng nhập mật khẩu">
-                        <input class="input100" type="password" name="password">
-                        <span class="focus-input100"></span>
-                        <span class="label-input100">Mật khẩu</span>
-
-                    </div>
-                    <div class="wrap-input100 validate-input" data-validate="Vui lòng nhập lại mật khẩu">
-                        <input class="input100" type="password" name="ConfirmPassword">
-                        <span class="focus-input100"></span>
-                        <span class="label-input100">Nhập lại mật khẩu</span>
-
-                    </div>
-                    <div class="container-login100-form-btn">
-                        <button class="login100-form-btn" type="submit">
-                            Đăng ký
-                        </button>
-                    </div>
-
-                    <div class="text-center p-t-46 p-b-20">
-                        <span class="sign-up">
-                            Bạn đã có tài khoản ? <a href="@Url.Action("Login", "Access")">Đăng nhập</a>
-                        </span>
-                    </div>
-
-
-                </form>
-
-                <div class="login100-more" style="background-image: url('../Assets/access/images/bg-01.jpg');">
-                </div>
-
+        <div class="row">
+            <div class="col-sm-8 login100-more" style="background-image: url('../Assets/access/images/login.jpg');">
             </div>
+            <form class="col-sm-4 login100-form validate-form" action="" method="post">
+                
+                <span style="font-family: system-ui;" class="login100-form-title p-b-43">
+                    Đăng ký
+                </span>
+
+
+                <div class="wrap-input100 validate-input" data-validate="Vui lòng nhập email (Ví dụ: ex@abc.xyz)">
+                    <input class="input100" type="Email" name="email">
+                    <span class="focus-input100"></span>
+                    <span class="label-input100">Email</span>
+
+                </div>
+
+
+                <div class="wrap-input100 validate-input" data-validate="Vui lòng nhập họ đệm ">
+                    <input class="input100" type="text" name="last_name">
+                    <span class="focus-input100"></span>
+                    <span class="label-input100">Họ đệm</span>
+
+                </div>
+
+                <div class="wrap-input100 validate-input" data-validate="Vui lòng nhập tên">
+                    <input class="input100" type="text" name="first_name">
+                    <span class="focus-input100"></span>
+                    <span class="label-input100">Tên</span>
+
+                </div>
+
+                <div class="wrap-input100 validate-input" data-validate="Vui lòng nhập mật khẩu">
+                    <input class="input100" type="password" name="password">
+                    <span class="focus-input100"></span>
+                    <span class="label-input100">Mật khẩu</span>
+
+                </div>
+                <div class="wrap-input100 validate-input" data-validate="Vui lòng nhập lại mật khẩu">
+                    <input class="input100" type="password" name="ConfirmPassword">
+                    <span class="focus-input100"></span>
+                    <span class="label-input100">Nhập lại mật khẩu</span>
+
+                </div>
+                <div class="container-login100-form-btn">
+                    <button class="login100-form-btn" type="submit">
+                        Đăng ký
+                    </button>
+                </div>
+
+                <div class="text-center p-t-46 p-b-20">
+                    <span class="sign-up">
+                        Bạn đã có tài khoản ? <a href="@Url.Action("Login", "Access")">Đăng nhập</a>
+                    </span>
+                </div>
+
+
+            </form>
         </div>
+
+        @*<div>
+                <img src="~/Assets/access/images/login.jpg" />
+            </div>*@
     </div>
 
 
