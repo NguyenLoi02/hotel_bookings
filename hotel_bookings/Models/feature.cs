@@ -22,7 +22,8 @@ namespace hotel_bookings.Models
         public int id { get; set; }
         public string name { get; set; }
         public string icon { get; set; }
-    
+        public int RowNumber { get; set; }
+
         public virtual ICollection<room_feature> room_feature { get; set; }
     }
 }

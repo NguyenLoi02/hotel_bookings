@@ -21,7 +21,7 @@ namespace hotel_bookings.Models
         public Nullable<int> rating { get; set; }
         public Nullable<System.DateTime> review_day { get; set; }
         public Nullable<int> seen { get; set; }
-    
+
         public virtual room room { get; set; }
         public virtual user user { get; set; }
     }

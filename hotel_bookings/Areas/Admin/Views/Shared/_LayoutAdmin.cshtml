@@ -218,7 +218,10 @@
                                 <a class="nav-link" href="@Url.Action("Index", "Room")"><i class="fa-solid fa-clipboard-list"></i> Quản lý phòng</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="@Url.Action("Index", "Room")"><i class="fa-regular fa-pen-to-square"></i> Quản lý đánh giá phòng</a>
+                                <a class="nav-link" href="@Url.Action("Index", "RoomSales")"><i class="fa-solid fa-file-invoice-dollar"></i> Quản lý khuyến mãi phòng</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="@Url.Action("Index", "RoomReview")"><i class="fa-regular fa-pen-to-square"></i> Quản lý đánh giá phòng</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="@Url.Action("Index", "News")"><i class="fa-regular fa-newspaper"></i> Quản lý tin tức</a>
@@ -227,10 +230,10 @@
                                 <a class="nav-link" href="@Url.Action("Index", "Customer")"><i class="fa fa-fw fa-user-circle"></i> Quản lý người dùng</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href=""><i class="fa-regular fa-chart-bar"></i> Quản lý công năng phòng</a>
+                                <a class="nav-link" href="@Url.Action("Index", "Feature")"><i class="fa-regular fa-chart-bar"></i> Quản lý công năng phòng</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href=""><i class="fa-regular fa-envelope"></i> Quản lý vấn đề khách hàng</a>
+                                <a class="nav-link" href="@Url.Action("Index", "Customer")"><i class="fa-regular fa-envelope"></i> Quản lý vấn đề khách hàng</a>
                             </li>
                             @if (User.IsInRole("admin"))
                             {
@@ -246,8 +249,8 @@
 
                             }
                             @*li class="nav-item">
-                                <a class="nav-link" href=""><i class="fa fa-fw fa-user-circle"></i> Cài đặt</a>
-                            </li>*@
+            <a class="nav-link" href=""><i class="fa fa-fw fa-user-circle"></i> Cài đặt</a>
+        </li>*@
 
 
                         </ul>

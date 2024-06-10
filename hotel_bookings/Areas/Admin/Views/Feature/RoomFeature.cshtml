@@ -1,0 +1,45 @@
+﻿@model hotel_bookings.Models.RoomFeatureViewModel
+@{
+    ViewBag.Title = "RoomFeature";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="container">
+    <div class="card">
+
+        <div class="card-body">
+            <form action="" method="post" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <strong>Tên phòng</strong>
+                            <select name="room_id" class="form-control">
+                                @foreach (var item in Model.rooms)
+                                {
+                                    <option value="@item.id">@item.name</option>
+
+                                }
+                                <!-- Thêm các option khác nếu cần -->
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <strong>Công năng</strong>
+                            <select name="feature_id" class="form-control">
+                                @foreach (var item in Model.features)
+                                {
+                                    <option value="@item.id">@item.name</option>
+
+                                }
+                            </select>
+                        </div>
+
+
+                    </div>
+                </div>
+                <a href="@Url.Action("Index", "Feature")" class="btn btn-light float-right" style="margin: 8px 0px;">Hủy</a>
+                <button type="submit" class="btn btn-success mt-2 float-right" style=" margin: 2px 10px; ">Lưu</button>
+            </form>
+        </div>
+    </div>
+</div>
+

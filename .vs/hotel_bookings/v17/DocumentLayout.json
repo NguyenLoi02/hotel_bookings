@@ -3,28 +3,40 @@
   "WorkspaceRootPath": "D:\\dotnet\\hotel_bookings\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{3FAD547C-1528-4339-AABE-90B53F59FE7D}|hotel_bookings\\hotel_bookings.csproj|d:\\dotnet\\hotel_bookings\\hotel_bookings\\views\\room\\roomorder.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{3FAD547C-1528-4339-AABE-90B53F59FE7D}|hotel_bookings\\hotel_bookings.csproj|solutionrelative:hotel_bookings\\views\\room\\roomorder.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{3FAD547C-1528-4339-AABE-90B53F59FE7D}|hotel_bookings\\hotel_bookings.csproj|d:\\dotnet\\hotel_bookings\\hotel_bookings\\areas\\admin\\views\\roomsales\\addsales.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{3FAD547C-1528-4339-AABE-90B53F59FE7D}|hotel_bookings\\hotel_bookings.csproj|solutionrelative:hotel_bookings\\areas\\admin\\views\\roomsales\\addsales.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3FAD547C-1528-4339-AABE-90B53F59FE7D}|hotel_bookings\\hotel_bookings.csproj|d:\\dotnet\\hotel_bookings\\hotel_bookings\\views\\room\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{3FAD547C-1528-4339-AABE-90B53F59FE7D}|hotel_bookings\\hotel_bookings.csproj|solutionrelative:hotel_bookings\\views\\room\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3FAD547C-1528-4339-AABE-90B53F59FE7D}|hotel_bookings\\hotel_bookings.csproj|d:\\dotnet\\hotel_bookings\\hotel_bookings\\areas\\admin\\views\\roomsales\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{3FAD547C-1528-4339-AABE-90B53F59FE7D}|hotel_bookings\\hotel_bookings.csproj|solutionrelative:hotel_bookings\\areas\\admin\\views\\roomsales\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3FAD547C-1528-4339-AABE-90B53F59FE7D}|hotel_bookings\\hotel_bookings.csproj|d:\\dotnet\\hotel_bookings\\hotel_bookings\\areas\\admin\\views\\shared\\_layoutadmin.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{3FAD547C-1528-4339-AABE-90B53F59FE7D}|hotel_bookings\\hotel_bookings.csproj|solutionrelative:hotel_bookings\\areas\\admin\\views\\shared\\_layoutadmin.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{3FAD547C-1528-4339-AABE-90B53F59FE7D}|hotel_bookings\\hotel_bookings.csproj|d:\\dotnet\\hotel_bookings\\hotel_bookings\\controllers\\roomcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{3FAD547C-1528-4339-AABE-90B53F59FE7D}|hotel_bookings\\hotel_bookings.csproj|solutionrelative:hotel_bookings\\controllers\\roomcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3FAD547C-1528-4339-AABE-90B53F59FE7D}|hotel_bookings\\hotel_bookings.csproj|d:\\dotnet\\hotel_bookings\\hotel_bookings\\views\\room\\roomservice.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{3FAD547C-1528-4339-AABE-90B53F59FE7D}|hotel_bookings\\hotel_bookings.csproj|solutionrelative:hotel_bookings\\views\\room\\roomservice.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{3FAD547C-1528-4339-AABE-90B53F59FE7D}|hotel_bookings\\hotel_bookings.csproj|d:\\dotnet\\hotel_bookings\\hotel_bookings\\areas\\admin\\controllers\\roomsalescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3FAD547C-1528-4339-AABE-90B53F59FE7D}|hotel_bookings\\hotel_bookings.csproj|solutionrelative:hotel_bookings\\areas\\admin\\controllers\\roomsalescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3FAD547C-1528-4339-AABE-90B53F59FE7D}|hotel_bookings\\hotel_bookings.csproj|d:\\dotnet\\hotel_bookings\\hotel_bookings\\controllers\\accesscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3FAD547C-1528-4339-AABE-90B53F59FE7D}|hotel_bookings\\hotel_bookings.csproj|solutionrelative:hotel_bookings\\controllers\\accesscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{3FAD547C-1528-4339-AABE-90B53F59FE7D}|hotel_bookings\\hotel_bookings.csproj|d:\\dotnet\\hotel_bookings\\hotel_bookings\\areas\\admin\\controllers\\featurecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3FAD547C-1528-4339-AABE-90B53F59FE7D}|hotel_bookings\\hotel_bookings.csproj|solutionrelative:hotel_bookings\\areas\\admin\\controllers\\featurecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3FAD547C-1528-4339-AABE-90B53F59FE7D}|hotel_bookings\\hotel_bookings.csproj|d:\\dotnet\\hotel_bookings\\hotel_bookings\\views\\access\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{3FAD547C-1528-4339-AABE-90B53F59FE7D}|hotel_bookings\\hotel_bookings.csproj|solutionrelative:hotel_bookings\\views\\access\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{3FAD547C-1528-4339-AABE-90B53F59FE7D}|hotel_bookings\\hotel_bookings.csproj|d:\\dotnet\\hotel_bookings\\hotel_bookings\\models\\roomsaleviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3FAD547C-1528-4339-AABE-90B53F59FE7D}|hotel_bookings\\hotel_bookings.csproj|solutionrelative:hotel_bookings\\models\\roomsaleviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3FAD547C-1528-4339-AABE-90B53F59FE7D}|hotel_bookings\\hotel_bookings.csproj|d:\\dotnet\\hotel_bookings\\hotel_bookings\\views\\access\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{3FAD547C-1528-4339-AABE-90B53F59FE7D}|hotel_bookings\\hotel_bookings.csproj|solutionrelative:hotel_bookings\\views\\access\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{3FAD547C-1528-4339-AABE-90B53F59FE7D}|hotel_bookings\\hotel_bookings.csproj|d:\\dotnet\\hotel_bookings\\hotel_bookings\\areas\\admin\\views\\feature\\roomfeature.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{3FAD547C-1528-4339-AABE-90B53F59FE7D}|hotel_bookings\\hotel_bookings.csproj|solutionrelative:hotel_bookings\\areas\\admin\\views\\feature\\roomfeature.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,7 +46,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Bookmark",
@@ -50,80 +62,119 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "RoomService.cshtml",
-              "DocumentMoniker": "D:\\dotnet\\hotel_bookings\\hotel_bookings\\Views\\Room\\RoomService.cshtml",
-              "RelativeDocumentMoniker": "hotel_bookings\\Views\\Room\\RoomService.cshtml",
-              "ToolTip": "D:\\dotnet\\hotel_bookings\\hotel_bookings\\Views\\Room\\RoomService.cshtml",
-              "RelativeToolTip": "hotel_bookings\\Views\\Room\\RoomService.cshtml",
-              "ViewState": "AQIAAAkAAAAAAAAAAAAAAMIAAAAmAAAA",
+              "DocumentIndex": 1,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\dotnet\\hotel_bookings\\hotel_bookings\\Views\\Room\\Index.cshtml",
+              "RelativeDocumentMoniker": "hotel_bookings\\Views\\Room\\Index.cshtml",
+              "ToolTip": "D:\\dotnet\\hotel_bookings\\hotel_bookings\\Views\\Room\\Index.cshtml",
+              "RelativeToolTip": "hotel_bookings\\Views\\Room\\Index.cshtml",
+              "ViewState": "AQIAADYBAAAAAAAAAAAAAFEBAABCAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-06-09T17:58:27.979Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "RoomOrder.cshtml",
-              "DocumentMoniker": "D:\\dotnet\\hotel_bookings\\hotel_bookings\\Views\\Room\\RoomOrder.cshtml",
-              "RelativeDocumentMoniker": "hotel_bookings\\Views\\Room\\RoomOrder.cshtml",
-              "ToolTip": "D:\\dotnet\\hotel_bookings\\hotel_bookings\\Views\\Room\\RoomOrder.cshtml",
-              "RelativeToolTip": "hotel_bookings\\Views\\Room\\RoomOrder.cshtml",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAKAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-06-09T17:52:36.481Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "AccessController.cs",
-              "DocumentMoniker": "D:\\dotnet\\hotel_bookings\\hotel_bookings\\Controllers\\AccessController.cs",
-              "RelativeDocumentMoniker": "hotel_bookings\\Controllers\\AccessController.cs",
-              "ToolTip": "D:\\dotnet\\hotel_bookings\\hotel_bookings\\Controllers\\AccessController.cs",
-              "RelativeToolTip": "hotel_bookings\\Controllers\\AccessController.cs",
-              "ViewState": "AQIAABEAAAAAAAAAAAAQwCQAAAAUAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-09T17:38:49.796Z",
+              "WhenOpened": "2024-06-10T19:06:02.47Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "Register.cshtml",
-              "DocumentMoniker": "D:\\dotnet\\hotel_bookings\\hotel_bookings\\Views\\Access\\Register.cshtml",
-              "RelativeDocumentMoniker": "hotel_bookings\\Views\\Access\\Register.cshtml",
-              "ToolTip": "D:\\dotnet\\hotel_bookings\\hotel_bookings\\Views\\Access\\Register.cshtml",
-              "RelativeToolTip": "hotel_bookings\\Views\\Access\\Register.cshtml",
-              "ViewState": "AQIAABgAAAAAAAAAAAAAABgAAAAgAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-06-09T16:21:15.228Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Login.cshtml",
-              "DocumentMoniker": "D:\\dotnet\\hotel_bookings\\hotel_bookings\\Views\\Access\\Login.cshtml",
-              "RelativeDocumentMoniker": "hotel_bookings\\Views\\Access\\Login.cshtml",
-              "ToolTip": "D:\\dotnet\\hotel_bookings\\hotel_bookings\\Views\\Access\\Login.cshtml",
-              "RelativeToolTip": "hotel_bookings\\Views\\Access\\Login.cshtml",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAHgAAAAHAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-06-09T16:20:25.906Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
               "Title": "RoomController.cs",
               "DocumentMoniker": "D:\\dotnet\\hotel_bookings\\hotel_bookings\\Controllers\\RoomController.cs",
               "RelativeDocumentMoniker": "hotel_bookings\\Controllers\\RoomController.cs",
               "ToolTip": "D:\\dotnet\\hotel_bookings\\hotel_bookings\\Controllers\\RoomController.cs",
               "RelativeToolTip": "hotel_bookings\\Controllers\\RoomController.cs",
-              "ViewState": "AQIAAGABAAAAAAAAAAAAAFYBAAAIAAAA",
+              "ViewState": "AQIAABkAAAAAAAAAAAAAADwAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-08T10:07:15.216Z",
+              "WhenOpened": "2024-06-10T19:05:41.753Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "_LayoutAdmin.cshtml",
+              "DocumentMoniker": "D:\\dotnet\\hotel_bookings\\hotel_bookings\\Areas\\Admin\\Views\\Shared\\_LayoutAdmin.cshtml",
+              "RelativeDocumentMoniker": "hotel_bookings\\Areas\\Admin\\Views\\Shared\\_LayoutAdmin.cshtml",
+              "ToolTip": "D:\\dotnet\\hotel_bookings\\hotel_bookings\\Areas\\Admin\\Views\\Shared\\_LayoutAdmin.cshtml",
+              "RelativeToolTip": "hotel_bookings\\Areas\\Admin\\Views\\Shared\\_LayoutAdmin.cshtml",
+              "ViewState": "AQIAAMUAAAAAAAAAAAAAANwAAACMAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-06-10T19:03:27.093Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\dotnet\\hotel_bookings\\hotel_bookings\\Areas\\Admin\\Views\\RoomSales\\Index.cshtml",
+              "RelativeDocumentMoniker": "hotel_bookings\\Areas\\Admin\\Views\\RoomSales\\Index.cshtml",
+              "ToolTip": "D:\\dotnet\\hotel_bookings\\hotel_bookings\\Areas\\Admin\\Views\\RoomSales\\Index.cshtml",
+              "RelativeToolTip": "hotel_bookings\\Areas\\Admin\\Views\\RoomSales\\Index.cshtml",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAAABwAAAApAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-06-10T18:44:09.229Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AddSales.cshtml",
+              "DocumentMoniker": "D:\\dotnet\\hotel_bookings\\hotel_bookings\\Areas\\Admin\\Views\\RoomSales\\AddSales.cshtml",
+              "RelativeDocumentMoniker": "hotel_bookings\\Areas\\Admin\\Views\\RoomSales\\AddSales.cshtml",
+              "ToolTip": "D:\\dotnet\\hotel_bookings\\hotel_bookings\\Areas\\Admin\\Views\\RoomSales\\AddSales.cshtml",
+              "RelativeToolTip": "hotel_bookings\\Areas\\Admin\\Views\\RoomSales\\AddSales.cshtml",
+              "ViewState": "AQIAAA8AAAAAAAAAAAAAADcAAABIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-06-10T18:35:38.692Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "RoomFeature.cshtml",
+              "DocumentMoniker": "D:\\dotnet\\hotel_bookings\\hotel_bookings\\Areas\\Admin\\Views\\Feature\\RoomFeature.cshtml",
+              "RelativeDocumentMoniker": "hotel_bookings\\Areas\\Admin\\Views\\Feature\\RoomFeature.cshtml",
+              "ToolTip": "D:\\dotnet\\hotel_bookings\\hotel_bookings\\Areas\\Admin\\Views\\Feature\\RoomFeature.cshtml",
+              "RelativeToolTip": "hotel_bookings\\Areas\\Admin\\Views\\Feature\\RoomFeature.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAACEAAAAeAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-06-10T18:35:30.976Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "RoomSaleViewModel.cs",
+              "DocumentMoniker": "D:\\dotnet\\hotel_bookings\\hotel_bookings\\Models\\RoomSaleViewModel.cs",
+              "RelativeDocumentMoniker": "hotel_bookings\\Models\\RoomSaleViewModel.cs",
+              "ToolTip": "D:\\dotnet\\hotel_bookings\\hotel_bookings\\Models\\RoomSaleViewModel.cs",
+              "RelativeToolTip": "hotel_bookings\\Models\\RoomSaleViewModel.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAAaAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-10T18:34:48.203Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "RoomSalesController.cs",
+              "DocumentMoniker": "D:\\dotnet\\hotel_bookings\\hotel_bookings\\Areas\\Admin\\Controllers\\RoomSalesController.cs",
+              "RelativeDocumentMoniker": "hotel_bookings\\Areas\\Admin\\Controllers\\RoomSalesController.cs",
+              "ToolTip": "D:\\dotnet\\hotel_bookings\\hotel_bookings\\Areas\\Admin\\Controllers\\RoomSalesController.cs",
+              "RelativeToolTip": "hotel_bookings\\Areas\\Admin\\Controllers\\RoomSalesController.cs",
+              "ViewState": "AQIAAD4AAAAAAAAAAAAAAGAAAAAIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-10T18:33:59.474Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "FeatureController.cs",
+              "DocumentMoniker": "D:\\dotnet\\hotel_bookings\\hotel_bookings\\Areas\\Admin\\Controllers\\FeatureController.cs",
+              "RelativeDocumentMoniker": "hotel_bookings\\Areas\\Admin\\Controllers\\FeatureController.cs",
+              "ToolTip": "D:\\dotnet\\hotel_bookings\\hotel_bookings\\Areas\\Admin\\Controllers\\FeatureController.cs",
+              "RelativeToolTip": "hotel_bookings\\Areas\\Admin\\Controllers\\FeatureController.cs",
+              "ViewState": "AQIAAEkAAAAAAAAAAAAcwGYAAABAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-10T18:33:56.614Z",
               "EditorCaption": ""
             }
           ]

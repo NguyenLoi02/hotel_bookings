@@ -1,10 +1,11 @@
-﻿@model PagedList.IPagedList<hotel_bookings.Models.news>
+﻿@*@model IEnumerable<hotel_bookings.Models.ReviewViewModel>*@
+@model PagedList.IPagedList<hotel_bookings.Models.ReviewViewModel>
 @using PagedList.Mvc
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
-
 <div class="container">
     <div class="card">
         <div class="#" style="margin-right: 14px; display: inline-flex; justify-content: flex-end;">
@@ -13,19 +14,19 @@
 
                 <input class="form-control" type="text" placeholder="Search..">
             </div>
-            <div>
-                <a href="@Url.Action("AddNews", "News")" style="margin-top: 10px; font-size: 18px; float: right; margin-right: 7px;"><i style="font-size: 40px;" class="fa-regular fa-square-plus"></i></a>
 
-            </div>
         </div>
         <div class="card-body">
             <table class="table">
                 <thead>
                     <tr style="background-color: #221f50; ">
                         <th>STT</th>
-                        <th>Ảnh tin tức</th>
-                        <th>Ngày đăng</th>
-                        <th>Tiêu đề</th>
+                        <th>Mã đánh giá</th>
+                        <th>Email</th>
+                        <th>Tên</th>
+                        <th>Tên phòng</th>
+                        <th>Nội dung</th>
+                        <th>Ngày đánh giá</th>
                         <th>Chức năng</th>
                     </tr>
                 </thead>
@@ -34,18 +35,21 @@
                     {
                         <tr>
                             <td>@item.RowNumber</td>
-                            <td><img src="~/Assets/img/news/@item.image" alt="" height="100" width="100"></td>
-                            <td>@item.date_news</td>
-                            <td>@item.title</td>                           
+                            <td>@item.rating_view_id</td>
+                            <td>@item.email</td>
+                            <td>@item.user_name</td>
+                            <td>@item.room_name</td>
+                            <td>@item.review</td>
+                            <td>@item.review_day</td>
                             <td>
-                                <a href="@Url.Action("DeleteNews", "News",new { id = item.id })"><i class="fa-regular fa-trash-can"></i></a>
-                                <a href="@Url.Action("UpdateNews", "News",new { id = item.id })"><i class="fa-regular fa-pen-to-square"></i></a>
+                                <a href="@Url.Action("DeleteNews", "News",new { id = item.rating_view_id })"><i class="fa-regular fa-trash-can"></i></a>
                             </td>
 
                         </tr>
                     }
                 </tbody>
             </table>
+            
             <div class="container mt-5">
                 <ul class="pagination">
                     @for (int i = 1; i <= Model.PageCount; i++)

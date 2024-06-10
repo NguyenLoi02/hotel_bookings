@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using PagedList.Mvc;
+using iTextSharp.text;
+using System.Web.UI;
 
 namespace hotel_bookings.Areas.Admin.Controllers
 {
@@ -36,20 +38,59 @@ namespace hotel_bookings.Areas.Admin.Controllers
 
         //    return View(rooms.ToPagedList(pageNumber, pageSize));
         //}
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
-            var SearchView = new SearchViewModel
+            var query = from r in db.rooms
+                        join rs in db.room_style on r.room_style_id equals rs.id
+                        select new
+                        {
+                           r.id,
+                           r.avatar,
+                           r.name,
+                           r.adult,
+                           r.children,
+                           r.price,
+                           r.quantity,
+                           r.status,
+                           style_id =rs.id,
+                            style = rs.name,
+                        };
+            var viewModel = query.ToList().Select(item => new SearchViewModel
             {
-                rooms = db.rooms.ToList(),
-                room_Styles = db.room_style.ToList(),
-            };
+
+                room_id = item.id,
+                image = item.avatar,
+                room_name = item.name,
+                adult = (int)item.adult,
+                children = (int)item.children,
+                price = (int)item.price,
+                room_count = (int)item.quantity,
+                status = (int)item.status,
+                room_style = item.style,
+                room_style_id = (int)item.style_id,
+
+            }).ToList();
             int count = 1;
-            foreach (var item in SearchView.rooms)
+            foreach (var item in viewModel)
             {
-                item.RowNumber = count;
-                count++;
+                if (item.room_id != null)
+                {
+                    item.RowNumber = count;
+                    count++;
+                }
+                else
+                {
+                    // Reset count if trans_status is not 0
+                    count = 1;
+                }
             }
-            return View(SearchView);
+            // Số lượng mục trên mỗi trang
+            int pageSize = 8;
+
+            // Số trang hiện tại (nếu không có sẽ mặc định là 1)
+            int pageNumber = (page ?? 1);
+            IPagedList<SearchViewModel> paginatedViewModel = viewModel.ToPagedList(pageNumber, pageSize);
+            return View(paginatedViewModel);
         }
         [HttpPost]
         public ActionResult Index(int? room_style_id, int? status)
@@ -86,7 +127,8 @@ namespace hotel_bookings.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult AddRoom()
         {
-            return View();
+            var room_Styless = db.room_style.ToList();
+            return View(room_Styless);
         }
         [HttpPost]
         public ActionResult AddRoom(room room)  
@@ -95,6 +137,7 @@ namespace hotel_bookings.Areas.Admin.Controllers
             _roomService.AddRoom(room);
             return RedirectToAction("Index");
         }
+
         [HttpGet]
         public ActionResult UpdateRoom(int id)
         {

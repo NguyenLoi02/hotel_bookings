@@ -1,5 +1,6 @@
 ﻿﻿
-@model hotel_bookings.Models.SearchViewModel
+@model PagedList.IPagedList<hotel_bookings.Models.SearchViewModel>
+@using PagedList.Mvc
 
 @{
     ViewBag.Title = "Index";
@@ -16,9 +17,9 @@
                             <div class="form-group">
                                 <select class="form-control" id="roomStyle" name="room_style_id">
                                     <option selected disabled>Chọn kiểu phòng</option>
-                                    @foreach (var item in Model.room_Styles)
+                                    @foreach (var item in Model)
                                     {
-                                        <option value="@item.id">@item.name</option>
+                                        <option value="@item.room_style_id">@item.room_style</option>
                                     }
                                 </select>
                             </div>
@@ -41,7 +42,7 @@
                     </form>
                 </div>
                 <div class="col-sm-4">
-                    <a href="@Url.Action("AddRoom", "Room")"  style="margin-top: 10px; font-size: 18px; float: right; margin-right: 7px;"><i style="font-size: 40px;" class="fa-regular fa-square-plus"></i></a>
+                    <a href="@Url.Action("AddRoom", "Room")" style="margin-top: 10px; font-size: 18px; float: right; margin-right: 7px;"><i style="font-size: 40px;" class="fa-regular fa-square-plus"></i></a>
                 </div>
             </div>
         </div>
@@ -54,6 +55,7 @@
                         <th>Ảnh phòng</th>
                         <th>Mã phòng</th>
                         <th>Tên phòng</th>
+                        <th>Loại phòng</th>
                         <th>Số người</th>
                         <th>Giá phòng</th>
                         <th>Số lượng</th>
@@ -62,13 +64,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in Model.rooms)
+                    @foreach (var item in Model)
                     {
                         <tr>
                             <td>@item.RowNumber</td>
-                            <td><img src="~/Assets/img/room/@item.avatar" alt="" height="100" width="100"></td>
-                            <td>@item.id</td>
-                            <td>@item.name</td>
+                            <td><img src="~/Assets/img/room/@item.image" alt="" height="100" width="100"></td>
+                            <td>@item.room_id</td>
+                            <td>@item.room_name</td>
+                            <td>@item.room_style</td>
                             <td>
                                 <div class="fst">
                                     <div>Người lớn: @item.adult</div>
@@ -76,7 +79,7 @@
                                 </div>
                             </td>
                             <td>@item.price</td>
-                            <td>@item.quantity</td>
+                            <td>@item.room_count</td>
                             @if (item.status == 0)
                             {
                                 <td><a href="#" class="btn btn-rounded btn-success" style=" font-size: 14px;">Trống</a></td>
@@ -86,17 +89,25 @@
                                 <td><a href="#" class="btn btn-rounded btn-danger" style=" font-size: 14px;">Bận</a></td>
                             }
                             <td>
-                                <a href="@Url.Action("DeleteRoom", "Room",new { id = item.id })"><i class="fa-regular fa-trash-can"></i></a>
-                                <a href="@Url.Action("UpdateRoom", "Room",new { id = item.id })"><i class="fa-regular fa-pen-to-square"></i></a>
+                                <a href="@Url.Action("DeleteRoom", "Room",new { id = item.room_id })"><i class="fa-regular fa-trash-can"></i></a>
+                                <a href="@Url.Action("UpdateRoom", "Room",new { id = item.room_id })"><i class="fa-regular fa-pen-to-square"></i></a>
                             </td>
 
                         </tr>
                     }
                 </tbody>
             </table>
-            @*<div class="pagination-container">
-                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }), new PagedListRenderOptions { Display = PagedListDisplayMode.IfNeeded })
-                </div>*@
+            <div class="container mt-5">
+                <ul class="pagination">
+                    @for (int i = 1; i <= Model.PageCount; i++)
+                    {
+                        <li class="page-item @(Model.PageNumber == i ? "active" : "")">
+                            <a class="page-link" href="@Url.Action("Index", new { page = i })">@i</a>
+                        </li>
+                    }
+
+                </ul>
+            </div>
         </div>
     </div>
 </div>

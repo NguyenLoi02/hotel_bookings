@@ -1,0 +1,74 @@
+﻿@model hotel_bookings.Models.RoomSaleViewModel
+
+@{
+    ViewBag.Title = "AddSales";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<script>
+    document.getElementById('checkInDatePicker').addEventListener('change', function () {
+        var checkInDate = new Date(this.value);
+        var checkOutDatePicker = document.getElementById('checkOutDatePicker');
+
+        // Set the min attribute of the check-out date picker to the selected check-in date
+        checkOutDatePicker.min = this.value;
+
+        // If the selected check-out date is earlier than the check-in date, clear the check-out date
+        if (checkOutDatePicker.value && new Date(checkOutDatePicker.value) < checkInDate) {
+            checkOutDatePicker.value = '';
+        }
+    });
+</script>
+<div class="container">
+    <div class="card">
+
+        <div class="card-body">
+            <form action="" method="post" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <strong>Tên phòng</strong>
+                            <select name="room_id" class="form-control">
+                                <option value="">Tất cả</option>
+
+                                @foreach (var item in Model.rooms)
+                                {
+                                    <option value="@item.id">@item.name</option>
+
+                                }
+                                <!-- Thêm các option khác nếu cần -->
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <strong>Khuyến mãi</strong>
+                            <select name="sale_id" class="form-control">
+                                <option value="">Tất cả</option>
+
+                                @foreach (var item in Model.sales)
+                                {
+                                    <option value="@item.id">@item.name</option>
+
+                                }
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <strong>Từ ngày</strong>
+                            <input type="date" id="checkInDatePicker" name="tuNgay" class="form-control" value="">
+                        </div>
+
+
+                        <div class="form-group">
+                            <strong>Đến ngày</strong>
+                            <input type="date"  id="checkOutDatePicker" name="denNgay" class="form-control" value="">
+                        </div>
+
+
+                    </div>
+                </div>
+                <a href="@Url.Action("Index", "RoomSales")" class="btn btn-light float-right" style="margin: 8px 0px;">Hủy</a>
+                <button type="submit" class="btn btn-success mt-2 float-right" style=" margin: 2px 10px; ">Lưu</button>
+            </form>
+        </div>
+    </div>
+</div>
+

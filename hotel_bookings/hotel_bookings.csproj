@@ -335,10 +335,13 @@
     <Compile Include="Areas\Admin\Controllers\AccessController.cs" />
     <Compile Include="Areas\Admin\Controllers\AccountController.cs" />
     <Compile Include="Areas\Admin\Controllers\CustomerController.cs" />
+    <Compile Include="Areas\Admin\Controllers\FeatureController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\NewsController.cs" />
     <Compile Include="Areas\Admin\Controllers\OrderRoomController.cs" />
     <Compile Include="Areas\Admin\Controllers\RoomController.cs" />
+    <Compile Include="Areas\Admin\Controllers\RoomReviewController.cs" />
+    <Compile Include="Areas\Admin\Controllers\RoomSalesController.cs" />
     <Compile Include="Areas\Admin\Controllers\StatisticsController.cs" />
     <Compile Include="Common\GoogleAuthentication.cs" />
     <Compile Include="Controllers\ContactController.cs" />
@@ -404,6 +407,8 @@
     <Compile Include="Models\room.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\RoomFeatureViewModel.cs" />
+    <Compile Include="Models\RoomSaleViewModel.cs" />
     <Compile Include="Models\RoomStyleAndNewModel.cs" />
     <Compile Include="Models\RoomStyleAndRoomModel.cs" />
     <Compile Include="Models\room_feature.cs">
@@ -3323,6 +3328,14 @@
     </Content>
     <Content Include="App_Browsers\qt.browser" />
     <Content Include="Areas\Admin\Views\Shared\Invoice.cshtml" />
+    <Content Include="Areas\Admin\Views\RoomReview\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Feature\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Room\AddFeature.cshtml" />
+    <Content Include="Areas\Admin\Views\Feature\AddFeature.cshtml" />
+    <Content Include="Areas\Admin\Views\Feature\UpdateFeature.cshtml" />
+    <Content Include="Areas\Admin\Views\Feature\RoomFeature.cshtml" />
+    <Content Include="Areas\Admin\Views\RoomSales\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\RoomSales\AddSales.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

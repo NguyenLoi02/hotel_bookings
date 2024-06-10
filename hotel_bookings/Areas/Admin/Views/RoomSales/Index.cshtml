@@ -1,0 +1,66 @@
+﻿@model PagedList.IPagedList<hotel_bookings.Models.RoomSaleViewModel>
+@using PagedList.Mvc
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="container">
+    <div class="card">
+        <div class="container">
+            <div class="row">
+                <div id="custom-search" class="col-sm-8">
+
+                </div>
+                <div class="col-sm-4">
+                    <a href="@Url.Action("AddSales", "RoomSales")" style="margin-top: 10px; font-size: 18px; float: right; margin-right: 7px;"><i style="font-size: 40px;" class="fa-regular fa-square-plus"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                    <tr style="background-color: #221f50; ">
+                        <th>STT</th>
+                        <th>Mã phòng</th>
+                        <th>Tên phòng</th>
+                        <th>Khuyến mãi</th>
+                        <th>Từ ngày</th>
+                        <th>Đến ngày</th>
+                        <th>Chức năng</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.RowNumber</td>
+                            <td>@item.room_id</td>
+                            <td>@item.room_name</td>
+                            <td>@item.sale_name</td>
+                            <td>@item.start_day</td>
+                            <td>@item.end_day</td>
+                            <td>
+                                <a href="@Url.Action("DeleteSales", "RoomSales",new { room_id = item.room_id, sale_id = item.sale_id})"><i class="fa-regular fa-trash-can"></i></a>
+                            </td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <div class="container mt-5">
+                <ul class="pagination">
+                    @for (int i = 1; i <= Model.PageCount; i++)
+                    {
+                        <li class="page-item @(Model.PageNumber == i ? "active" : "")">
+                            <a class="page-link" href="@Url.Action("Index", new { page = i })">@i</a>
+                        </li>
+                    }
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+

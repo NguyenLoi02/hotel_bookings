@@ -1,4 +1,4 @@
-﻿
+﻿@model List<hotel_bookings.Models.room_style>
 @{
     ViewBag.Title = "AddRoom";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
@@ -6,19 +6,26 @@
 <div class="container">
     <div class="card">
         @*<div class="card-header">
-            <div class="row">
-                <div class="col-md-6">
-                    <h3>Thêm Sản Phẩm</h3>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h3>Thêm Sản Phẩm</h3>
+                    </div>
                 </div>
-            </div>
-        </div>*@
+            </div>*@
         <div class="card-body">
             <form action="" method="post" enctype="multipart/form-data">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <strong>Mã kiểu phòng</strong>
-                            <input type="text" name="room_style_id" class="form-control" value="">
+                            <strong>Mã loại phòng</strong>
+                            <select name="room_style_id" class="form-control">
+                                @foreach (var item in Model)
+                                {
+                                    <option value="@item.id">@item.name</option>
+
+                                }
+                                <!-- Thêm các option khác nếu cần -->
+                            </select>
                         </div>
                         <div class="form-group">
                             <strong>Tên phòng</strong>
@@ -39,7 +46,7 @@
                         </div>
                         <div class="form-group">
                             <strong>Diện tích phòng</strong>
-                            <input type="text" name="area" class="form-control" placeholder="Nhập Giá phòng">
+                            <input type="text" name="area" class="form-control" placeholder="Nhập diện tích phòng">
                         </div>
                         <div class="form-group">
                             <strong>Số lượng phòng</strong>
@@ -47,7 +54,7 @@
                         </div>
                         <div class="form-group">
                             <strong>Mô tả phòng</strong>
-                            <input type="text" name="description" class="form-control" placeholder="Nhập số lượng">
+                            <input type="text" name="description" class="form-control" placeholder="Nhập mô tả phòng">
                         </div>
                         <div class="form-group">
                             <strong>Ảnh phòng</strong>
