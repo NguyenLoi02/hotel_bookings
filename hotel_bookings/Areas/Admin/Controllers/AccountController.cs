@@ -1,9 +1,13 @@
 ﻿using hotel_bookings.Models;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
+using System.Web.UI;
 
 namespace hotel_bookings.Areas.Admin.Controllers
 {
@@ -26,21 +30,32 @@ namespace hotel_bookings.Areas.Admin.Controllers
             }
             return View(account);
         }
-        public ActionResult role()
+        [HttpGet]
+        public ActionResult AddAccount()
         {
-            var RoleView = new RoleViewModel
-            {
-                admins = db.admins.ToList(),
-                admin_Roles = db.admin_role.ToList(),
-                roles = db.roles.ToList(),
-            };
-            int count = 1;
-            foreach (var item in RoleView.admins)
-            {
-                item.RowNumber = count;
-                count++;
-            }
-            return View(RoleView);
+            
+            return View();
         }
+        [HttpPost]
+        public ActionResult AddAccount(admin admin)
+        {
+            db.admins.Add(admin);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+        [HttpGet]
+        public ActionResult DeleteAccount(int? id)
+        {
+            var admin = db.admins.Find(id);
+            if (admin != null)
+            {
+                db.admins.Remove(admin);
+                db.SaveChanges();
+            }
+            return RedirectToAction("Index");
+        }
+
+
+        
     }
 }

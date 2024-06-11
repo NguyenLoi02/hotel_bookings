@@ -298,12 +298,12 @@ $(document).ready(function () {
                 @foreach (var item in Model.room_styles)
                 {
                     <div class="room-details-item">
-                        <img style="width: 100%; margin-bottom: 35px;" src="~/Assets/img/room_img/@item.avatar" alt="">
+                        <img style="width: 100%; margin-bottom: 35px;" src="~/Assets/img/img_room/@item.avatar" alt="">
                         <div class="row">
                             @foreach (var item2 in Model.room_img)
                             {
                                 <div class="col-lg-4">
-                                    <img style="width: 100%; margin-bottom: 35px;" src="~/Assets/img/room_img/@item2.image" alt="">
+                                    <img style="width: 100%; margin-bottom: 35px;" src="~/Assets/img/img_room/@item2.image" alt="">
                                 </div>
                             }
 
@@ -366,7 +366,7 @@ $(document).ready(function () {
             {
                 <div class="col-lg-4 col-md-6">
                     <div class="room-item">
-                        <img src="~/Assets/img/room_img/@item.avatar" alt="" class="room-item" data-room-id="@item.id">
+                        <img src="~/Assets/img/img_room/@item.avatar" alt="" class="room-item" data-room-id="@item.id">
                         <div class="ri-text">
                             <h4 class="room-details">@item.name</h4>
                             <h3>@item.price đ<span>  /Đêm</span></h3>

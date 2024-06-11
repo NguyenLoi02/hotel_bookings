@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+﻿
+@model PagedList.IPagedList<hotel_bookings.Models.RoleViewModel>
+@using PagedList.Mvc
+
+
+<div class="container">
+    <div class="card">
+        <div class="container">
+            <div class="row">
+                <div id="custom-search" class="col-sm-8">
+
+                </div>
+                <div class="col-sm-4">
+                    <a href="@Url.Action("AddRole", "Roles")" style="margin-top: 10px; font-size: 18px; float: right; margin-right: 7px;"><i style="font-size: 40px;" class="fa-regular fa-square-plus"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                    <tr style="background-color: #221f50; ">
+                        <th>STT</th>
+                        <th>Tài khoản</th>
+                        <th>Quyền</th>
+                        <th>Chức năng</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.RowNumber</td>
+                            <td>@item.username</td>
+                            <td>@item.role</td>
+                            <td>
+                                <a href="@Url.Action("DeleteRole", "Roles",new { adminID = @item.adminID, roleID = item.roleID })"><i class="fa-regular fa-trash-can"></i></a>
+                                <a href="@Url.Action("UpdateRole", "Roles",new { adminID = @item.adminID, roleID = item.roleID })"><i class="fa-regular fa-pen-to-square"></i></a>
+                            </td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+

@@ -6,27 +6,68 @@
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
+<style>
+    .successForm {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 99999;
+        justify-content: center;
+        color: #dfa974;
+    }
+</style>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.getElementById('myForm');
 
+        form.addEventListener('submit', function (event) {
+            event.preventDefault(); // Ngăn chặn việc gửi form ngay lập tức
+
+            const delay = 800; // Đặt thời gian chờ (3 giây)
+
+            // Sử dụng setTimeout để trì hoãn việc gửi form
+            setTimeout(() => {
+                form.submit(); // Gửi form sau khi hết thời gian chờ
+            }, delay);
+
+            $('.successForm').fadeIn(); // Sửa từ 'fadein()' thành 'fadeIn()'
+            setTimeout(function () {
+                $('.successForm').fadeOut(); // Sửa từ 'fadeout()' thành 'fadeOut()'
+            }, 800);
+        });
+    });
+
+</script>
+
+<div class="successForm ">
+    <div class="h-100 d-flex align-items-center justify-content-center">
+        <div class="card-body">
+            <span class="dashboard-spinner spinner-md"></span>
+
+        </div>
+    </div>
+</div>
 <div class="container">
     <div class="card">
         <div class="container">
             <div class="row">
-                <div id="custom-search" class="col-sm-8" >
-                    <form class="row" method="post"style="padding: 0 6px;">
+                <div id="custom-search" class="col-sm-8">
+                    <form id="myForm" class="row" method="post" style="padding: 0 6px;">
                         <div class="form-group col-sm-6">
                             <input type="text" class="form-control" name="sdt" placeholder="Nhập số điện thoại">
                         </div>
                         <div class="col-sm-6">
                             <div class="btn-group" role="group">
-                                <button class="btn btn-dark" type="submit">Tìm kiếm</button>
-                                <a href="@Url.Action("Index", "Customer")" class="btn btn-dark">Reset</a>
+                                <button class="btn btn-outline-dark" type="submit"><i style="font-size: 20px; padding: 6px;" class="fa-solid fa-magnifying-glass"></i></button>
+                                <a href="@Url.Action("Index", "Customer")" style=" font-size: 20px;" class="btn btn-outline-dark">Reset</a>
                             </div>
                         </div>
                     </form>
                 </div>
-                <div class="col-sm-4">
-                    <a href="@Url.Action("AddRoom", "Room")" class="btn btn-info" style="margin-top: 10px; font-size: 18px; float: right; margin-right: 7px;">Thêm <i class="fa-solid fa-plus"></i></a>
-                </div>
+
+
             </div>
         </div>
 

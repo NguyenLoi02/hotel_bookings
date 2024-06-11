@@ -68,7 +68,7 @@ namespace hotel_bookings.Models.Data
 
             try
             {
-               room.status = 0;
+                room.status = 0;
                 _dbContext.rooms.Add(room);
                 _dbContext.SaveChanges();
             }
@@ -115,7 +115,7 @@ namespace hotel_bookings.Models.Data
                 room.ImageUpload.SaveAs(newImagePath);
             }
 
-
+            room.status = 0;
             // Cập nhật thông tin phòng trong cơ sở dữ liệu
             _dbContext.Entry(room).State = EntityState.Modified;
             _dbContext.SaveChanges();
@@ -168,7 +168,7 @@ namespace hotel_bookings.Models.Data
                 var room = _dbContext.rooms.SingleOrDefault(r => r.id == roomSale.RoomId);
                 if (room != null)
                 {
-                    room.price = room.price * roomSale.Percent / 100;
+                    room.price = room.price *(100 - roomSale.Percent )/ 100;
                     room_sales.Add(room);
                 }
             }

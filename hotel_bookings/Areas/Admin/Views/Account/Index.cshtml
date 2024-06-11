@@ -7,12 +7,14 @@
 
 <div class="container">
     <div class="card">
-        <div class="#" style="display: inline-flex;justify-content: flex-end;">
-            <div id="custom-search" class="top-search-bar">
-                <input class="form-control" type="text" placeholder="Search..">
-            </div>
-            <div>
-                <a href="@Url.Action("AddRoom", "Room")" class="badge badge-info" style="margin-top: 16px; margin-right: 22px; font-size: 18px;">Thêm <i class="fa-solid fa-plus"></i></a>
+        <div class="container">
+            <div class="row">
+                <div id="custom-search" class="col-sm-8">
+
+                </div>
+                <div class="col-sm-4">
+                    <a href="@Url.Action("AddAccount", "Account")" style="margin-top: 10px; font-size: 18px; float: right; margin-right: 7px;"><i style="font-size: 40px;" class="fa-regular fa-square-plus"></i></a>
+                </div>
             </div>
         </div>
         <div class="card-body">
@@ -34,8 +36,8 @@
                             <td>@item.username</td>
                             <td>@item.password</td>
                             <td>
-                                <a href="@Url.Action("DeleteRoom", "Room",new { id = item.id })"><i class="fa-regular fa-trash-can"></i></a>
-                                <a href="@Url.Action("UpdateRoom", "Room",new { id = item.id })"><i class="fa-regular fa-pen-to-square"></i></a>
+                                <a href="@Url.Action("DeleteAccount", "Account",new { id = item.id })"><i class="fa-regular fa-trash-can"></i></a>
+                                @*<a href="@Url.Action("UpdateAccount", "Account",new { id = item.id })"><i class="fa-regular fa-pen-to-square"></i></a>*@
                             </td>
 
                         </tr>

@@ -93,34 +93,62 @@ namespace hotel_bookings.Areas.Admin.Controllers
             return View(paginatedViewModel);
         }
         [HttpPost]
-        public ActionResult Index(int? room_style_id, int? status)
+        public ActionResult Index(int? page,int? room_style_id, int? status)
         {
 
-            var query = db.rooms.AsQueryable();
-
-            if (room_style_id != null)
+            var query = from r in db.rooms
+                        join rs in db.room_style on r.room_style_id equals rs.id
+                        where (!room_style_id.HasValue || r.room_style_id == room_style_id.Value)
+                      && (!status.HasValue || r.status == status.Value)
+                        select new
+                        {
+                            r.id,
+                            r.avatar,
+                            r.name,
+                            r.adult,
+                            r.children,
+                            r.price,
+                            r.quantity,
+                            r.status,
+                            style_id = rs.id,
+                            style = rs.name,
+                        };
+            var viewModel = query.ToList().Select(item => new SearchViewModel
             {
-                query = query.Where(r => r.room_style_id == room_style_id);
-            }
 
-            if (status != null)
-            {
-                query = query.Where(r => r.status == status);
-            }
+                room_id = item.id,
+                image = item.avatar,
+                room_name = item.name,
+                adult = (int)item.adult,
+                children = (int)item.children,
+                price = (int)item.price,
+                room_count = (int)item.quantity,
+                status = (int)item.status,
+                room_style = item.style,
+                room_style_id = (int)item.style_id,
 
-            var searchView = new SearchViewModel
-            {
-                rooms = query.ToList(),
-                room_Styles = db.room_style.ToList(),
-            };
+            }).ToList();
             int count = 1;
-            foreach (var item in searchView.rooms)
+            foreach (var item in viewModel)
             {
-                item.RowNumber = count;
-                count++;
+                if (item.room_id != null)
+                {
+                    item.RowNumber = count;
+                    count++;
+                }
+                else
+                {
+                    // Reset count if trans_status is not 0
+                    count = 1;
+                }
             }
+            // Số lượng mục trên mỗi trang
+            int pageSize = 8;
 
-            return View(searchView);
+            // Số trang hiện tại (nếu không có sẽ mặc định là 1)
+            int pageNumber = (page ?? 1);
+            IPagedList<SearchViewModel> paginatedViewModel = viewModel.ToPagedList(pageNumber, pageSize);
+            return View(paginatedViewModel);
         }
 
 
