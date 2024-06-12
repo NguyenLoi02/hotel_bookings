@@ -8,7 +8,6 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using PagedList.Mvc;
-using iTextSharp.text;
 using System.Web.UI;
 
 namespace hotel_bookings.Areas.Admin.Controllers

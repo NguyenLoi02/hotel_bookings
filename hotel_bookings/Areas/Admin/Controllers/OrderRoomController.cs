@@ -6,10 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Google.Apis.Storage.v1.Data;
-using iTextSharp.text.pdf;
-using iTextSharp.text;
 using System.IO;
-using static iTextSharp.text.pdf.AcroFields;
 using Rotativa;
 
 namespace hotel_bookings.Areas.Admin.Controllers
@@ -314,14 +311,16 @@ namespace hotel_bookings.Areas.Admin.Controllers
             var firstViewModel = viewModels.FirstOrDefault();
 
 
-            
+            //return new ViewAsPdf("~/Areas/Admin/Views/Shared/Invoice.html", firstViewModel);
+            var tenFilePdf = "TenFilePdfCuaBan.pdf";
+            var duongDanTaiLieu = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            var duongDanPdf = Path.Combine(duongDanTaiLieu, tenFilePdf);
 
-            return new ViewAsPdf("~/Areas/Admin/Views/Shared/Invoice.html", firstViewModel)
-            {
-                FileName = "Invoice.pdf",
-                PageSize = Rotativa.Options.Size.A4,
-                PageOrientation = Rotativa.Options.Orientation.Portrait
-            };
+
+
+                byte[] fileBytes = System.IO.File.ReadAllBytes(duongDanPdf);
+                return File(fileBytes, "application/pdf", tenFilePdf);
+           
 
         }
         
