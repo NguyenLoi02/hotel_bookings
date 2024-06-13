@@ -118,10 +118,10 @@ $(document).ready(function () {
             checkedOptionsPrice.forEach(function (price) {
             price1 += price;
             price2 = @(Model.roomPriceAll * day)+price1
-            $('#price').html(price2);
+                $('#price').html(price2 + 'đ');
             });
         } else
-            $('#price').html(@(Model.roomPriceAll * day));
+            $('#price').html(@(Model.roomPriceAll * day)+'đ');
 
 
 
@@ -257,7 +257,7 @@ $(document).ready(function () {
                                         <p style="margin-bottom: 0; color: #000000;">Phòng:</p>
                                         <div class="row">
                                             <p class="col-sm-7" style="margin-bottom: 0; padding-right: 20px;">@item.name</p>
-                                            <p class="col-sm-5" style="margin-bottom: 0;"><span style="float: right;">@(item.price * day) đ</span></p>
+                                            <p class="col-sm-5" style="margin-bottom: 0;"><span style="float: right;">@item.price đ</span></p>
                                         </div>
                                         <div>
                                             <p style="margin-bottom: 0;">@item.adult Người lớn</p>
@@ -281,7 +281,7 @@ $(document).ready(function () {
                                     <p style="margin-bottom: 0; font-size: 13px;">(Bao gồm thuế phí)</p>
                                 </div>
                                 <div>
-                                    <p id="price" style="color: #dfa974; font-size: 24px; margin-left: 75px;">@(Model.roomPriceAll * day) đ</p>
+                                    <p id="price" style="color: #dfa974; font-size: 24px; margin-left: 75px;">@(Model.roomPriceAll * day)đ</p>
                                 </div>
                             </div>
                             <div>

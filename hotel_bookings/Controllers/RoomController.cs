@@ -219,9 +219,9 @@ namespace hotel_bookings.Controllers
         }
         private static List<room> list_room = new List<room>();
         private static List<int> room_id = new List<int>();
-        private static int roomPriceAll = 0;
         public ActionResult RoomService(int id)
         {
+
             var availableRooms = (List<room>)Session["availableRooms"];
 
             if (!room_id.Contains(id))
@@ -235,10 +235,13 @@ namespace hotel_bookings.Controllers
             {   
                 return RedirectToAction("Index");
             }
-            foreach(var item in list_room)
+            var roomPriceAll = 0;
+            foreach (var item in list_room)
             {
                 roomPriceAll += (int)item.price;
             }
+            Session["roomPriceAll"] = roomPriceAll;
+
             var viewModel = new ServiceRoomViewModel
             {
                 services = service,
@@ -291,7 +294,7 @@ namespace hotel_bookings.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.listRoom = list_room;
-            ViewBag.roomPriceAll = roomPriceAll;
+            ViewBag.roomPriceAll = Session["roomPriceAll"];
             var selectedOptions = Session["SelectedOptions"] as List<SelectedData>;
             var itemList = new List<SelectedData>();
             var servicePrice = 0;
@@ -346,8 +349,10 @@ namespace hotel_bookings.Controllers
         [HttpPost]
         public ActionResult RoomOrder(user user, bool? vnPay)
         {
+            list_room.Clear();
+            room_id.Clear();
             double servicePrice = (double)Session["servicePrice"];
-            int room_price = (int)Session["room_price"];
+            int room_price = (int)Session["roomPriceAll"];
             double days = (double)Session["day"];
             double trans_money = room_price * days + servicePrice;
             Session["last_name"] = user.last_name;
