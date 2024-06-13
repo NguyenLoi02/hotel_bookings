@@ -693,6 +693,7 @@
     <Compile Include="Models\service.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ServiceRoomViewModel.cs" />
     <Compile Include="Models\Service\INewsService.cs" />
     <Compile Include="Models\Service\IRoomService.cs" />
     <Compile Include="Controllers\NewsController.cs" />

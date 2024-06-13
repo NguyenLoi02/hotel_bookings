@@ -1,15 +1,12 @@
-﻿@model List<hotel_bookings.Models.service>
+﻿@model hotel_bookings.Models.ServiceRoomViewModel
+
 
 
 @{
 
-     string check_in = ViewBag.CheckIn;
+    string check_in = ViewBag.CheckIn;
     string check_out = ViewBag.CheckOut;
     double day = ViewBag.Day;
-    string room_name = ViewBag.room_name;
-    int room_price = ViewBag.room_price;
-    int room_adult = ViewBag.room_adult;
-    int room_children = ViewBag.room_children;
 
 }
 @{
@@ -17,8 +14,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <style>
-   
-    
 </style>
 <script>
 
@@ -122,11 +117,11 @@ $(document).ready(function () {
         if ($("[id^='myCheckbox']:checked").length > 0) {
             checkedOptionsPrice.forEach(function (price) {
             price1 += price;
-            price2 = @(room_price * day)+price1
+            price2 = @(Model.roomPriceAll * day)+price1
             $('#price').html(price2);
             });
         } else
-            $('#price').html(@(room_price * day));
+            $('#price').html(@(Model.roomPriceAll * day));
 
 
 
@@ -197,7 +192,7 @@ $(document).ready(function () {
             <div class="row">
                 <div class="col-lg-8">
                     <div class="row" style="display: flex; flex-wrap: wrap; grid-row-gap: 20px; row-gap: 20px; grid-column-gap: 12px; -webkit-column-gap: 12px; column-gap: 12px;">
-                        @foreach (var item in Model)
+                        @foreach (var item in Model.services)
                         {
                             <div class="col-sm-4" style="border-top-left-radius: 4px; border-top-right-radius: 4px; width: calc(33.33% - 8px); overflow: hidden;">
                                 <div style="border-radius: 4px 4px 0 0; height: 168px; background-color: #fff; position: relative;">
@@ -214,7 +209,7 @@ $(document).ready(function () {
                                                 <input data-item-id="@item.id" style="color: #dfa974; font-size: 18px; margin-left: 10px; width: 35px; border: none " type="number" min="1" max="5" step="1" value="1">
                                             </div>
                                         </div>
-                                       
+
                                         <div style="margin-top: 6px; display: flex; justify-content: space-between;">
                                             <div style=" font-weight: 400; font-size: 12px; line-height: 24px; color: #2a398c; display: flex; cursor: pointer;">
                                                 <img alt="" src="/static/media/fi-br-info.3bd2636e.svg">
@@ -232,10 +227,10 @@ $(document).ready(function () {
                                     </div>
                                 </div>
                             </div>
-                            
+
                         }
 
-
+                       
                     </div>
                 </div>
                 <div class="col-lg-4">
@@ -257,15 +252,20 @@ $(document).ready(function () {
                                     <p>Số đêm lưu trú: @day Đêm</p>
                                 </div>
                                 <div style="margin-top: 10px; border-bottom: 2px solid #c8c8c8;">
-                                    <p style="margin-bottom: 0; color: #000000;">Phòng:</p>
-                                    <div class="row">
-                                        <p class="col-sm-7" style="margin-bottom: 0; padding-right: 20px;">@room_name</p>
-                                        <p class="col-sm-5" style="margin-bottom: 0;"><span style="float: right;">@(room_price * day) đ</span></p>
-                                    </div>
-                                    <div>
-                                        <p style="margin-bottom: 0;">@room_adult Người lớn</p>
-                                        <p>@room_children Người trẻ em</p>
-                                    </div>
+                                    @foreach (var item in Model.rooms)
+                                    {
+                                        <p style="margin-bottom: 0; color: #000000;">Phòng:</p>
+                                        <div class="row">
+                                            <p class="col-sm-7" style="margin-bottom: 0; padding-right: 20px;">@item.name</p>
+                                            <p class="col-sm-5" style="margin-bottom: 0;"><span style="float: right;">@(item.price * day) đ</span></p>
+                                        </div>
+                                        <div>
+                                            <p style="margin-bottom: 0;">@item.adult Người lớn</p>
+                                            <p>@item.children Người trẻ em</p>
+                                        </div>
+
+                                    }
+
                                     <div>
                                         <div id="item_service" style="background: #f4f6f9;">
 
@@ -281,7 +281,7 @@ $(document).ready(function () {
                                     <p style="margin-bottom: 0; font-size: 13px;">(Bao gồm thuế phí)</p>
                                 </div>
                                 <div>
-                                    <p id="price" style="color: #dfa974; font-size: 24px; margin-left: 75px;">@(room_price * day) đ</p>
+                                    <p id="price" style="color: #dfa974; font-size: 24px; margin-left: 75px;">@(Model.roomPriceAll * day) đ</p>
                                 </div>
                             </div>
                             <div>

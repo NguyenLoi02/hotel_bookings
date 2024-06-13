@@ -217,42 +217,52 @@ namespace hotel_bookings.Controllers
 
 
         }
+        private static List<room> list_room = new List<room>();
+        private static List<int> room_id = new List<int>();
+        private static int roomPriceAll = 0;
         public ActionResult RoomService(int id)
         {
             var availableRooms = (List<room>)Session["availableRooms"];
+
+            if (!room_id.Contains(id))
+            {
+                room_id.Add(id);
+                var details = availableRooms.Where(r => r.id == id).FirstOrDefault();
+                list_room.Add(details);
+            }
             var service = db.services.ToList();
             if (Session["check_in"] == null || Session["check_out"] == null)
-            {
+            {   
                 return RedirectToAction("Index");
             }
+            foreach(var item in list_room)
+            {
+                roomPriceAll += (int)item.price;
+            }
+            var viewModel = new ServiceRoomViewModel
+            {
+                services = service,
+                rooms = list_room,
+                roomPriceAll = roomPriceAll
+            };
             var detail = availableRooms
                     .Where(r => r.id == id).FirstOrDefault();
-            Session["room_id"] = id;
-            Session["room_name"] = detail.name;
-            Session["room_price"] = detail.price;
-            Session["room_adult"] = detail.adult;
-            Session["room_children"] = detail.children;
+           
             DateTime check_in = (DateTime)Session["check_in"];
             ViewBag.CheckIn = check_in.ToString("dd-MM-yyyy");
             DateTime check_out = (DateTime)Session["check_out"];
             ViewBag.CheckOut = check_out.ToString("dd-MM-yyyy");
             double days = (double)Session["day"];
             ViewBag.Day = days;
-            string room_name = (string)Session["room_name"];
-            ViewBag.room_name = room_name;
-            int room_price = (int)Session["room_price"];
-            ViewBag.room_price = room_price;
-            int room_adult = (int)Session["room_adult"];
-            ViewBag.room_adult = room_adult;
-            int room_children = (int)Session["room_children"];
-            ViewBag.room_children = room_children;
+           
 
-            return View(service);
+            return View(viewModel);
         }
         [HttpPost]
         public ActionResult RoomService(List<SelectedData> selectedItems)
         {
-
+            //room_id.Clear();
+            //list_room.Clear();
             if (selectedItems != null && selectedItems.Count() > 0)
             {
                 // Lưu mảng selectedOptions vào Session
@@ -280,6 +290,8 @@ namespace hotel_bookings.Controllers
             {
                 return RedirectToAction("Index");
             }
+            ViewBag.listRoom = list_room;
+            ViewBag.roomPriceAll = roomPriceAll;
             var selectedOptions = Session["SelectedOptions"] as List<SelectedData>;
             var itemList = new List<SelectedData>();
             var servicePrice = 0;
@@ -328,14 +340,7 @@ namespace hotel_bookings.Controllers
             ViewBag.CheckOut = check_out.ToString("dd-MM-yyyy");
             double days = (double)Session["day"];
             ViewBag.Day = days;
-            string room_name = (string)Session["room_name"];
-            ViewBag.room_name = room_name;
-            int room_price = (int)Session["room_price"];
-            ViewBag.room_price = room_price;
-            int room_adult = (int)Session["room_adult"];
-            ViewBag.room_adult = room_adult;
-            int room_children = (int)Session["room_children"];
-            ViewBag.room_children = room_children;
+            
             return View(itemList);
         }
         [HttpPost]

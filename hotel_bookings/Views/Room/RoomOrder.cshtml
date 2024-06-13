@@ -4,15 +4,13 @@
     string check_in = ViewBag.CheckIn;
     string check_out = ViewBag.CheckOut;
     double day = ViewBag.Day;
-    string room_name = ViewBag.room_name;
-    int room_price = ViewBag.room_price;
-    int room_adult = ViewBag.room_adult;
-    int room_children = ViewBag.room_children;
+
     double servicePrice = ViewBag.servicePrice;
     string email = ViewBag.email;
     string first_name = ViewBag.first_name;
     string last_name = ViewBag.last_name;
-
+    var rooms = ViewBag.listRoom as List<hotel_bookings.Models.room>;
+    int roomPriceAll = (int)ViewBag.roomPriceAll;
 }
 @{
     ViewBag.Title = "RoomOrder";
@@ -168,15 +166,19 @@
                                 <p>02 Đêm</p>
                             </div>
                             <div style="margin-top: 10px; border-bottom: 2px solid #c8c8c8;">
+                                @foreach (var item in rooms)
+                                {
                                 <p style="margin-bottom: 0; color: #000000;">Phòng:</p>
-                                <div class="row">
-                                    <p class="col-sm-8" style="margin-bottom: 0; padding-right: 20px;">@room_name</p>
-                                    <p class="col-sm-4" style="margin-bottom: 0;"><span><span>@(room_price * day) đ</span></span></p>
-                                </div>
-                                <div>
-                                    <p style="margin-bottom: 0;">@room_adult Người lớn</p>
-                                    <p>@room_children Người trẻ em</p>
-                                </div>
+                                    <div class="row">
+                                        <p class="col-sm-7" style="margin-bottom: 0; padding-right: 20px;">@item.name</p>
+                                        <p class="col-sm-5" style="margin-bottom: 0;"><span><span>@item.price đ</span></span></p>
+                                    </div>
+                                    <div>
+                                        <p style="margin-bottom: 0;">@item.adult Người lớn</p>
+                                        <p>@item.children Người trẻ em</p>
+                                    </div>
+                                }
+
                                 <div>
                                     <div id="item_service" style="padding: 8px; background: #f4f6f9;">
                                         @foreach (var item in Model)
@@ -200,7 +202,7 @@
                                 <p style="margin-bottom: 0; font-size: 13px;">(Bao gồm thuế phí)</p>
                             </div>
                             <div>
-                                <p style="color: #dfa974; font-size: 24px; margin-left: 75px;">@(room_price * day+servicePrice) đ</p>
+                                <p style="color: #dfa974; font-size: 24px; margin-left: 75px;">@(roomPriceAll * day+servicePrice) đ</p>
                             </div>
                         </div>
                     </div>
