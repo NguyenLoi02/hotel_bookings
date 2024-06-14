@@ -5,7 +5,9 @@
 @{
 
     string check_in = ViewBag.CheckIn;
+    DateTime? CheckInDate = ViewBag.CheckInDate;
     string check_out = ViewBag.CheckOut;
+    DateTime? CheckOutDate = ViewBag.CheckInDate;
     double day = ViewBag.Day;
 
 }
@@ -59,7 +61,16 @@ $(document).ready(function () {
             }
         }
     }
+    $('#them-phong').click(function () {
 
+        if (document.referrer) {
+            // Điều hướng về trang trước đó
+            window.location.href = document.referrer;
+        } else {
+            // Nếu không có trang trước đó, điều hướng về trang mặc định
+            window.location.href = '/Room'; // Thay thế '/Room' bằng URL trang phòng của bạn
+        }
+    });
     // Function to generate HTML content for each checked option
     function generateHTMLContent(option) {
         var content = '<ul style="padding: 0 0 0 20px; list-style-type: disc;">';
@@ -230,7 +241,7 @@ $(document).ready(function () {
 
                         }
 
-                       
+
                     </div>
                 </div>
                 <div class="col-lg-4">
@@ -251,18 +262,26 @@ $(document).ready(function () {
                                     </div>
                                     <p>Số đêm lưu trú: @day Đêm</p>
                                 </div>
+                                
                                 <div style="margin-top: 10px; border-bottom: 2px solid #c8c8c8;">
+                                    <div class="row">
+                                        <span class="col-md-8"></span>
+                                        <span class="col-md-5" id="them-phong" style=" cursor: pointer;  font-weight: 500; font-size: 18px; line-height: 24px; color: #e8952f;">Thêm phòng</span>
+                                    </div>
                                     @foreach (var item in Model.rooms)
                                     {
-                                        <p style="margin-bottom: 0; color: #000000;">Phòng:</p>
-                                        <div class="row">
-                                            <p class="col-sm-7" style="margin-bottom: 0; padding-right: 20px;">@item.name</p>
-                                            <p class="col-sm-5" style="margin-bottom: 0;"><span style="float: right;">@item.price đ</span></p>
-                                        </div>
                                         <div>
-                                            <p style="margin-bottom: 0;">@item.adult Người lớn</p>
-                                            <p>@item.children Người trẻ em</p>
+                                            <p style="margin-bottom: 0; color: #000000;">Phòng:</p>
+                                            <div class="row">
+                                                <p class="col-sm-7" style="margin-bottom: 0; padding-right: 20px;">@item.name</p>
+                                                <p class="col-sm-5" style="margin-bottom: 0;"><span style="float: right;">@item.price đ</span></p>
+                                            </div>
+                                            <div>
+                                                <p style="margin-bottom: 0;">@item.adult Người lớn</p>
+                                                <p>@item.children Người trẻ em</p>
+                                            </div>
                                         </div>
+
 
                                     }
 

@@ -199,8 +199,19 @@
                             checkOutDatePicker.value = '';
                         }
                     });
+
+
+                    if (localStorage.getItem('checkInDatePicker')) {
+                        $('#checkInDatePicker').val(localStorage.getItem('checkInDatePicker'));
+                    }
+                    if (localStorage.getItem('checkOutDatePicker')) {
+                        $('#checkOutDatePicker').val(localStorage.getItem('checkOutDatePicker'));
+                    }
+                   
                 $('#bookingForm').submit(function (event) {
                     event.preventDefault(); // Ngăn chặn hành động mặc định của form
+                    localStorage.setItem('checkInDatePicker', $('#checkInDatePicker').val());
+                    localStorage.setItem('checkOutDatePicker', $('#checkOutDatePicker').val());
 
                     // Lấy dữ liệu từ form
                     var formData = {
@@ -330,12 +341,12 @@
             <div class="col-lg-12 col-md-6">
                 <form id="bookingForm" method="" class="form-inline">
                     <div class="check-date">
-                        <label for="date-in">Ngày đến:</label>
-                        <input type="date" id="checkInDatePicker" class="">
+                        <label for="checkInDatePicker">Ngày đến:</label>
+                        <input type="date" id="checkInDatePicker" name="checkInDatePicker" class="">
                     </div>
                     <div class="check-date">
-                        <label for="date-out">Ngày đi:</label>
-                        <input type="date" id="checkOutDatePicker" class="">
+                        <label for="checkOutDatePicker">Ngày đi:</label>
+                        <input type="date" id="checkOutDatePicker" name="checkOutDatePicker" class="">
                     </div>
                     <div class="select-option" style="margin-bottom: 8px;">
                         <label id="" for="guest">Người lớn:</label>
