@@ -53,6 +53,9 @@
                                                         <h2 style="font-family: 'Times New Roman'; color: #dfa974; display: block; font-size: 18px; font-weight: bold; line-height: 130%; margin: 0 0 18px; text-align: left ">
                                                             [Đơn hàng #{{MaBooking}}]  ({{ngayDat}})
                                                         </h2>
+                                                        <h2 style="font-family: 'Times New Roman'; color: #dfa974; display: block; font-size: 16px; font-weight: bold; line-height: 130%; margin: 0 0 18px; text-align: left ">
+                                                            Thời gian đặt: {{tuNgay}} - {{denNgay}}
+                                                        </h2>
 
                                                         <div style="margin-bottom:40px">
                                                             <table cellspacing="0" cellpadding="6" border="1"
@@ -67,15 +70,8 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tfoot>
-                                                                    <tr>
-                                                                        <th scope="row" colspan="2"
-                                                                            style="font-family: 'Times New Roman'; color: #636363; border: 1px solid #e5e5e5; vertical-align: middle; padding: 12px; text-align: left; border-top-width: 4px">
-                                                                            {{TenPhong}}
-                                                                        </th>
-                                                                        <td style="font-family: 'Times New Roman'; color: #636363; border: 1px solid #e5e5e5; vertical-align: middle; padding: 12px; text-align: left; border-top-width: 4px">
-                                                                            <span>{{giaPhong}}&nbsp;<span>₫</span></span>
-                                                                        </td>
-                                                                    </tr>
+
+                                                                    {{phong}}
                                                                     {{dichVuThem}}
                                                                     <tr>
                                                                         <th scope="row" colspan="2"

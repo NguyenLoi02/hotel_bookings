@@ -31,6 +31,8 @@ namespace hotel_bookings.Controllers
     {
         private readonly IRoomService _roomServices;
         private readonly IVnPayService _vnPayService;
+        private static List<room> list_room = new List<room>();
+        private static List<int> list_room_id = new List<int>();
         private HotelBookingEntities db = new HotelBookingEntities();
 
         public RoomController(IRoomService roomServices, IVnPayService vnPayService)
@@ -84,7 +86,7 @@ namespace hotel_bookings.Controllers
             int pageNumber = (page ?? 1);
             System.Web.HttpContext.Current.Session.Timeout = 30;
             TimeSpan difference = check_out - check_in;
-            double totalDays = difference.TotalDays;
+            int totalDays = (int)difference.TotalDays;
             Session["day"] = totalDays;
             Session["check_in"] = check_in.Date;
             Session["check_out"] = check_out.Date;
@@ -217,16 +219,15 @@ namespace hotel_bookings.Controllers
 
 
         }
-        private static List<room> list_room = new List<room>();
-        private static List<int> room_id = new List<int>();
+        
         public ActionResult RoomService(int id)
         {
 
             var availableRooms = (List<room>)Session["availableRooms"];
 
-            if (!room_id.Contains(id))
+            if (!list_room_id.Contains(id))
             {
-                room_id.Add(id);
+                list_room_id.Add(id);
                 var details = availableRooms.Where(r => r.id == id).FirstOrDefault();
                 list_room.Add(details);
             }
@@ -255,7 +256,7 @@ namespace hotel_bookings.Controllers
             ViewBag.CheckIn = check_in.ToString("dd-MM-yyyy");
             DateTime check_out = (DateTime)Session["check_out"];
             ViewBag.CheckOut = check_out.ToString("dd-MM-yyyy");
-            double days = (double)Session["day"];
+            int days = (int)Session["day"];
             ViewBag.Day = days;
            
 
@@ -341,7 +342,7 @@ namespace hotel_bookings.Controllers
             ViewBag.CheckIn = check_in.ToString("dd-MM-yyyy");
             DateTime check_out = (DateTime)Session["check_out"];
             ViewBag.CheckOut = check_out.ToString("dd-MM-yyyy");
-            double days = (double)Session["day"];
+            int days = (int)Session["day"];
             ViewBag.Day = days;
             
             return View(itemList);
@@ -349,12 +350,11 @@ namespace hotel_bookings.Controllers
         [HttpPost]
         public ActionResult RoomOrder(user user, bool? vnPay)
         {
-            list_room.Clear();
-            room_id.Clear();
+
             double servicePrice = (double)Session["servicePrice"];
-            int room_price = (int)Session["roomPriceAll"];
-            double days = (double)Session["day"];
-            double trans_money = room_price * days + servicePrice;
+            int roomPriceAll = (int)Session["roomPriceAll"];
+            int days = (int)Session["day"];
+            double trans_money = roomPriceAll * days + servicePrice;
             Session["last_name"] = user.last_name;
             Session["first_name"] = user.first_name;
             Session["email"] = user.email;
@@ -396,6 +396,7 @@ namespace hotel_bookings.Controllers
             var email = (string)Session["email"];
             var phonenum = (string)Session["phonenum"];
             var trans_money = (double)Session["trans_money"];
+            int days = (int)Session["day"];
             user user = new user();
             user.last_name = last_name;
             user.first_name = first_name;
@@ -408,7 +409,6 @@ namespace hotel_bookings.Controllers
             string roomName = db.rooms.Where(r => r.id == room_id).Select(r => r.name).FirstOrDefault();
             string firstName = db.users.Where(r => r.id == user_id).Select(r => r.first_name).FirstOrDefault();
             DateTime currentDate = DateTime.Now;
-            int room_price = (int)Session["room_price"];
 
 
             booking_order bookingOrder = new booking_order();
@@ -444,25 +444,52 @@ namespace hotel_bookings.Controllers
             Session["servicePrice"] = null;
             var booking_order_id = bookingOrder.id;
             booking_details booking_details = new booking_details();
-            booking_details.booking_order_id = booking_order_id;
-            booking_details.room_id = (int)room_id;
-            booking_details.check_in = check_in;
-            booking_details.check_out = check_out;
-            booking_details.price = room_price;
-            db.booking_details.Add(booking_details);
-            db.SaveChanges();
-
-
-            
-                string contentCustomer = System.IO.File.ReadAllText(Server.MapPath("~/Common/templateEmail.html"));
+            foreach (var room in list_room)
+            {
+                booking_details.booking_order_id = booking_order_id;
+                booking_details.room_id = room.id;
+                booking_details.check_in = check_in;
+                booking_details.check_out = check_out;
+                booking_details.price = room.price* days;
+                db.booking_details.Add(booking_details);
+                db.SaveChanges();
+            }
+            string contentCustomer = System.IO.File.ReadAllText(Server.MapPath("~/Common/templateEmail.html"));
             contentCustomer = contentCustomer.Replace("{{MaBooking}}", Convert.ToString(booking_order_id));
-            contentCustomer = contentCustomer.Replace("{{TenPhong}}", roomName);
             contentCustomer = contentCustomer.Replace("{{TenKhachHang}}", firstName);
+            contentCustomer = contentCustomer.Replace("{{tuNgay}}", check_in.ToString("dd/MM/yyyy"));
+            contentCustomer = contentCustomer.Replace("{{denNgay}}", check_out.ToString("dd/MM/yyyy"));
             contentCustomer = contentCustomer.Replace("{{ngayDat}}", currentDate.ToString("dd/MM/yyyy"));
-            contentCustomer = contentCustomer.Replace("{{giaPhong}}", room_price.ToString());
             contentCustomer = contentCustomer.Replace("{{thanhTien}}", trans_money.ToString());
             contentCustomer = contentCustomer.Replace("{{soDienThoai}}", phonenum);
             contentCustomer = contentCustomer.Replace("{{email}}", email);
+            string htmlTemplatePhong = @"<tr>
+                                       <th scope=""row"" colspan=""2""
+                                           style=""font-family: 'Times New Roman'; color: #636363; border: 1px solid #e5e5e5; vertical-align: middle; padding: 12px; text-align: left; border-top-width: 4px"">
+                                                   {{TenPhong}}
+                                       </th>
+                                        <td style=""font-family: 'Times New Roman'; color: #636363; border: 1px solid #e5e5e5; vertical-align: middle; padding: 12px; text-align: left; border-top-width: 4px"">
+                                            <span>{{giaPhong}}&nbsp;<span>₫</span></span>
+                                       </td>
+                                   </tr>";
+            string phong = "";
+            if (list_room != null && list_room.Count>0)
+            {
+                foreach (var option in list_room)
+                {
+                    string row = htmlTemplatePhong
+                        .Replace("{{TenPhong}}", option.name)
+                        .Replace("{{giaPhong}}", (option.price * days).ToString());
+                    phong += row;
+                }
+                contentCustomer = contentCustomer.Replace("{{phong}}", phong);
+            }
+            else
+                contentCustomer = contentCustomer.Replace("{{phong}}", "");
+
+
+
+
             string htmlTemplate = @"
                  <tr>
                    <th scope=""row"" colspan=""2""
@@ -507,7 +534,8 @@ namespace hotel_bookings.Controllers
 
                 // Log the exception here
             }
-            
+            list_room.Clear();
+            list_room_id.Clear();
             return View(bookingOrder.id);
         }
         public ActionResult PaymentCallBack()
